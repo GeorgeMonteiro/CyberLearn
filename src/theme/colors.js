@@ -22,8 +22,8 @@ const colors = {
   overlay: 'rgba(0, 0, 0, 0.5)',
   transparent: 'transparent',
 
-  gradientStart: '#F2557A',
-  gradientEnd: '#8B3DFF',
+  gradientStart: '#EC5C87',
+  gradientEnd: '#7A36EB',
 };
 
 export default colors;
