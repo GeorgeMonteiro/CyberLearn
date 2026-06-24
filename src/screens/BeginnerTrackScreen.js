@@ -6,7 +6,13 @@ import { colors, spacing, typography, radius, shadows } from '../theme';
 import ShieldIcon from '../components/ShieldIcon';
 import Avatar from '../components/Avatar';
 
-export default function LevelSelectionScreen() {
+const modules = [
+  { id: 'logica', title: 'Lógica de Programação' },
+  { id: 'redes', title: 'Fundamentos de Redes' },
+  { id: 'seguranca', title: 'Fundamentos de Cibersegurança' },
+];
+
+export default function BeginnerTrackScreen() {
   const navigation = useNavigation();
   const [dropdownVisible, setDropdownVisible] = useState(false);
 
@@ -16,13 +22,9 @@ export default function LevelSelectionScreen() {
     { label: 'Sair', action: () => navigation.replace('Welcome') },
   ];
 
-  function handleLevelSelect(level) {
-    console.log('Nível selecionado:', level);
-    if (level === 'iniciante') {
-      navigation.replace('BeginnerTrack');
-    } else {
-      navigation.replace('Main');
-    }
+  function handleModulePress(moduleId) {
+    console.log('Módulo selecionado:', moduleId);
+    // Navegar para página de conteúdo do módulo
   }
 
   return (
@@ -69,27 +71,20 @@ export default function LevelSelectionScreen() {
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
-        <Text style={styles.welcomeTitle}>Bem-vindo ao CyberLearn!</Text>
-        <Text style={styles.questionText}>
-          Qual seu nível de aprendizado em Cibersegurança? Marque abaixo seu nível para seguir uma trilha adequada para você.
-        </Text>
+        <Text style={styles.title}>Trilha Iniciante</Text>
+        <Text style={styles.subtitle}>Escolha um módulo para começar seus estudos:</Text>
 
-        <View style={styles.buttonsContainer}>
-          <TouchableOpacity
-            style={styles.levelButton}
-            onPress={() => handleLevelSelect('iniciante')}
-            activeOpacity={0.8}
-          >
-            <Text style={styles.levelButtonText}>Iniciante</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={styles.levelButton}
-            onPress={() => handleLevelSelect('especializacao')}
-            activeOpacity={0.8}
-          >
-            <Text style={styles.levelButtonText}>Especialização</Text>
-          </TouchableOpacity>
+        <View style={styles.modulesContainer}>
+          {modules.map((module) => (
+            <TouchableOpacity
+              key={module.id}
+              style={styles.moduleButton}
+              onPress={() => handleModulePress(module.id)}
+              activeOpacity={0.75}
+            >
+              <Text style={styles.moduleButtonText}>{module.title}</Text>
+            </TouchableOpacity>
+          ))}
         </View>
       </ScrollView>
     </LinearGradient>
@@ -151,19 +146,19 @@ const styles = StyleSheet.create({
   scrollContent: {
     flexGrow: 1,
     alignItems: 'center',
-    justifyContent: 'center',
     paddingHorizontal: spacing.xl,
     paddingBottom: spacing.xxxl,
+    paddingTop: spacing.xxl,
   },
-  welcomeTitle: {
+  title: {
     fontSize: typography.fontSize.display,
     fontWeight: typography.fontWeight.bold,
     color: colors.textLight,
     letterSpacing: typography.letterSpacing.wider,
     textAlign: 'center',
-    marginBottom: spacing.lg,
+    marginBottom: spacing.md,
   },
-  questionText: {
+  subtitle: {
     fontSize: typography.fontSize.base,
     fontWeight: typography.fontWeight.medium,
     color: colors.textLight,
@@ -173,23 +168,25 @@ const styles = StyleSheet.create({
     marginBottom: spacing.xxxl,
     opacity: 0.9,
   },
-  buttonsContainer: {
+  modulesContainer: {
     width: '100%',
     gap: spacing.lg,
   },
-  levelButton: {
+  moduleButton: {
     backgroundColor: colors.buttonBg,
     borderRadius: radius.xxl,
     paddingVertical: spacing.lg,
+    paddingHorizontal: spacing.xl,
     alignItems: 'center',
     justifyContent: 'center',
     minHeight: 60,
     ...shadows.md,
   },
-  levelButtonText: {
+  moduleButtonText: {
     fontSize: typography.fontSize.xl,
     color: '#FBBF24',
     fontWeight: typography.fontWeight.bold,
     letterSpacing: typography.letterSpacing.wide,
+    textAlign: 'center',
   },
 });

@@ -7,6 +7,7 @@ import LoginScreen from '../screens/LoginScreen';
 import RegisterScreen from '../screens/RegisterScreen';
 import EmailLoginScreen from '../screens/EmailLoginScreen';
 import LevelSelectionScreen from '../screens/LevelSelectionScreen';
+import BeginnerTrackScreen from '../screens/BeginnerTrackScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -25,6 +26,7 @@ export default function AuthNavigator() {
       <Stack.Screen name="Register" component={RegisterScreen} />
       <Stack.Screen name="EmailLogin" component={EmailLoginScreen} />
       <Stack.Screen name="LevelSelection" component={LevelSelectionScreen} />
+      <Stack.Screen name="BeginnerTrack" component={BeginnerTrackScreen} />
     </Stack.Navigator>
   );
 }
