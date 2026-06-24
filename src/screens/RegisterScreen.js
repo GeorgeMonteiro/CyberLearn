@@ -63,6 +63,7 @@ export default function RegisterScreen() {
     const data = { name, email, password, confirmPassword, recaptchaChecked };
     console.log('Tentativa de cadastro');
     console.log(data);
+    navigation.replace('LevelSelection');
   }
 
   return (

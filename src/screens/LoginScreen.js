@@ -28,6 +28,7 @@ export default function LoginScreen() {
   function handleLogin() {
     console.log('Tentativa de login');
     console.log({ email, password, recaptchaChecked });
+    navigation.replace('LevelSelection');
   }
 
   return (
