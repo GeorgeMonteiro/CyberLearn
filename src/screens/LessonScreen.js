@@ -81,6 +81,81 @@ const LESSON_DATA = {
       },
     ],
   },
+  logica_2: {
+    title: 'Algoritmos',
+    icon: 'list-outline',
+    steps: [
+      {
+        type: 'intro',
+        icon: 'list-outline',
+        title: 'O que são Algoritmos?',
+        text: 'Algoritmo é uma sequência de passos finita e bem definida que resolve um problema ou executa uma tarefa.\n\nEm outras palavras, um algoritmo é uma "receita" — um conjunto de instruções organizadas que, seguidas na ordem correta, produzem um resultado esperado.\n\nVocê já segue algoritmos todos os dias sem perceber: uma receita de bolo, as instruções de montagem de um móvel, ou até mesmo a rota que você traça para ir de casa ao trabalho.',
+      },
+      {
+        type: 'diagram',
+        title: 'Fluxo de um Algoritmo',
+        text: 'Assim como o raciocínio lógico, um algoritmo segue um fluxo estruturado para chegar à solução:',
+        diagram: 'flow',
+        items: ['Problema', 'Analisar', 'Algoritmo', 'Solução'],
+      },
+      {
+        type: 'content',
+        title: 'Características de um Algoritmo',
+        text: 'Para ser considerado um algoritmo, uma sequência de passos precisa ter algumas características essenciais:\n\n• Finitude: deve ter um fim, não pode ser infinito\n• Clareza: cada passo deve ser claro e sem ambiguidades\n• Precisão: as instruções devem ser exatas e determinísticas\n• Eficiência: deve resolver o problema com o mínimo de recursos possível\n• Entrada: pode receber dados externos (opcional)\n• Saída: deve produzir um resultado',
+        highlight: 'Um algoritmo bem definido produz o mesmo resultado sempre que executado com as mesmas entradas.',
+      },
+      {
+        type: 'diagram',
+        title: 'Exemplo do Dia a Dia',
+        text: 'Veja como fazer café pode ser representado como um algoritmo:',
+        diagram: 'sequence',
+        items: ['Ferver água', 'Colocar pó', 'Coador', 'Café pronto'],
+      },
+      {
+        type: 'content',
+        title: 'Representação de Algoritmos',
+        text: 'Existem várias formas de representar um algoritmo:\n\n• Linguagem Natural: descrever os passos em português (como uma receita)\n• Fluxograma: representação visual com diagramas e setas\n• Pseudocódigo: uma mistura de linguagem natural com elementos de programação — é a forma mais usada para aprender lógica\n• Código: a implementação real em uma linguagem de programação\n\nNo começo dos estudos, usamos muito o pseudocódigo e os fluxogramas para focar no raciocínio, sem nos preocupar com a sintaxe de uma linguagem específica.',
+      },
+      {
+        type: 'diagram',
+        title: 'Algoritmo: Entrada → Processamento → Saída',
+        text: 'Assim como os programas, os algoritmos também seguem o modelo de entrada, processamento e saída:',
+        diagram: 'io',
+        items: ['Entrada\n(Dados)', 'Algoritmo\n(Passos)', 'Saída\n(Resultado)'],
+      },
+      {
+        type: 'question',
+        title: 'Teste seu conhecimento',
+        question: 'O que é um algoritmo?',
+        options: [
+          'Um equipamento utilizado para processar dados',
+          'Uma sequência finita e bem definida de passos para resolver um problema',
+          'Um tipo de dado armazenado na memória',
+          'Uma linguagem de programação específica',
+        ],
+        correctIndex: 1,
+        explanation: 'Algoritmo é uma sequência finita e bem definida de instruções que, quando executadas, resolvem um problema ou realizam uma tarefa.',
+      },
+      {
+        type: 'question',
+        title: 'Teste seu conhecimento',
+        question: 'Qual das alternativas NÃO é uma característica de um algoritmo?',
+        options: [
+          'Finitude — deve ter um fim',
+          'Clareza — passos sem ambiguidade',
+          'Subjetividade — pode variar de interpretação para interpretação',
+          'Precisão — instruções exatas e determinísticas',
+        ],
+        correctIndex: 2,
+        explanation: 'Um algoritmo deve ser claro e sem ambiguidades. A subjetividade é justamente o oposto do que se espera de um algoritmo.',
+      },
+      {
+        type: 'conclusion',
+        title: 'Parabéns! 🎉',
+        text: 'Você aprendeu o que são algoritmos e como eles funcionam!\n\nResumindo:\n• Algoritmo é uma sequência de passos para resolver um problema\n• Deve ser finito, claro, preciso e eficiente\n• Pode ser representado de várias formas: fluxograma, pseudocódigo, código\n• Todo algoritmo segue: Entrada → Processamento → Saída\n\nAgora você está pronto para avançar para o próximo módulo: Fluxogramas!',
+      },
+    ],
+  },
 };
 
 function FlowDiagram({ items }) {

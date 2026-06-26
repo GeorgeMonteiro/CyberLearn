@@ -18,7 +18,7 @@ const INITIAL_LESSONS = [
     icon: 'list-outline',
     title: 'Algoritmos',
     description: 'Aprenda a criar sequências lógicas de instruções para resolver problemas.',
-    status: 'locked',
+    status: 'in_progress',
   },
   {
     id: 'logica_3',
