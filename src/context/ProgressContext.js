@@ -75,6 +75,25 @@ export function ProgressProvider({ children }) {
     return isLessonCompleted(moduleId, prevLessonId);
   }, [isLessonCompleted]);
 
+  const saveQuizScore = useCallback((moduleId, score, total) => {
+    setProgress((prev) => {
+      const moduleProgress = prev[moduleId] || { completedLessons: [] };
+      const updated = {
+        ...prev,
+        [moduleId]: {
+          ...moduleProgress,
+          quizScore: { score, total, percentage: Math.round((score / total) * 100) },
+        },
+      };
+      persistProgress(updated);
+      return updated;
+    });
+  }, [persistProgress]);
+
+  const getQuizScore = useCallback((moduleId) => {
+    return progress[moduleId]?.quizScore || null;
+  }, [progress]);
+
   const completeModule = useCallback((moduleId, totalLessons = 9) => {
     setProgress((prev) => {
       const moduleProgress = prev[moduleId] || { completedLessons: [] };
@@ -102,7 +121,7 @@ export function ProgressProvider({ children }) {
 
   return (
     <ProgressContext.Provider
-      value={{ progress, loaded, completeLesson, getModuleProgress, isLessonCompleted, isLessonUnlocked, completeModule }}
+      value={{ progress, loaded, completeLesson, getModuleProgress, isLessonCompleted, isLessonUnlocked, completeModule, saveQuizScore, getQuizScore }}
     >
       {children}
     </ProgressContext.Provider>

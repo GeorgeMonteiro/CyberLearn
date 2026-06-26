@@ -12,7 +12,7 @@ export default function QuizScreen() {
   const moduleId = route.params?.moduleId || 'logica';
 
   const navigation = useNavigation();
-  const { completeModule, getModuleProgress } = useProgress();
+  const { completeModule, getModuleProgress, saveQuizScore } = useProgress();
 
   const moduleLessonsCount = 9;
   const { completed } = getModuleProgress(moduleId, moduleLessonsCount);
@@ -72,8 +72,11 @@ export default function QuizScreen() {
   }
 
   useEffect(() => {
-    if (finished && percentage() >= 70) {
-      completeModule(moduleId);
+    if (finished) {
+      saveQuizScore(moduleId, score, total);
+      if (percentage() >= 70) {
+        completeModule(moduleId);
+      }
     }
   }, [finished, score]);
 

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Pressable } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { colors, spacing, typography, radius, shadows } from '../theme';
 import ShieldIcon from '../components/ShieldIcon';
@@ -12,9 +13,13 @@ export default function LevelSelectionScreen() {
 
   const dropdownOptions = [
     { label: 'Meu Perfil', action: () => {} },
-    { label: 'Meu Desempenho', action: () => {} },
+    { label: 'Meu Desempenho', action: () => navigation.navigate('Main', { screen: 'Progress' }) },
     { label: 'Sair', action: () => navigation.replace('Welcome') },
   ];
+
+  function handleBack() {
+    navigation.replace('Welcome');
+  }
 
   function handleLevelSelect(level) {
     console.log('Nível selecionado:', level);
@@ -36,6 +41,9 @@ export default function LevelSelectionScreen() {
 
       <View style={styles.header}>
         <View style={styles.headerLeft}>
+          <TouchableOpacity onPress={handleBack} style={styles.backButton}>
+            <Ionicons name="chevron-back" size={24} color={colors.white} />
+          </TouchableOpacity>
           <ShieldIcon size={40} />
           <Text style={styles.headerTitle}>CYBERLEARN</Text>
         </View>
@@ -122,6 +130,14 @@ const styles = StyleSheet.create({
     fontWeight: typography.fontWeight.bold,
     color: colors.textLight,
     letterSpacing: typography.letterSpacing.wider,
+  },
+  backButton: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: 'rgba(255,255,255,0.15)',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   dropdown: {
     position: 'absolute',

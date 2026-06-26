@@ -24,27 +24,20 @@ const modules = [
   { id: 'grc', title: 'Governança, Risco e Conformidade (GRC)' },
 ];
 
-function totalTrailLessons() {
-  return modules.reduce((sum, m) => sum + (MODULE_LESSONS[m.id] || 9), 0);
-}
-
 export default function ExpertTrackScreen() {
   const navigation = useNavigation();
   const { getModuleProgress } = useProgress();
   const [dropdownVisible, setDropdownVisible] = useState(false);
 
-  const totalLessons = totalTrailLessons();
-  const totalCompleted = modules.reduce(
-    (sum, m) => sum + getModuleProgress(m.id, MODULE_LESSONS[m.id]).completed,
-    0
-  );
-  const trailProgress = Math.round((totalCompleted / totalLessons) * 100);
-
   const dropdownOptions = [
     { label: 'Meu Perfil', action: () => {} },
-    { label: 'Meu Desempenho', action: () => {} },
+    { label: 'Meu Desempenho', action: () => navigation.navigate('Main', { screen: 'Progress' }) },
     { label: 'Sair', action: () => navigation.replace('Welcome') },
   ];
+
+  function handleBack() {
+    navigation.replace('LevelSelection');
+  }
 
   function handleModulePress(moduleId) {
     navigation.navigate('ModuleDetail', { moduleId });
@@ -61,6 +54,9 @@ export default function ExpertTrackScreen() {
 
       <View style={styles.header}>
         <View style={styles.headerLeft}>
+          <TouchableOpacity onPress={handleBack} style={styles.backButton}>
+            <Ionicons name="chevron-back" size={24} color={colors.white} />
+          </TouchableOpacity>
           <ShieldIcon size={40} />
           <Text style={styles.headerTitle}>CYBERLEARN</Text>
         </View>
@@ -94,19 +90,6 @@ export default function ExpertTrackScreen() {
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
-        <View style={styles.trailProgressSection}>
-          <View style={styles.trailProgressRow}>
-            <Ionicons name="trophy-outline" size={20} color={colors.warning} />
-            <Text style={styles.trailProgressTitle}>Progresso da Trilha</Text>
-          </View>
-          <View style={styles.trailProgressBarTrack}>
-            <View style={[styles.trailProgressBarFill, { width: `${trailProgress}%` }]} />
-          </View>
-          <Text style={styles.trailProgressLabel}>
-            {totalCompleted}/{totalLessons} aulas concluídas ({trailProgress}%)
-          </Text>
-        </View>
-
         <Text style={styles.title}>Trilha Especializada</Text>
         <Text style={styles.subtitle}>Escolha sua área de especialização para continuar:</Text>
 
@@ -171,6 +154,14 @@ const styles = StyleSheet.create({
     color: colors.textLight,
     letterSpacing: typography.letterSpacing.wider,
   },
+  backButton: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: 'rgba(255,255,255,0.15)',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   dropdown: {
     position: 'absolute',
     top: 100,
@@ -202,44 +193,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.xl,
     paddingBottom: spacing.xxxl,
     paddingTop: spacing.xxl,
-  },
-  trailProgressSection: {
-    width: '100%',
-    backgroundColor: 'rgba(255,255,255,0.1)',
-    borderRadius: radius.xl,
-    padding: spacing.lg,
-    marginBottom: spacing.xxl,
-  },
-  trailProgressRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: spacing.sm,
-    marginBottom: spacing.md,
-  },
-  trailProgressTitle: {
-    fontSize: typography.fontSize.md,
-    fontWeight: typography.fontWeight.bold,
-    color: colors.textLight,
-    letterSpacing: typography.letterSpacing.wide,
-  },
-  trailProgressBarTrack: {
-    width: '100%',
-    height: 10,
-    backgroundColor: 'rgba(255,255,255,0.2)',
-    borderRadius: radius.full,
-    overflow: 'hidden',
-  },
-  trailProgressBarFill: {
-    height: '100%',
-    backgroundColor: colors.warning,
-    borderRadius: radius.full,
-  },
-  trailProgressLabel: {
-    fontSize: typography.fontSize.sm,
-    fontWeight: typography.fontWeight.semibold,
-    color: 'rgba(255,255,255,0.8)',
-    marginTop: spacing.sm,
-    textAlign: 'center',
   },
   title: {
     fontSize: typography.fontSize.display,

@@ -1724,6 +1724,2648 @@ const assessmentQuestions = [
     correctAnswer: 1,
     explanation: 'A segurança da informação é uma responsabilidade compartilhada (shared responsibility). O time de TI implementa as ferramentas e políticas, mas cada funcionário deve seguir boas práticas: não clicar em phishing, usar senhas fortes, reportar incidentes. A cultura de segurança envolve toda a organização.',
   },
+{
+    id: 121,
+    moduleId: 'cti',
+    topic: 'OSINT Sources',
+    question: 'During a threat intelligence gathering operation, an analyst discovers that a threat actor is using a specific pastebin-like service to publish leaked credentials before they appear on the clear web. The analyst needs to track this actor proactively. Which approach best describes the collection method and source type being used?',
+    options: [
+      'Passive collection using open social media APIs to monitor for mentions of the actor\'s handle',
+      'Active collection by subscribing to a commercial threat feed that aggregates paste sites',
+      'Passive collection by monitoring the paste service directly through manual browsing without automated tools',
+      'Active collection by deploying a web scraper that periodically fetches and parses new pastes from the service'
+    ],
+    correctAnswer: 3,
+    explanation: 'Deploying a web scraper that periodically fetches content from the paste service is an active collection method because it involves direct interaction with the source. While the data itself is publicly available, automated retrieval constitutes active collection. Option A is passive but uses social media APIs. Option B uses a commercial feed (secondary source). Option C describes manual browsing which is passive but impractical for timely tracking.',
+  },
+  {
+    id: 122,
+    moduleId: 'cti',
+    topic: 'Intelligence Cycle - Direction',
+    question: 'A SOC manager receives a request from the CISO: \'I need to know which ransomware groups are currently targeting our industry sector in Latin America, their preferred initial access vectors, and whether any of our current security controls are likely to detect them.\' The manager assigns this to the CTI team. Which step of the intelligence cycle does this initial request primarily represent?',
+    options: [
+      'Collection, because the CISO is asking the CTI team to gather specific data about ransomware groups',
+      'Direction, because the request establishes requirements, priorities, and the intelligence gap that needs to be filled',
+      'Analysis, because the request requires correlating threat actor behavior with existing security controls',
+      'Dissemination, because the CISO will eventually receive a final report answering these questions'
+    ],
+    correctAnswer: 1,
+    explanation: 'The Direction phase involves defining intelligence requirements, establishing priorities, and identifying gaps to fill. The CISO\'s request specifies threat, geography, sector, and needed information. This sets scope and direction for the intelligence cycle. Options A, C, and D describe later phases.',
+  },
+  {
+    id: 123,
+    moduleId: 'cti',
+    topic: 'Intelligence Cycle - Collection',
+    question: 'A CTI analyst is tasked with collecting information about a new APT group targeting financial institutions. The analyst collects from: (1) a commercial threat feed, (2) Telegram channels used by the group, (3) sandbox reports of suspected malware samples, and (4) interviews with incident responders. Which categorization best describes this collection strategy?',
+    options: [
+      'All four sources are primary sources because they contain original data about the threat actor',
+      'Sources 1 and 2 are passive collection, while 3 and 4 are active collection methods',
+      'The collection combines OSINT (1, 2), technical intelligence (3), and human intelligence (4) from both primary and secondary sources',
+      'All collection is considered finished intelligence because it comes from multiple sources'
+    ],
+    correctAnswer: 2,
+    explanation: 'The analyst uses a diverse strategy: commercial feed (1) is secondary OSINT, Telegram (2) is OSINT, sandbox reports (3) are primary TECHINT, and responder interviews (4) are primary HUMINT.',
+  },
+  {
+    id: 124,
+    moduleId: 'cti',
+    topic: 'Intelligence Cycle - Processing',
+    question: 'A CTI team collects over 10,000 raw IOCs in various formats: CSV exports, STIX bundles, free-text emails from partners, and PDF reports. Before any analysis can occur, what must happen to this data?',
+    options: [
+      'The IOCs should be immediately loaded into the SIEM for automated blocking since time is of the essence',
+      'The data must be processed: normalized, formatted, enriched, and translated into a common schema for effective correlation and analysis',
+      'Analysis should begin immediately on raw data because processing introduces latency and may strip valuable context',
+      'The team should discard IOCs from unstructured sources like PDF reports, keeping only structured STIX and CSV data'
+    ],
+    correctAnswer: 1,
+    explanation: 'The Processing phase transforms raw collected data into a usable format. Normalizing IOCs to a common schema enables correlation. Skipping processing leads to data silos. Option A is dangerous: IOCs should be validated first. Option C ignores reality. Option D discards valuable intelligence.',
+  },
+  {
+    id: 125,
+    moduleId: 'cti',
+    topic: 'Intelligence Cycle - Analysis',
+    question: 'A CTI analyst processes IOCs from three separate incidents. Incident A: IP 185.x.x.x and domain \'mal-update[.]com\'. Incident B: same domain, different IP. Incident C: new IP but same SSL certificate hash as Incident A. What should the analyst conclude during analysis?',
+    options: [
+      'The three incidents are unrelated because they involved different IP addresses and organizations',
+      'The shared domain and SSL certificate hash strongly suggest a common threat actor or shared infrastructure',
+      'The analyst should dismiss the SSL certificate hash correlation because certificates can be easily duplicated',
+      'The domain alone is sufficient evidence to attribute all three to a specific named APT group'
+    ],
+    correctAnswer: 1,
+    explanation: 'Correlation reveals patterns: the domain links A and B, the SSL cert hash links A and C, forming a triangle indicating shared infrastructure. Option A ignores correlations. Option C undervalues the pivot. Option D is premature attribution.',
+  },
+  {
+    id: 126,
+    moduleId: 'cti',
+    topic: 'Intelligence Cycle - Dissemination',
+    question: 'A CTI team completes analysis of a new phishing campaign targeting the executive team. Analysis includes: technical IOCs, TTP descriptions, detection rules, and an executive summary. Which dissemination strategy is most appropriate?',
+    options: [
+      'Send the full technical report to every employee so everyone is aware',
+      'Publish the IOCs only on the SIEM team\'s ticketing system',
+      'Tailor the dissemination: executive summary to leadership, technical IOCs and detection rules to SOC, full report to IR team with action items',
+      'Delay dissemination for 30 days to ensure the intelligence is fully vetted'
+    ],
+    correctAnswer: 2,
+    explanation: 'Dissemination requires delivering intelligence in the right format to the right audience. Executives need strategic context, SOC needs actionable data, IR needs full analysis. Option A overwhelms. Option B is too narrow. Option D defeats timely intelligence.',
+  },
+  {
+    id: 127,
+    moduleId: 'cti',
+    topic: 'Intelligence Cycle - Feedback',
+    question: 'After disseminating a threat report, the CTI team receives feedback: SOC reports 2,000 false positives from detection rules, finance says the executive summary was too technical, and IR found 3 of 10 IOCs were expired. What does this feedback represent?',
+    options: [
+      'A failure of the collection phase because IOCs should have been verified before collection',
+      'An opportunity to improve direction, collection, processing, analysis, and dissemination based on consumer feedback, completing the cycle',
+      'Evidence that the intelligence cycle is broken and the organization should not produce its own threat intelligence',
+      'Confirmation that the report was successful because teams engaged with the intelligence'
+    ],
+    correctAnswer: 1,
+    explanation: 'Feedback is the final phase that feeds back into Direction. False positives suggest processing/analysis gaps, too-technical summaries indicate poor tailoring, expired IOCs point to collection timeliness. This feedback should refine all phases.',
+  },
+  {
+    id: 128,
+    moduleId: 'cti',
+    topic: 'IOCs vs IOAs',
+    question: 'A SOC analyst observes: PowerShell spawning from Microsoft Word, reaching out to an external IP on port 443, and writing a DLL to AppData. Which best describes these observations in terms of IOCs and IOAs?',
+    options: [
+      'The IP address and DLL hash are IOCs; the Word-to-PowerShell process chain is an IOA indicating malicious behavior',
+      'All observations are IOCs because they are specific artifacts for a blocklist',
+      'All observations are IOAs because they describe behavior patterns, not forensic artifacts',
+      'The IP address and DLL hash are IOAs; the process chain is an IOC'
+    ],
+    correctAnswer: 0,
+    explanation: 'IOCs are specific forensic artifacts (IP, hash, domain). IOAs focus on behavioral patterns (Word spawning PowerShell). The IP and DLL are concrete IOCs; the process chain represents behavioral IOA. Options B, C, and D swap the definitions.',
+  },
+  {
+    id: 129,
+    moduleId: 'cti',
+    topic: 'TTPs',
+    question: 'During incident response, the team finds the attacker gained access via spear-phishing with a PDF containing embedded JavaScript that downloads a PowerShell payload. The PowerShell performs DLL side-loading. Which classification best describes these observations?',
+    options: [
+      'These are IOCs because the PDF hash, JavaScript, and DLL names can be used for detection',
+      'These are TTPs: Initial Access via Spearphishing Attachment, Execution via PowerShell, Defense Evasion via DLL Side-Loading',
+      'This is exclusively a vulnerability exploitation chain because no CVE was exploited',
+      'These are IOAs but not TTPs because no attacker tools were identified'
+    ],
+    correctAnswer: 1,
+    explanation: 'TTPs describe adversary behaviors mapped to MITRE ATT\&CK: T1566.001 (Spearphishing Attachment), T1059.001 (PowerShell), T1574.002 (DLL Side-Loading). While IOCs also exist, the question asks for behavioral classification.',
+  },
+  {
+    id: 130,
+    moduleId: 'cti',
+    topic: 'Diamond Model',
+    question: 'An analyst maps an intrusion using the Diamond Model. Attacker used Emotet via phishing from newsletter@compromised-domain[.]com, victim is a regional hospital, C2 at 203.x.x.x. Which elements correspond to the four vertices?',
+    options: [
+      'Adversary: Emotet; Victim: Ohio hospital; Infrastructure: C2 server; Capability: Phishing email',
+      'Adversary: The threat actor operating Emotet; Victim: Ohio hospital; Infrastructure: C2 server and compromised domain; Capability: Emotet delivered via phishing',
+      'Adversary: The compromised domain; Victim: Hospital employees; Infrastructure: 203.x.x.x; Capability: Phishing',
+      'Adversary: Unknown; Victim: Hospital network; Infrastructure: Email server; Capability: None because malware was used'
+    ],
+    correctAnswer: 1,
+    explanation: 'Diamond Model vertices: Adversary (operator, not malware), Victim (organization), Infrastructure (technical resources like C2 and domains), Capability (tools and techniques). Option 2 correctly assigns all four.',
+  },
+  {
+    id: 131,
+    moduleId: 'cti',
+    topic: 'MITRE ATT&CK',
+    question: 'A blue team analyst sees svchost.exe making unusual outbound connections to a malicious IP on port 443, spawned by a scheduled task created via remote SMB. The analyst wants to use MITRE ATT&CK to understand the full attack chain. Which matrix and approach should they use?',
+    options: [
+      'The ICS matrix because scheduled tasks are common in industrial control systems',
+      'The Enterprise matrix, mapping behaviors to tactics like Initial Access, Execution, Persistence, Command and Control using techniques like Scheduled Task, Remote Services, Web Protocol',
+      'The Mobile matrix because svchost.exe can only be exploited through mobile device management',
+      'The PRE-ATT&CK matrix only since attribution has not been completed'
+    ],
+    correctAnswer: 1,
+    explanation: 'MITRE ATT&CK Enterprise covers Windows. Observable behaviors: Initial Access via Remote Services (SMB), Persistence via Scheduled Task (T1053.005), C2 via Web Protocols (T1071.001). Enterprise matrix is appropriate.',
+  },
+  {
+    id: 132,
+    moduleId: 'cti',
+    topic: 'Cyber Kill Chain',
+    question: 'A DFIR analyst reconstructs: (1) employee received malicious macro email, (2) macro downloaded payload, (3) payload beaconed to C2 and established registry persistence, (4) attacker moved laterally to database server, (5) data exfiltrated. Which Cyber Kill Chain mapping is correct?',
+    options: [
+      'Reconnaissance, Weaponization, Delivery, Exploitation, Installation, C2, Actions on Objectives',
+      'Delivery: email; Exploitation: macro; Installation: registry persistence; C2: beaconing; Actions: lateral movement and exfiltration; Reconnaissance/Weaponization occurred before the timeline',
+      'All phases from Reconnaissance through Actions on Objectives occurred within the observed timeline',
+      'Weaponization: email attachment; Delivery: email receipt; Exploitation: macro; Installation: payload download; C2: beaconing; Actions: lateral movement and exfiltration'
+    ],
+    correctAnswer: 1,
+    explanation: 'The Cyber Kill Chain: Reconnaissance, Weaponization (pre-timeline), Delivery (email), Exploitation (macro), Installation (persistence), C2 (beaconing), Actions on Objectives (lateral movement + exfiltration).',
+  },
+  {
+    id: 133,
+    moduleId: 'cti',
+    topic: 'Unified Kill Chain',
+    question: 'An APT has operated inside a network for eight months. After initial compromise via a VPN appliance, the attacker established persistence, moved laterally, created Golden Tickets, and exfiltrated IP. A junior analyst uses the Cyber Kill Chain but the attacker re-enters earlier phases multiple times. Which framework better describes this?',
+    options: [
+      'The Cyber Kill Chain is still best; group repeated activities under \'Actions on Objectives\'',
+      'The Unified Kill Chain, which extends the CKC to account for recursive attack patterns and multiple compromise stages',
+      'The Diamond Model because it focuses on relationships, not linear phases',
+      'The STRIDE model because it classifies threats by type'
+    ],
+    correctAnswer: 1,
+    explanation: 'The Unified Kill Chain (UKC) has 18 phases in three cycles (In, Through, Out, In, etc.) handling recursive attack patterns. The CKC (option A) is too linear for APTs. Diamond Model (C) is analytic, not temporal. STRIDE (D) is threat classification.',
+  },
+  {
+    id: 134,
+    moduleId: 'cti',
+    topic: 'STIX/TAXII',
+    question: 'An organization needs to share threat intelligence with a partner using a different TIP. The team has IPs, domains, hashes, attack patterns, and campaign context. Which approach ensures interoperability and automated sharing?',
+    options: [
+      'Send IOCs in a plain text file separated by commas, the most universally accepted format',
+      'Use STIX 2.1 for all threat intelligence objects in standardized JSON, and TAXII 2.1 as the transport protocol for automated exchange',
+      'Use PDF reports because they preserve formatting and context better than structured data',
+      'Share via a shared Google Drive spreadsheet for real-time access'
+    ],
+    correctAnswer: 1,
+    explanation: 'STIX standardizes threat intelligence representation; TAXII enables transport. STIX 2.1 JSON bundles ensure programmatic parsing. Option A (plain text) loses context. Option C prevents automation. Option D lacks schema.',
+  },
+  {
+    id: 135,
+    moduleId: 'cti',
+    topic: 'MISP',
+    question: 'A CTI team identifies a new phishing campaign and wants to share it with their ISAC, receive notifications when others observe related activity, and collaborate on analysis with tags and sightings. Which platform is designed for this?',
+    options: [
+      'MISP (Malware Information Sharing Platform), an open-source platform for sharing, storing, and collaborating on threat intelligence',
+      'Splunk ES, which can receive threat feeds and correlate with internal logs',
+      'VirusTotal API for submitting and querying IOCs against a global database',
+      'A shared Slack channel for real-time communication'
+    ],
+    correctAnswer: 0,
+    explanation: 'MISP is specifically designed for collaborative threat intelligence sharing with events, tags, correlation, sightings, and automated feed distribution. Splunk (B) is a SIEM. VirusTotal (C) is malware analysis. Slack (D) lacks structure.',
+  },
+  {
+    id: 136,
+    moduleId: 'cti',
+    topic: 'Threat Feeds',
+    question: 'A SOC evaluates three feeds: Feed A (high confidence commodity malware C2s, real-time), Feed B (APT TTP context, medium confidence, weekly), Feed C (raw DNS sinkhole, millions of domains, no context). Which combination and usage is most appropriate?',
+    options: [
+      'Use Feed C exclusively because more indicators mean better coverage',
+      'Use Feed A for automated blocking (high confidence), Feed B for strategic analysis and hunting (TTP context), and Feed C only after validation and prioritization',
+      'Use Feed B as the sole source because APTs represent the highest risk',
+      'Combine all three with equal priority, blocking any matching indicator immediately'
+    ],
+    correctAnswer: 1,
+    explanation: 'Feed A (high confidence) is safe for automated blocking. Feed B provides strategic value for hunting. Feed C needs processing to avoid false positives. Option A risks disruption. Option C ignores commodity threats. Option D causes alert fatigue.',
+  },
+  {
+    id: 137,
+    moduleId: 'cti',
+    topic: 'APT Groups',
+    question: 'An organization in the defense sector discovers a sophisticated intrusion: custom malware, persistence over a year, operation during US business hours, encrypted exfiltration over HTTPS, LOLBins, obfuscated PowerShell. What classification best describes this actor?',
+    options: [
+      'A hacktivist group because HTTPS is common among politically motivated attackers',
+      'An Advanced Persistent Threat (APT), likely state-sponsored, given custom tools, long-term persistence, OPSEC, and defense sector targeting',
+      'A cybercriminal group because data exfiltration is financially motivated',
+      'An insider threat because the attacker operated during business hours'
+    ],
+    correctAnswer: 1,
+    explanation: 'Custom malware, year-long persistence, OPSEC, defense sector targeting, and extensive resources are hallmarks of nation-state APTs. Cybercriminals (C) are financially motivated. Hacktivists (A) seek visibility. Business hours alone (D) is insufficient.',
+  },
+  {
+    id: 138,
+    moduleId: 'cti',
+    topic: 'Passive vs Active Collection',
+    question: 'A CTI analyst needs intelligence about a threat actor on underground forums. Policy requires collection must not alert the actor or reveal the organization\'s interest. Which approach is most appropriate?',
+    options: [
+      'Active collection: create a fake persona and engage the actor directly',
+      'Passive collection: monitor publicly accessible posts, cached versions, and metadata without logging in or interacting',
+      'Passive collection with active probing: send queries to forum infrastructure without posting content',
+      'Active collection via law enforcement liaison'
+    ],
+    correctAnswer: 1,
+    explanation: 'Passive collection gathers data without interacting or revealing presence. Observing public posts and cached pages is passive. Options A (persona), C (probing), and D (liaison) involve interaction or OPSEC risks.',
+  },
+  {
+    id: 139,
+    moduleId: 'cti',
+    topic: 'Data Enrichment',
+    question: 'An analyst extracts IP 45.x.x.x from a malware sample. The analyst needs to determine reputation, associated infrastructure, geographic location, and malware family associations. Which enrichment approach is most effective?',
+    options: [
+      'Use only passive DNS data for IP domain history',
+      'Correlate across multiple sources: VirusTotal, OTX, passive DNS, WHOIS, geolocation, and sandbox reports',
+      'Submit the IP to the firewall blocklist and check firewall logs',
+      'Reverse DNS lookup; assume malicious if hostname contains generic words'
+    ],
+    correctAnswer: 1,
+    explanation: 'Comprehensive enrichment uses multiple sources: threat intel platforms for reputation, passive DNS for domain associations, WHOIS for registration patterns, geolocation for hosting context, sandbox reports for behavior. Options A, C, D are insufficient.',
+  },
+  {
+    id: 140,
+    moduleId: 'cti',
+    topic: 'Intelligence Reports',
+    question: 'A CISO needs a board report on: top three cyber threats, comparison to industry peers, financial risk exposure, and strategic investment recommendations. What type of intelligence report should the CTI team produce?',
+    options: [
+      'Tactical report with detailed IOCs, YARA rules, and Snort signatures',
+      'Operational report focused on specific campaigns and attack timelines',
+      'Strategic report with high-level threat trends, risk exposure, peer benchmarking, and business recommendations in non-technical language',
+      'Raw intelligence dump for the board to perform their own analysis'
+    ],
+    correctAnswer: 2,
+    explanation: 'Strategic intelligence serves decision-makers with trends, risks, and business recommendations. Option A (tactical) is for SOC. Option B (operational) is for IR managers. Option D is unprocessed data.',
+  },
+  {
+    id: 141,
+    moduleId: 'cti',
+    topic: 'Strategic vs Tactical vs Operational Intel',
+    question: 'Analyst A produces daily phishing campaign reports with subject lines, domains, and hashes. Analyst B produces quarterly geopolitical threat assessments for the energy sector. Analyst C produces monthly attack pattern summaries with trend analysis. Which classifications fit each?',
+    options: [
+      'Analyst A: Tactical; Analyst B: Strategic; Analyst C: Operational',
+      'Analyst A: Operational; Analyst B: Strategic; Analyst C: Tactical',
+      'Analyst A: Strategic; Analyst B: Tactical; Analyst C: Operational',
+      'Analyst A: Tactical; Analyst B: Operational; Analyst C: Strategic'
+    ],
+    correctAnswer: 0,
+    explanation: 'Tactical: specific threats and technical indicators (Analyst A). Strategic: long-term risks and geopolitical context (Analyst B). Operational: campaign-level patterns between tactical and strategic (Analyst C).',
+  },
+  {
+    id: 142,
+    moduleId: 'cti',
+    topic: 'OSINT Sources',
+    question: 'An analyst researching a new IoT malware family wants source code, command protocol, and public discussions. Which OSINT sources are most productive?',
+    options: [
+      'LinkedIn job postings and corporate annual reports',
+      'Public sandbox reports (Any.Run, Joe Sandbox), code repositories (GitHub), security researcher blogs, and underground forum monitoring',
+      'Wikipedia and general news websites for accurate technical information',
+      'Only commercial threat intelligence feeds because OSINT is unreliable'
+    ],
+    correctAnswer: 1,
+    explanation: 'Sandbox reports show behavior, code repos may host PoC/source, researcher blogs have analysis, underground forums may discuss development. Option A is unlikely. Wikipedia (C) is too slow. Commercial feeds (D) miss free intelligence.',
+  },
+  {
+    id: 143,
+    moduleId: 'cti',
+    topic: 'Intelligence Cycle - Collection',
+    question: 'A CTI team tracks a ransomware group\'s cryptocurrency wallet to understand financial operations and identify victims. The blockchain is public. Which collection method is most appropriate?',
+    options: [
+      'Contact the exchange for transaction history under mutual legal assistance',
+      'Passively collect blockchain data via block explorer API, clustering related addresses through blockchain analysis',
+      'Send small test transactions to trigger the group\'s monitoring systems',
+      'Submit the wallet to a commercial feed and wait for their analysts'
+    ],
+    correctAnswer: 1,
+    explanation: 'Blockchain is public; block explorer APIs enable passive transaction tracking and clustering. Option A has legal hurdles. Option C is active and reveals the analyst. Option D delays intelligence.',
+  },
+  {
+    id: 144,
+    moduleId: 'cti',
+    topic: 'Processing - STIX',
+    question: 'An analyst receives a STIX 2.1 bundle with: Indicator (IP), Campaign (Operation Dark Night), Attack Pattern (T1566.001), and Relationship linking the IP to the Campaign. What is the significance of the relationships?',
+    options: [
+      'STIX objects are irrelevant because MISP does not support STIX imports',
+      'The bundle provides rich contextual intelligence: the IP is linked to a specific campaign using a known technique, enabling informed prioritization and hunting',
+      'Strip all relationships, leaving only the raw IP, because relationships complicate analysis',
+      'Ignore the Attack Pattern because MITRE ATT&CK techniques do not belong in STIX'
+    ],
+    correctAnswer: 1,
+    explanation: 'STIX 2.1 relationships provide context: the IP is part of Operation Dark Night using Spearphishing. This enables prioritization (targeted vs random) and hunting (hunt for T1566.001). MISP supports STIX (A is false).',
+  },
+  {
+    id: 145,
+    moduleId: 'cti',
+    topic: 'Analysis - Diamond Model',
+    question: 'In intrusion Alpha, adversary used SQLi. In Beta, same adversary used spear-phishing. Victims are in different sectors (finance, healthcare) but share the same cloud hosting provider. In Gamma, SQLi was used again. What hypothesis might the analyst form?',
+    options: [
+      'The adversary uses the same physical servers because SQLi was reused',
+      'The common cloud provider means the adversary is compromising the provider itself',
+      'The adversary has both SQLi and phishing capabilities (multi-skilled), and the shared cloud provider could be infrastructure selection or coincidental victim characteristic',
+      'Different sectors and vectors mean three unrelated adversaries'
+    ],
+    correctAnswer: 2,
+    explanation: 'The Diamond Model explores vertex relationships. Diverse capabilities suggest a skilled group. The shared cloud provider could be deliberate targeting or coincidence. Options A and D jump to conclusions. Option B is less likely.',
+  },
+  {
+    id: 146,
+    moduleId: 'cti',
+    topic: 'MITRE ATT&CK - Mapping',
+    question: 'A DFIR team documents: (1) compromised credentials for VPN access, (2) RDP to file server, (3) LSASS dump via Mimikatz on DC, (4) scheduled task persistence, (5) exfiltration over HTTPS. Which MITRE ATT&CK technique IDs should they include?',
+    options: [
+      'T1078, T1021.001, T1003.001, T1053.005, T1048.002',
+      'T1190, T1047, T1003, T1053, T1041',
+      'T1566, T1210, T1003, T1547, T1567',
+      'T1078, T1047, T1003.001, T1053.005, T1020'
+    ],
+    correctAnswer: 0,
+    explanation: 'Valid Accounts (T1078), RDP (T1021.001), LSASS Memory (T1003.001), Scheduled Task (T1053.005), Exfiltration Over Encrypted Channel (T1048.002). Option B uses WMI (unobserved). Option C uses Phishing (unobserved).',
+  },
+  {
+    id: 147,
+    moduleId: 'cti',
+    topic: 'Cyber Kill Chain - Prevention',
+    question: 'An organization wants to use the Cyber Kill Chain to prioritize defensive investments. They have email filtering and EDR. Which additional control provides the most Kill Chain coverage?',
+    options: [
+      'Network segmentation and egress monitoring to disrupt lateral movement and C2, covering the latter half of the chain',
+      'More advanced email filtering because Delivery is where most attacks begin',
+      'Physical security because Reconnaissance involves physical surveillance',
+      'Public relations services since Actions on Objectives involves reputation damage'
+    ],
+    correctAnswer: 0,
+    explanation: 'The org already covers early phases (Delivery, Exploitation/Installation). Network segmentation and egress monitoring address C2, lateral movement, and exfiltration. Option B reinforces an already-covered phase. C and D are less relevant.',
+  },
+  {
+    id: 148,
+    moduleId: 'cti',
+    topic: 'STIX/TAXII',
+    question: 'A STIX 2.1 indicator has pattern, pattern_type, and valid_from. The analyst wants it to expire after 30 days automatically. How should they modify the indicator?',
+    options: [
+      'Add valid_until set to 2025-01-31T00:00:00Z for automatic expiration',
+      'Delete the indicator manually after 30 days, since STIX has no expiration mechanism',
+      'Set pattern_type to expire and include duration in the pattern string',
+      'Create a separate Report object with expiration date'
+    ],
+    correctAnswer: 0,
+    explanation: 'STIX 2.1 indicators support valid_until for automatic expiration in consuming systems. Option B is wrong: STIX does support expiration. Options C and D misuse STIX constructs.',
+  },
+  {
+    id: 149,
+    moduleId: 'cti',
+    topic: 'MISP - Correlation',
+    question: 'A MISP admin sees one IP in 15 events. Some tag it C2, others malware distribution, others scanning. The IP links to three malware families. Which MISP feature is most useful to determine its true nature?',
+    options: [
+      'The Sighting feature to record observations, building collective confidence over time',
+      'The Tag feature alone, since tags definitively classify indicators',
+      'The Distribution feature showing which organizations shared the IP',
+      'MISP does not support correlation analysis'
+    ],
+    correctAnswer: 0,
+    explanation: 'MISP Sightings let community members record how they observed the IP. Over time, empirical evidence reveals true nature (e.g., 10 C2 sightings vs 2 scanning). Tags (B) are inconsistently applied. Distribution (C) focuses on source trust.',
+  },
+  {
+    id: 150,
+    moduleId: 'cti',
+    topic: 'Threat Feeds - Quality',
+    question: 'A SOC ingests a free feed providing 50,000 IPs/month. Only 12 IPs matched confirmed incidents. The feed claims 99% detection rate. How should the SOC evaluate it?',
+    options: [
+      'Excellent: 50,000 IPs provide broad coverage and 99% detection rate is verified',
+      'Extremely low precision (0.024% relevance). The claimed rate likely refers to known-bad IP detection, not real-world relevance. Poor fit for automated blocking.',
+      'Use at full confidence because free feeds are maintained by volunteers',
+      'Use for alerting only since any detection is better than none'
+    ],
+    correctAnswer: 1,
+    explanation: 'Precision matters: 0.024% relevance means 99.976% false positives if used for blocking. The 99% detection rate is likely sensitivity on a test set. Options A and C ignore precision. Option D overwhelms analysts.',
+  },
+  {
+    id: 151,
+    moduleId: 'cti',
+    topic: 'Passive vs Active Collection',
+    question: 'An analyst investigates a C2 server and considers: (a) Nmap scan, (b) VirusTotal check, (c) passive DNS query, (d) browsing the web page, (e) SSL certificate transparency logs. Which are passive vs active?',
+    options: [
+      'All are passive because they are research at a computer',
+      'b, c, e are passive (no direct target interaction); a and d are active (direct interaction logged by target)',
+      'a and d are passive; b, c, e are active',
+      'None are passive because any intelligence gathering risks detection'
+    ],
+    correctAnswer: 1,
+    explanation: 'Passive: using pre-existing third-party data (VirusTotal, passive DNS, cert transparency). Active: sending packets (Nmap) or HTTP requests (browsing) that the target logs. Direct interaction reveals the analyst.',
+  },
+  {
+    id: 152,
+    moduleId: 'cti',
+    topic: 'Intelligence Cycle - Direction',
+    question: 'A new CTI team has requirements: (R1) most common initial access vectors in our industry, (R2) threat actors targeting our region, (R3) IOCs for the latest ransomware variant. Limited resources. Which prioritization aligns with the Direction phase?',
+    options: [
+      'Address all three simultaneously because prioritization should be avoided',
+      'Prioritize based on risk: evaluate which unanswered question poses greatest risk, rank with stakeholder consultation, establish collection strategies',
+      'Prioritize R3 because IOCs are most actionable and fastest to produce',
+      'Only address R1 because initial access vectors are foundational'
+    ],
+    correctAnswer: 1,
+    explanation: 'Direction involves establishing priorities and allocating resources based on risk and stakeholder input. Options A ignores constraints. Options C and D make assumptions without consultation. Prioritization must be risk-informed.',
+  },
+  {
+    id: 153,
+    moduleId: 'cti',
+    topic: 'TTPs - Detection',
+    question: 'A report describes an adversary using: Spearphishing with LNK (T1566.001), PowerShell (T1059.001), Registry Run Keys (T1547.001), Automated Exfiltration (T1020). For which TTPs is behavioral detection most important?',
+    options: [
+      'Spearphishing with LNK because LNK files are always malicious',
+      'Registry Run Keys because any modification is 100% compromise',
+      'All benefit from behavioral detection because specific artifacts change across campaigns while behavior remains consistent',
+      'Automated Exfiltration because exfiltration only occurs after breach'
+    ],
+    correctAnswer: 2,
+    explanation: 'TTPs describe behaviors, which are more stable than IOCs. Behavioral detection (e.g., Word spawning PowerShell) catches the TTP regardless of specific artifacts. Options A and B are wrong: LNK files and Run keys have legitimate uses.',
+  },
+  {
+    id: 154,
+    moduleId: 'cti',
+    topic: 'Diamond Model - Pivoting',
+    question: 'Analyst maps: Adversary TA-437, Victim ACME Corp, Infrastructure mal-c2.example.com, Capability Emotet-like loader. To find other victims, which Diamond Model pivot is most effective?',
+    options: [
+      'Pivot Infrastructure to Capability: analyze all capabilities on the C2 server',
+      'Pivot Capability to Adversary: analyze loader code for developer identity',
+      'Pivot Adversary to Infrastructure to enumerate all TA-437 infrastructure, then pivot to victims contacting that infrastructure',
+      'Pivot Victim to Adversary: interview ACME employees'
+    ],
+    correctAnswer: 2,
+    explanation: 'Diamond pivoting moves along vertices. Starting from adversary-infrastructure, enumerate all TA-437 infrastructure, then find other victims contacting it. Option A finds tools, not victims. Option B is attribution. Option D is unsystematic.',
+  },
+  {
+    id: 155,
+    moduleId: 'cti',
+    topic: 'Strategic vs Tactical vs Operational Intel',
+    question: 'A SOC analyst receives intel about a banking trojan using domain secure-bank-update[.]com and IP 198.x.x.x for C2. The analyst creates firewall rules and Sigma rules. At which level is this intelligence consumed?',
+    options: [
+      'Strategic level because the analyst is taking defensive action',
+      'Tactical level because the intelligence creates specific, immediate defensive measures',
+      'Operational level because it describes a banking sector campaign',
+      'None: this is raw data, not intelligence'
+    ],
+    correctAnswer: 1,
+    explanation: 'Tactical intelligence drives immediate defensive actions (firewall rules, detection signatures). Strategic (A) is for long-term planning. Operational (C) focuses on campaign patterns. This is processed intelligence, not raw data (D).',
+  },
+  {
+    id: 156,
+    moduleId: 'cti',
+    topic: 'OSINT - Google Dorking',
+    question: 'An analyst researching an APT targeting energy wants to find exposed documents and config files without engaging underground sources. Which OSINT technique should they prioritize?',
+    options: [
+      'Google Dorking with advanced operators to find exposed documents, directory listings, config files, and paste sites',
+      'LinkedIn scraping to find employees connected with fake personas',
+      'Shodan scanning of energy sector IP ranges',
+      'Physical reconnaissance of energy facilities'
+    ],
+    correctAnswer: 0,
+    explanation: 'Google Dorking (filetype, intitle, inurl, site operators) uncovers exposed PDFs, configs, directory listings with references to threat groups. This is passive and doesn\'t alert adversaries. Options B, C, D have privacy, legal, and safety issues.',
+  },
+  {
+    id: 157,
+    moduleId: 'cti',
+    topic: 'IOCs - Validation',
+    question: 'A feed publishes MD5 associated with \'new ransomware\'. VirusTotal shows 3/65 detection, named invoice_2024.xlsm, submitted 6 hours ago from one submitter, no sandbox data. What should the analyst do?',
+    options: [
+      'Immediately block because 3 engines agree it is ransomware',
+      'Treat with low confidence: 3/65 detection, single source, no behavioral data suggest false positive or test; request more context before blocking',
+      'Ignore entirely because under 50% detection means definitely not malware',
+      'Block the hash and all similar filenames since invoice themes are common attack vectors'
+    ],
+    correctAnswer: 1,
+    explanation: '3/65 detection is very low. No sandbox report, single submitter, recent submission suggest possible false positive. Seek more context, run in sandbox, check related intel. Option A uses low threshold. Option C is too absolute.',
+  },
+  {
+    id: 158,
+    moduleId: 'cti',
+    topic: 'Cyber Kill Chain - Detection',
+    question: 'A SOC detects well at Delivery (email) and Actions on Objectives (DLP), but attacks succeed between these phases. The manager wants to \'left-shift\' detection. Which approach best achieves this?',
+    options: [
+      'Add more DLP rules at Actions on Objectives since exfiltration is most important',
+      'Invest in detection at Exploitation, Installation, and C2: macro execution, process injection, outbound beacons, persistence mechanisms',
+      'Focus only on Delivery with better email filtering since prevention eliminates need for later detection',
+      'Abandon the Cyber Kill Chain because it is designed for offense'
+    ],
+    correctAnswer: 1,
+    explanation: 'Left-shifting means catching attacks earlier. Detection at Exploitation (macro), Installation (registry changes), and C2 (outbound beacons) enables mid-attack response. Option A stays late. Option C is unrealistic. Option D misunderstands CKC value.',
+  },
+  {
+    id: 159,
+    moduleId: 'cti',
+    topic: 'Threat Feeds - Integration',
+    question: 'An organization subscribes to Feed 1 (10 high-confidence APT IOCs/day), Feed 2 (500 medium-confidence commodity IOCs/day), Feed 3 (5,000 low-confidence sinkhole IOCs/day). All generate alerts. After one week, 95% false positive rate. What is the most effective solution?',
+    options: [
+      'Increase SOC team size to handle the volume',
+      'Discontinue all threat feeds because they cause more harm than benefit',
+      'Implement tiered confidence: Feed 1 triggers automated blocking, Feed 2 generates medium-priority alerts with correlation, Feed 3 used only for passive enrichment and hunting',
+      'Continue but ask analysts to ignore Feed 3 alerts'
+    ],
+    correctAnswer: 2,
+    explanation: 'Tiered confidence-based integration optimizes feeds. High-confidence IOCs can auto-block. Medium-confidence need corroboration. Low-confidence data enriches hunting without alerting. Option A wastes resources. Option B throws away value.',
+  },
+  {
+    id: 160,
+    moduleId: 'cti',
+    topic: 'Intelligence Reports - Targeting',
+    question: 'A CTI analyst writes a report on a healthcare ransomware campaign. Audiences: SOC (needs IOCs/rules), IT ops (patching/segmentation), executives (business impact), legal (regulatory requirements). What is the most effective structure?',
+    options: [
+      'A single one-page summary covering all four audiences briefly',
+      'Separate documents for each audience for confidentiality',
+      'A single comprehensive report with executive summary, then sections/appendices targeting each audience with relevant details and recommendations',
+      'Only technical IOCs and rules because other audiences should get information elsewhere'
+    ],
+    correctAnswer: 2,
+    explanation: 'A layered report serves all audiences: executive summary for leaders, tactical intel for SOC, operational recommendations for IT ops, compliance sections for legal. Option A oversimplifies. Option B creates silos. Option D ignores stakeholder needs.',
+  },
+
+  {
+    id: 161,
+    moduleId: 'redteam',
+    topic: 'Red Team vs Pentest',
+    question: 'An organization wants to assess its security. The CISO debates between a penetration test and a red team exercise. The primary concern is detecting a sophisticated nation-state actor using custom malware over months. Which assessment type is more appropriate?',
+    options: [
+      'A penetration test because it checks more systems and provides more findings',
+      'A red team exercise because it simulates realistic adversary TTPs, tests detection and response, and evaluates ability to detect a stealthy, long-duration threat actor',
+      'A vulnerability scan with Nessus because automated scanning finds all gaps',
+      'A purple team exercise because it focuses exclusively on remediation'
+    ],
+    correctAnswer: 1,
+    explanation: 'Red team exercises simulate realistic adversaries including APTs, testing people, processes, and detection/response over extended periods. Penetration tests (A) find vulnerabilities but don\'t test detection. Vulnerability scanning (C) lacks adversarial simulation.',
+  },
+
+  {
+    id: 162,
+    moduleId: 'redteam',
+    topic: 'Purple Team',
+    question: 'After a red team engagement, the red team compromised the domain controller in 48 hours and the blue team detected nothing until the debrief. The CISO is unhappy. A purple team advocate suggests a different approach. What is the primary goal of purple teaming?',
+    options: [
+      'Have the red team go easier on the blue team so they do not look bad',
+      'Create a collaborative environment where red and blue teams work together in real-time sharing detection gaps and improving defenses continuously',
+      'Eliminate the red team and have only blue team conduct their own testing',
+      'Ensure the red team always succeeds to justify more security budget'
+    ],
+    correctAnswer: 1,
+    explanation: 'Purple teaming is collaborative: red explains TTPs in real-time, blue learns to detect and respond, continuously improving defenses. Option A reduces rigor. Option C eliminates adversarial perspective. Option D is self-serving.',
+  },
+
+  {
+    id: 163,
+    moduleId: 'redteam',
+    topic: 'RoE - Rules of Engagement',
+    question: 'A red team plans an engagement with a financial institution. The client states: no production disruption, no social engineering, testing limited to 9 PM to 5 AM, must provide detailed attack plan, no customer data exfiltration. Which statement best describes this?',
+    options: [
+      'Constraints are excessive; the red team should refuse because real adversaries do not follow rules',
+      'These define the Rules of Engagement (RoE), essential for legal authorization and risk management; the red team operates within these boundaries while maximizing realism',
+      'Ignore constraints and perform a full-scope attack because the customer hired for realism',
+      'Secretly exfiltrate customer data to prove the danger of restrictive RoE'
+    ],
+    correctAnswer: 1,
+    explanation: 'RoE are critical legal and operational documents defining scope, boundaries, and authorization. They protect both client and red team. Option A is unprofessional. Options C and D violate legal agreements and may constitute criminal activity.',
+  },
+
+  {
+    id: 164,
+    moduleId: 'redteam',
+    topic: 'Legal Authorization',
+    question: 'A red teamer is assigned to test a recently acquired subsidiary. Authorization covers the main corporate entity but not the subsidiary. Their networks are connected without segmentation. What should the red teamer do?',
+    options: [
+      'Proceed with testing because it is technically part of the same network and both are owned by the same parent',
+      'Stop and request explicit written authorization for the subsidiary; testing without it could violate computer fraud laws',
+      'Test only read-only access to verify connectivity, which does not require authorization',
+      'Test the subsidiary but exclude it from the final report'
+    ],
+    correctAnswer: 1,
+    explanation: 'Legal authorization must be explicit. Testing without permission, even within the same corporate family, could violate laws like the CFAA. The red teamer must clarify scope and obtain separate authorization. Options A, C risk legal liability.',
+  },
+
+  {
+    id: 165,
+    moduleId: 'redteam',
+    topic: 'Footprinting - Passive',
+    question: 'A red team conducts reconnaissance on a target without alerting them or making direct contact. Which activity is consistent with passive footprinting?',
+    options: [
+      'Scanning the target\'s web server with Nmap for open ports and service versions',
+      'Performing DNS zone transfers against the target\'s authoritative name servers',
+      'Analyzing SSL/TLS certificates from Certificate Transparency logs, reviewing historical WHOIS via third-party archives, and examining GitHub repos for exposed keys or configs',
+      'Sending spear-phishing emails to verify email addresses'
+    ],
+    correctAnswer: 2,
+    explanation: 'Passive footprinting gathers info without interacting with target systems. Certificate Transparency logs, archived WHOIS, and public GitHub repos are third-party sources. Options A (Nmap) and B (DNS zone transfer) interact directly. D is active social engineering.',
+  },
+
+  {
+    id: 166,
+    moduleId: 'redteam',
+    topic: 'Footprinting - Active',
+    question: 'During active footprinting, a red teamer needs to identify externally accessible services behind a load balancer. The target uses Apache behind an F5. Which Nmap technique is most effective?',
+    options: [
+      'nmap -sn target.com for a ping sweep to identify live hosts',
+      'nmap -p 80,443 -A target.com with HTTP header manipulation and pipelining to potentially reach individual backend servers',
+      'nmap -sV --script http-ls target.com to list directory contents',
+      'nmap -O target.com to identify OS of each backend server'
+    ],
+    correctAnswer: 1,
+    explanation: 'Active footprinting behind load balancers requires HTTP header manipulation (X-Forwarded-For) and pipelining to reach backends. -A with techniques may help. Ping sweeps (A) don\'t enumerate services. OS detection (D) is inaccurate through load balancers.',
+  },
+
+  {
+    id: 167,
+    moduleId: 'redteam',
+    topic: 'Nmap',
+    question: 'A red teamer needs a stealthy SYN scan against a target with a firewall blocking all ports except 80 and 443. They need service versions on those ports. The target runs Linux with Apache. Which Nmap command is most appropriate?',
+    options: [
+      'nmap -sT -p 80,443 --version-intensity 9 target.com (TCP connect scan with high version intensity)',
+      'nmap -sS -sV -p 80,443 -T4 target.com (SYN stealth scan with version detection on allowed ports)',
+      'nmap -sU -p 53,123 target.com (UDP scan on DNS and NTP expecting them open through the firewall)',
+      'nmap -sn -PE -PP target.com (ICMP ping scan to bypass firewall)'
+    ],
+    correctAnswer: 1,
+    explanation: 'SYN scan (-sS) is stealthier than TCP connect (-sT) since it doesn\'t complete the handshake. Combined with version detection (-sV) on allowed ports (80, 443), this identifies services. Option A is more detectable. Options C, D scan wrong things.',
+  },
+
+  {
+    id: 168,
+    moduleId: 'redteam',
+    topic: 'Google Dorks',
+    question: 'A red teamer performs passive recon on Acme Corp (acme.com) and wants sensitive PDFs, config files, and login pages indexed by search engines. Which Google Dork query is most effective?',
+    options: [
+      'site:acme.com filetype:pdf AND (confidential OR secret OR password) -news -blog',
+      'inurl:acme.com ext:pdf | ext:conf | ext:sql intitle:\'login\'',
+      'site:acme.com (filetype:pdf OR filetype:conf OR filetype:sql OR filetype:bak OR filetype:log) AND (intitle:\'login\' OR intitle:\'admin\' OR intitle:\'password\')',
+      'site:*.acme.com -www.acme.com -blog.acme.com'
+    ],
+    correctAnswer: 2,
+    explanation: 'Option 3 combines site restriction with multiple sensitive file types (pdf, conf, sql, bak, log) and keywords in page titles. Option 1 only targets PDFs. Option 2 incorrectly uses inurl for domain. Option 4 excludes subdomains without content targeting.',
+  },
+
+  {
+    id: 169,
+    moduleId: 'redteam',
+    topic: 'Vulnerability Scanners - Nessus/OpenVAS',
+    question: 'A red teamer uses Nessus which reports a Critical finding: Apache Struts2 RCE (CVE-2017-5638) with CVSS 10.0. Manual investigation reveals the target runs Apache Tomcat, not Struts2. The scanner was triggered by a response header containing similar strings. What does this illustrate?',
+    options: [
+      'The scanner is highly reliable because it found a critical vulnerability needing immediate remediation',
+      'Vulnerability scanners can produce false positives; manual validation is essential before including findings in the final report',
+      'Report the vulnerability as confirmed because CVSS 10.0 indicates highest severity',
+      'Ignore all scanner results and rely only on manual testing'
+    ],
+    correctAnswer: 1,
+    explanation: 'This is a classic false positive. Scanners use banner grabbing and pattern matching that can produce incorrect results. Manual validation is critical. Option A would report a non-existent vulnerability. Option C ignores validation. Option D overcorrects.',
+  },
+
+  {
+    id: 170,
+    moduleId: 'redteam',
+    topic: 'Validation',
+    question: 'A scanner reports 500 findings (50 Critical). The red team has 3 days for validation before the report is due. Which validation strategy is most effective?',
+    options: [
+      'Validate only the 50 Critical findings sorted by highest CVSS score',
+      'Validate a representative sample across all severities, prioritizing internet-facing systems, domain controllers, and data-bearing systems; mark scanner-only findings as unvalidated with caveats',
+      'Validate all 500 findings because unvalidated findings cannot be included in the report',
+      'Skip validation and include all scanner findings because the client paid for comprehensive assessment'
+    ],
+    correctAnswer: 1,
+    explanation: 'A risk-based approach prioritizes internet-facing systems, critical infrastructure, and data-bearing systems. Scanner-only findings are marked as unvalidated with caveats. Option A ignores context. Option C is unrealistic. Option D is irresponsible.',
+  },
+
+  {
+    id: 171,
+    moduleId: 'redteam',
+    topic: 'CVSS Prioritization',
+    question: 'A red team identifies: (A) SQLi in public-facing login form (CVSS 9.8), (B) Self-XSS in authenticated user profile (CVSS 4.7), (C) Missing HTTP headers on main site (CVSS 5.0), (D) Plaintext credentials in internal wiki behind VPN (CVSS 6.5). Limited remediation resources. How should they prioritize?',
+    options: [
+      'Solely by CVSS: A (9.8), D (6.5), C (5.0), B (4.7)',
+      'A is public-facing with high impact: prioritize first. D requires prior VPN access, B requires authentication: practical severity is lower. C requires environmental context beyond base score.',
+      'C first because missing headers are easiest to fix; quick wins come first',
+      'All findings same priority because CVSS scores are subjective'
+    ],
+    correctAnswer: 1,
+    explanation: 'CVSS base scores should be adjusted with environmental and contextual factors. The SQLi (A) is public-facing and easily exploitable. D requires VPN access, B requires authentication: lower practical severity. Option A ignores context. Option C prioritizes ease over risk.',
+  },
+
+  {
+    id: 172,
+    moduleId: 'redteam',
+    topic: 'Metasploit',
+    question: 'A red teamer gains access to Windows 10 with Defender. Meterpreter is quarantined. They need to evade AV. Which Metasploit approach is most appropriate?',
+    options: [
+      'Use an older, deprecated meterpreter payload since Defender does not detect older payloads',
+      'Use msfvenom with encoding (shikata_ga_nai), custom template, and in-memory execution like PowerShell injection to avoid writing to disk',
+      'Disable Defender through command injection before running the payload',
+      'Use the SMB module instead of a staged payload because SMB traffic is never inspected by AV'
+    ],
+    correctAnswer: 1,
+    explanation: 'Encoding evades signature detection. Custom templates reduce template-based detection. In-memory execution (PowerShell injection, reflective DLL loading) avoids on-disk scanning. Options A and D are unreliable. Option C may not be possible and alerts the user.',
+  },
+
+  {
+    id: 173,
+    moduleId: 'redteam',
+    topic: 'Cobalt Strike',
+    question: 'A red team uses Cobalt Strike with HTTP and DNS beacons. The blue team monitors for suspicious outbound HTTP and uncommon DNS queries. Which configuration helps blend in with legitimate traffic?',
+    options: [
+      'Use only raw TCP beacons because HTTP and DNS are always monitored',
+      'Use HTTPS with a valid CA certificate, configure beacon sleep with jitter mimicking human activity, use domain fronting via CDN, and mimic legitimate user-agent strings and HTTP headers',
+      'Set beacon interval to 1 second so the engagement completes faster',
+      'Use only the default Cobalt Strike profile because custom profiles trigger behavioral detection'
+    ],
+    correctAnswer: 1,
+    explanation: 'OPSEC-minded C2: valid HTTPS certificates, Malleable C2 profiles with legitimate-looking traffic patterns, random jitter to avoid predictable intervals, domain fronting via CDNs. Option A is wrong. Option C is noisy. Option D: defaults are well-known and easily detected.',
+  },
+
+  {
+    id: 174,
+    moduleId: 'redteam',
+    topic: 'Reverse vs Bind Shells',
+    question: 'A red teamer exploits RCE on a Windows server behind NAT with outbound internet access but inbound ports blocked. Which shell approach will work?',
+    options: [
+      'A bind shell on port 4444 with the operator connecting to the target\'s public IP',
+      'A reverse shell where the target connects back to the operator on a specified port since outbound connections are allowed through NAT',
+      'Neither bind nor reverse shells will work because NAT and firewalls block all shell traffic',
+      'A bind shell on port 80 because port 80 is always open on Windows'
+    ],
+    correctAnswer: 1,
+    explanation: 'Reverse shells initiate from target to attacker. Since outbound traffic is typically allowed through NAT, a reverse shell can connect back to the operator. Bind shells (A) need inbound access which is blocked. Option C is false. Option D is wrong.',
+  },
+
+  {
+    id: 175,
+    moduleId: 'redteam',
+    topic: 'Staged vs Stageless Payloads',
+    question: 'A red teamer delivers a payload via phishing macro. The target has aggressive EDR monitoring process creation and memory. The payload runs on a low-powered VDI. Which payload approach is more appropriate?',
+    options: [
+      'Staged payload: the small stager has a small footprint evading initial detection, fetching the larger stage 2 only if stager executes successfully',
+      'Stageless payload: a single binary means fewer network connections and less network monitoring detection',
+      'Staged payload downloading everything via one HTTP request, identical to stageless',
+      'Bind shell instead of reverse shell because bind shells do not need additional connections for staging'
+    ],
+    correctAnswer: 0,
+    explanation: 'Staged payloads use a two-step approach: a small stager (few hundred bytes) evades initial detection, then fetches stage 2. If detected, stage 2 is never retrieved. Stageless (B) is larger and more detectable. Options C and D are incorrect.',
+  },
+
+  {
+    id: 176,
+    moduleId: 'redteam',
+    topic: 'SQLi',
+    question: 'A red teamer discovers SQLi in a login page. The query is: SELECT * FROM users WHERE username = \' + $_POST[\'username\'] + \' AND password = \' + md5(...) + \'. Generic error page, no error messages. The goal is to extract the admin\'s password hash. Which SQLi technique should be used?',
+    options: [
+      'UNION-based SQLi because it returns data directly in the HTTP response',
+      'Boolean-based blind SQLi using OR 1=1 to bypass authentication',
+      'Time-based blind SQLi using SLEEP() or BENCHMARK() to infer data character by character based on response timing',
+      'Out-of-band SQLi using DNS or HTTP to exfiltrate through an external channel'
+    ],
+    correctAnswer: 2,
+    explanation: 'With generic error pages, UNION and error-based injection are not viable. Boolean-based blind (B) can bypass auth but not extract data. Time-based blind uses conditional delays to infer data bit by bit. Out-of-band (D) is possible but less reliable without network access.',
+  },
+
+  {
+    id: 177,
+    moduleId: 'redteam',
+    topic: 'XSS',
+    question: 'A red teamer finds stored XSS in a helpdesk app viewed by admins. The admin panel has password reset and customer data. HttpOnly cookies are used, no CSP. What is the most impactful use of this XSS?',
+    options: [
+      'Steal the admin\'s session cookie, which is protected by HttpOnly',
+      'Perform admin actions directly (create admin account, reset passwords) via XMLHttpRequest or fetch() since the script runs in the admin\'s browser context with their privileges',
+      'Deface the helpdesk website since that is the most common use of stored XSS',
+      'Redirect the admin to a phishing page to steal credentials'
+    ],
+    correctAnswer: 1,
+    explanation: 'HttpOnly prevents cookie theft. The XSS can use the admin\'s session via API calls since the script executes in their browser context with their privileges, performing actions like creating admin accounts. Option A is blocked. Options C, D are less impactful.',
+  },
+
+  {
+    id: 178,
+    moduleId: 'redteam',
+    topic: 'Privilege Escalation - Windows',
+    question: 'A red team operator has a low-privileged shell on Windows 10 as user jdoe (not admin). whoami /priv shows SeImpersonatePrivilege enabled. Standard installation, no custom services. What escalation technique should they consider?',
+    options: [
+      'Use tools like JuicyPotato or PrintSpoofer to impersonate a SYSTEM token and gain elevated privileges',
+      'SeImpersonatePrivilege allows direct command execution as Administrator without additional tools',
+      'SeImpersonatePrivilege is irrelevant; it is a standard privilege that does not allow escalation',
+      'Use SeImpersonatePrivilege to modify system files, requiring write access to Windows directory'
+    ],
+    correctAnswer: 0,
+    explanation: 'SeImpersonatePrivilege is a well-known Windows privesc vector. Tools like JuicyPotato (pre-1809), RoguePotato, or PrintSpoofer (1809+) exploit token impersonation for SYSTEM. Option B is wrong: exploitation techniques are needed. Option C is dangerously wrong.',
+  },
+
+  {
+    id: 179,
+    moduleId: 'redteam',
+    topic: 'Privilege Escalation - Linux',
+    question: 'A red team operator has a www-data shell on Linux. sudo -l shows: (root) NOPASSWD: /usr/bin/vim /var/log/webapp/*.log. The operator needs root to access a database config file. What should they do?',
+    options: [
+      'Use sudo vim to open a log file, then use Vim\'s :!bash or :!sh to spawn a root shell since Vim allows shell command execution',
+      'Run sudo -i for an immediate root shell',
+      'Use sudo vim to read the database config directly with :e /etc/db.conf since Vim\'s file browsing is unrestricted',
+      'Give up on privesc and report only the web app vulnerability; the sudo rule is too restrictive'
+    ],
+    correctAnswer: 0,
+    explanation: 'Vim with sudo allows shell escape via :!bash, spawning a root shell regardless of file argument restrictions (GTFObin technique). Option B: sudo -i is not permitted. Option C: :e may be restricted. Option D misses an obvious escalation path.',
+  },
+
+  {
+    id: 180,
+    moduleId: 'redteam',
+    topic: 'Pass-the-Hash',
+    question: 'A red team operator extracts NTLM hashes from LSASS on a Windows workstation via Mimikatz. The hash is for domain user jsmith. No plaintext password. The environment uses Windows with SMB file sharing. What can the operator do with the NTLM hash?',
+    options: [
+      'Only crack the hash offline with Hashcat to obtain the plaintext since NTLM hashes cannot be used directly',
+      'Use the NTLM hash directly in a Pass-the-Hash attack to authenticate via NTLM to other Windows machines and SMB shares without needing the plaintext password',
+      'Convert the NTLM hash to a Kerberos ticket for pass-the-ticket, which requires the plaintext password',
+      'Use the NTLM hash to authenticate to Linux servers via SSH since SSH accepts NTLM'
+    ],
+    correctAnswer: 1,
+    explanation: 'Pass-the-Hash uses the NTLM hash directly for authentication. Tools like Impacket psexec, wmiexec use the hash to access other Windows systems via SMB. Option A is wrong: PtH works without cracking. Option D is wrong: SSH does not accept NTLM.',
+  },
+
+  {
+    id: 181,
+    moduleId: 'redteam',
+    topic: 'BloodHound',
+    question: 'A red team operator gains initial access to a domain-joined workstation as a standard domain user. They need to find a path to Domain Admin. Which tool is specifically designed for analyzing AD attack paths?',
+    options: [
+      'Nmap with smb-enum-shares script to find writable shares',
+      'BloodHound with SharpHound collector to enumerate AD relationships and identify attack paths such as ACL abuse, group membership chains, and Kerberos delegation attacks',
+      'Metasploit\'s smb_login module to brute force credentials',
+      'John the Ripper to crack password hashes from SAM'
+    ],
+    correctAnswer: 1,
+    explanation: 'BloodHound (with SharpHound) maps AD relationships and visualizes attack paths to high-value targets: ACL abuse, group membership chains, Kerberoasting, AS-REP roasting, delegation attacks. Options A, C, D are useful but not designed for AD attack path analysis.',
+  },
+
+  {
+    id: 182,
+    moduleId: 'redteam',
+    topic: 'Lateral Movement',
+    question: 'A red team operator has credentials for a domain user in the local Remote Management Users group on several Windows servers. They need to execute commands without writing files or creating services. Group Policies restrict WinRM to specific admin groups. Which technique should they use?',
+    options: [
+      'SMB exec with Impacket, which creates a Windows service on the target',
+      'Pass the Hash with PsExec using admin shares (ADMIN$)',
+      'WinRM via PowerShell Invoke-Command using the user\'s credentials since Remote Management Users membership allows WinRM access',
+      'Schedule a task remotely using schtasks.exe with /s parameter'
+    ],
+    correctAnswer: 2,
+    explanation: 'Remote Management Users group explicitly grants WinRM (PowerShell Remoting). Invoke-Command executes commands without writing files or creating services. Options A and B involve service creation triggering EDR. Option D creates scheduled tasks on the remote system.',
+  },
+
+  {
+    id: 183,
+    moduleId: 'redteam',
+    topic: 'Persistence',
+    question: 'A red team operator achieves Domain Admin. The engagement requires maintaining access for two weeks. The blue team checks for common persistence (scheduled tasks, run keys, new services). Which persistence technique is most stealthy?',
+    options: [
+      'Create a domain admin service account and add it to Domain Admins',
+      'Create a scheduled task that beacons every hour',
+      'Use AD-based persistence like modifying the ACL on AdminSDHolder to grant full control over all DA objects, or create a Golden Ticket with long validity',
+      'Install a persistence script in the Startup folder of the domain controller'
+    ],
+    correctAnswer: 2,
+    explanation: 'AD-based persistence is harder to detect than host-based mechanisms. AdminSDHolder ACL modification grants persistent admin access invisible to endpoint tools. Golden Tickets (forged TGTs) allow access without authentication. Options A, B, D are host-based and more detectable.',
+  },
+
+  {
+    id: 184,
+    moduleId: 'redteam',
+    topic: 'Phishing / Spear Phishing',
+    question: 'A red teamer designs a spear-phishing campaign targeting the finance department. The goal is credentials to Office 365 with MFA enabled. Employees are security-aware. Which approach is most likely to succeed?',
+    options: [
+      'A mass email with \'your mailbox is full\' to all finance employees',
+      'A spear-phishing email with an HTML attachment mimicking Office 365 login with an adversary-in-the-middle (AiTM) proxy like EvilGinx capturing credentials and MFA tokens in real-time',
+      'A simple email asking employees to reply with their passwords for a system upgrade',
+      'An email with a link to a fake login page on a similar domain'
+    ],
+    correctAnswer: 1,
+    explanation: 'Against MFA and security-aware targets, AiTM phishing frameworks (EvilGinx, Modlishka) act as reverse proxies, capturing both passwords and real-time MFA session tokens. Option A is generic. Option C is obvious. Option D fails against MFA.',
+  },
+
+  {
+    id: 185,
+    moduleId: 'redteam',
+    topic: 'Cialdini Principles',
+    question: 'A red teamer crafts a vishing pretext for the IT help desk to reset a domain admin password. The company recently had a publicized breach and IT is working overtime. Which Cialdini principle(s) should the red teamer leverage?',
+    options: [
+      'Scarcity: claiming a critical system will be unavailable unless the password is reset immediately',
+      'Reciprocity: offering to share breach info in exchange for the password reset',
+      'Social Proof: mentioning other IT members approved similar requests',
+      'Authority and Scarcity combined: impersonating a senior executive (authority) needing urgent password reset (scarcity), exploiting IT fatigue'
+    ],
+    correctAnswer: 3,
+    explanation: 'Combining Authority (senior executive) with Scarcity (urgent need) is highly effective against an overwhelmed help desk. Fatigue and pressure create vulnerability. Option A uses only Scarcity. Reciprocity (B) is weaker in cold calls. Social Proof (C) is less direct.',
+  },
+
+  {
+    id: 186,
+    moduleId: 'redteam',
+    topic: 'Vishing',
+    question: 'A red teamer is conducting vishing against a company. The goal is the Wi-Fi password from a front desk receptionist trained to never share passwords and to verify via callback. Which approach is most likely to succeed?',
+    options: [
+      'Call and demand the password, threatening to report the receptionist for non-compliance',
+      'Call pretending to be IT support troubleshooting a network issue. Ask the receptionist to \'verify\' the Wi-Fi password by reading it back to confirm it matches records',
+      'Send an email instead of calling since vishing is less effective',
+      'Call repeatedly until the receptionist gives in due to fatigue'
+    ],
+    correctAnswer: 1,
+    explanation: 'The \'verify\' pretext exploits the tendency to help: the receptionist reads the password back (providing it) while believing they are confirming information. Option A creates hostility. Option D (fatigue) is unlikely against trained staff.',
+  },
+
+  {
+    id: 187,
+    moduleId: 'redteam',
+    topic: 'Tailgating',
+    question: 'A red teamer needs physical access to a secured building with badge access and mantraps. A side door used by the smoking area is propped open with a trash can during business hours. What is the most appropriate action?',
+    options: [
+      'Use the propped-open door immediately since it represents a weakness the red team is authorized to test',
+      'Do not use it without explicit RoE authorization because even obvious weaknesses may be monitored, and unauthorized physical access could have legal consequences beyond scope',
+      'Confront employees who propped the door and inform them of the security violation',
+      'Clone an employee badge with an RFID reader and enter through the mantraps'
+    ],
+    correctAnswer: 1,
+    explanation: 'Physical testing requires explicit RoE authorization. Unauthorized entry, even through an obvious gap, may cross legal boundaries (trespassing). The propped door may be monitored by cameras. Options A and D lack authorization. Option C is outside the red teamer\'s role.',
+  },
+
+  {
+    id: 188,
+    moduleId: 'redteam',
+    topic: 'Reporting',
+    question: 'A red team engagement completed with Domain Admin in 4 hours. OPSEC failures: C2 infrastructure was identified, one phishing email was reported. The audience includes SOC, IT management, and CISO. Which report structure serves all audiences?',
+    options: [
+      'A one-page executive summary highlighting only the successful compromise',
+      'A technical-only report with all commands and timelines since management should not receive technical details',
+      'A comprehensive report with: executive summary (attack narrative, risk, recommendations), attack timeline, technical details per phase, detection opportunities, and prioritized recommendations by audience',
+      'A video recording of actions with no written report'
+    ],
+    correctAnswer: 2,
+    explanation: 'A well-structured report serves all stakeholders: executive summary for leadership, attack narrative for detection gaps, technical details for SOC, prioritized recommendations for remediation. Option A is too brief. Option B excludes management. Option D is impractical.',
+  },
+
+  {
+    id: 189,
+    moduleId: 'redteam',
+    topic: 'Timelines',
+    question: 'A penetration test six months ago identified a critical unpatched Apache Struts vulnerability. The red team exploited it in 2 hours to gain access. The CISO wants to understand why success was so fast. What timeline representation best communicates this?',
+    options: [
+      'Show only the red team\'s actions during the engagement week since the pre-existing vulnerability is outside scope',
+      'A combined timeline showing vulnerability discovery (6 months ago), SLA expiration, red team exploitation, and escalation to DA, highlighting the gap between discovery and remediation',
+      'A Gantt chart of all penetration tests in the past year',
+      'A list of all CVEs by CVSS score since score is most important'
+    ],
+    correctAnswer: 1,
+    explanation: 'A combined timeline tells the story: known vulnerability, no remediation for 6 months, exploited in 2 hours. This demonstrates remediation process failure. Option A misses the root cause. Options C and D don\'t connect timeline to breach.',
+  },
+
+  {
+    id: 190,
+    moduleId: 'redteam',
+    topic: 'Remediation SLAs',
+    question: 'A red team report identifies 15 findings: 3 Critical, 5 High, 4 Medium, 3 Low. The client asks for recommended SLAs. They have a mature patch management program (7 days for critical patches) but struggle with configuration issues needing cross-team coordination. Which SLA recommendation is most realistic?',
+    options: [
+      'Critical: 24h, High: 48h, Medium: 7d, Low: 30d regardless of finding type',
+      'Critical: 48-72h (14d for patches needing testing), High: 30d, Medium: 90d, Low: 120d with different timelines for technical fixes vs configuration/process changes',
+      'All findings within 7 days because anything longer is unacceptable',
+      'Critical: 24h, High: 7d, Medium: 14d, Low: 30d using standard benchmarks'
+    ],
+    correctAnswer: 1,
+    explanation: 'Realistic SLAs account for remediation complexity. Critical patches may need 14 days for testing. Configuration/process fixes may take longer due to coordination. Option A is too aggressive. Option C is unrealistic. Option D doesn\'t account for finding type.',
+  },
+
+  {
+    id: 191,
+    moduleId: 'redteam',
+    topic: 'Red Team vs Pentest',
+    question: 'A company hires an assessment including: (A) automated scanning of all internal IPs, (B) manual web app testing, (C) social engineering targeting 50 employees, (D) physical security assessment, (E) detection/response testing over 3 weeks. The cost exceeds a standard pentest. Which label best describes this?',
+    options: [
+      'A standard vulnerability assessment because it includes automated scanning',
+      'A compliance-driven penetration test following a checklist',
+      'A full-scope red team engagement because it includes social engineering, physical testing, and detection/response evaluation over an extended period',
+      'An IT audit because it covers physical security and social engineering'
+    ],
+    correctAnswer: 2,
+    explanation: 'A full-scope red team engagement typically includes multiple attack vectors (technical, social, physical), evaluates detection and response, and operates over an extended period. Options A, B, and D underestimate the scope.',
+  },
+
+  {
+    id: 192,
+    moduleId: 'redteam',
+    topic: 'RoE - Data Handling',
+    question: 'During an engagement, a red teamer discovers SQLi providing access to a database with customer PII. The RoE states: \'Do not exfiltrate or view actual customer data.\' The operator must prove exploitability. What should they do?',
+    options: [
+      'Extract 10 customer records as proof of concept since a small sample does not constitute a data breach',
+      'Demonstrate SQLi by extracting non-sensitive data like database version, table names, and column structures. Explain in the report what data is accessible without viewing PII.',
+      'Ignore the RoE restriction because demonstrating data access is essential',
+      'Request the client to sign a waiver for data extraction before proceeding'
+    ],
+    correctAnswer: 1,
+    explanation: 'The operator can demonstrate SQLi by extracting database metadata without accessing actual customer data, proving the vulnerability and impact within RoE boundaries. Option A violates the explicit RoE. Option C is unethical. Option D is possible but the operator should work within existing boundaries first.',
+  },
+
+  {
+    id: 193,
+    moduleId: 'redteam',
+    topic: 'Nmap - Firewall Evasion',
+    question: 'A red teamer scans a target with an IPS that blocks or throttles connections sending too many packets. They need a full TCP port scan (all 65535 ports). Which Nmap technique combination is most appropriate?',
+    options: [
+      'nmap -p- -T5 target.com (full scan at insane speed to beat the IPS)',
+      'nmap -p- -T0 --scan-delay 1s target.com (paranoid timing with 1-second delay between probes, scanning slowly over an extended period)',
+      'nmap -p 1-1000 -T4 target.com (only top 1000 ports)',
+      'nmap -sF -p- target.com (FIN scan which bypasses IPS inspection)'
+    ],
+    correctAnswer: 1,
+    explanation: 'IPS/IDS trigger on high-speed scanning. Paranoid timing (-T0) with scan delay slows the scan below rate-based thresholds. Option A (T5) triggers immediately. Option C misses ports. Option D (FIN) may evade some firewalls but not rate limiting.',
+  },
+
+  {
+    id: 194,
+    moduleId: 'redteam',
+    topic: 'Google Dorks - Advanced',
+    question: 'A red teamer targets a company using GitHub Enterprise (self-hosted). Some code snippets may have been pasted to public services. What dorking approach could reveal these accidental exposures?',
+    options: [
+      'site:github.com \'target-company\' AND (api_key OR password OR \'-----BEGIN RSA PRIVATE KEY-----\')',
+      'site:pastebin.com OR site:ghostbin.com OR site:github.com/gists \'target-company\' AND (api_key OR password OR secret OR connection_string OR \'-----BEGIN\')',
+      'site:target-company.com api_key filetype:env',
+      'inurl:target-company git config filetype:xml'
+    ],
+    correctAnswer: 1,
+    explanation: 'Employees may paste code to public paste sites even if repos are private. Searching paste sites and gists for company name combined with sensitive patterns (API keys, passwords, private keys) is a common OSINT technique. Option A only searches public GitHub repos.',
+  },
+
+  {
+    id: 195,
+    moduleId: 'redteam',
+    topic: 'Vulnerability Assessment - Scoping',
+    question: 'A red teamer prepares for 500 internal hosts and 20 public-facing web apps. The client wants \'all vulnerabilities found\' but has an 8-hour maintenance window on Saturday night. Which scoping strategy balances coverage with constraints?',
+    options: [
+      'Scan all 520 targets aggressively within 8 hours, accepting incomplete scans',
+      'Prioritize the 20 public-facing apps for thorough testing and perform a credentialled scan on a representative sample of 50 internal hosts, explaining the risk-based rationale to the client',
+      'Only scan the 20 public-facing apps because internal hosts are less critical',
+      'Refuse the engagement because 8 hours is insufficient for 520 targets'
+    ],
+    correctAnswer: 1,
+    explanation: 'A risk-based approach: thorough testing of public-facing apps (greatest exposure) plus credentialled scan on a representative internal sample. Communicate scope limitations to the client. Option A may cause issues. Option C ignores internal threats. Option D is unnecessary.',
+  },
+
+  {
+    id: 196,
+    moduleId: 'redteam',
+    topic: 'Metasploit - Post-Exploit',
+    question: 'After gaining a meterpreter session on a Windows DC as SYSTEM, a red teamer wants to extract domain password hashes from NTDS.dit without triggering EDR. The DC has Defender and EDR. Which approach is most appropriate?',
+    options: [
+      'Run hashdump which reads the SAM database, sufficient for domain hashes',
+      'Use the Kiwi module (Mimikatz) in meterpreter which runs entirely in memory',
+      'Create a volume shadow copy, extract NTDS.dit, transfer to the attack machine for offline hash extraction, minimizing on-disk artifacts on the DC',
+      'Use run post/windows/gather/credentials/domain_hashdump which is undetectable'
+    ],
+    correctAnswer: 2,
+    explanation: 'Volume shadow copy + NTDS.dit extraction for offline processing minimizes artifacts on the DC. Option A only gets local SAM. Option B (Mimikatz) may trigger EDR behavioral detections. Option D cannot guarantee undetectability.',
+  },
+
+  {
+    id: 197,
+    moduleId: 'redteam',
+    topic: 'C2 - Infrastructure',
+    question: 'A red teamer sets up C2 for a two-week engagement. The blue team monitors for unusual domains, scans for known C2 frameworks on the internet, and maintains threat intel feeds. Which infrastructure setup is most appropriate?',
+    options: [
+      'A single VPS with static IP and self-signed SSL certificate',
+      'Domain fronting via a reputable CDN with valid SSL certificate, multiple redirectors, legitimate-looking domains, and fallback C2 mechanisms',
+      'Host the C2 on the same cloud provider as the target to reduce latency',
+      'Use free dynamic DNS services because they are constantly changing'
+    ],
+    correctAnswer: 1,
+    explanation: 'Robust C2 infrastructure: domain fronting via CDN, valid SSL certificates (not self-signed), domains that blend in, multiple redirectors, fallback mechanisms. Option A is easily detected. Option C doesn\'t improve stealth. Dynamic DNS (D) may have reputation issues.',
+  },
+
+  {
+    id: 198,
+    moduleId: 'redteam',
+    topic: 'Reporting - Executive Summary',
+    question: 'A red team demonstrated phishing-to-domain-compromise in 3 hours. Findings include: 40% phishing click rate, no network segmentation, no MFA on VPN, cached DA credentials on workstations, SOC detected zero of 47 attacker actions. What is the most effective way to communicate to the board?',
+    options: [
+      'List all 47 actions with timestamps to demonstrate thoroughness',
+      'Attack narrative: \'One email, an employee clicked, and within 3 hours the attacker had full control. Here are the five key reasons and the three most critical investments needed.\'',
+      'Focus only on technical vulnerability details because board members care about CVEs',
+      'Recommend purchasing additional security tools since the root cause is insufficient technology'
+    ],
+    correctAnswer: 1,
+    explanation: 'Executive summaries should tell a compelling story connecting technical findings to business risk. The narrative creates impact, then root causes and recommendations guide decisions. Option A is too detailed. Option C: boards don\'t need CVEs. Option D is self-serving.',
+  },
+
+  {
+    id: 199,
+    moduleId: 'redteam',
+    topic: 'Red Team - Detection Testing',
+    question: 'A red team tests the SOC\'s detection capabilities. The team performs credential dumping on a workstation. After 48 hours, checking with the SOC liaison reveals no detection. What is the most appropriate next step?',
+    options: [
+      'Continue exploiting the lack of detection to achieve more objectives, demonstrating the full detection gap',
+      'Inform the SOC of the missed detection through the liaison immediately, since the purpose is improving defenses, not silently testing without feedback during the exercise',
+      'Repeat the same credential dumping multiple times until the SOC notices',
+      'Report the missed detection in the final report but continue without revealing the failure'
+    ],
+    correctAnswer: 1,
+    explanation: 'Collaborative testing provides feedback during the engagement so the SOC can improve in real-time. The primary goal is improving defenses. Informing the SOC through the liaison allows them to adjust detection rules. Options A and D are more adversarial.',
+  },
+
+  {
+    id: 200,
+    moduleId: 'redteam',
+    topic: 'Purple Team - Collaboration',
+    question: 'During a purple team exercise, the red team uses WMI for lateral movement (T1047). The blue team has no detections for WMI lateral movement. The facilitator asks both teams to collaborate. What should the immediate outcome be?',
+    options: [
+      'The red team stops using WMI and switches to a different technique',
+      'The blue team creates a detection rule (e.g., Event ID 4688 with wmiprvse.exe spawning cmd.exe) and tests it against live WMI lateral movement from the red team, validating both detection and bypass opportunities',
+      'The red team documents WMI abuse in the report and the blue team creates a ticket for next quarter',
+      'The blue team blocks all WMI traffic on the network, eliminating the threat immediately'
+    ],
+    correctAnswer: 1,
+    explanation: 'In purple teaming, the immediate goal when a detection gap is found is to create and validate a detection in real-time. The red team provides live test data while the blue team develops and tests rules. Option A ends learning. Option C delays. Option D may break management tools.',
+  },
+
+  {
+    id: 201,
+    moduleId: 'blueteam',
+    topic: 'Defense in Depth',
+    question: 'A security architect is designing defenses for a financial application. Current stack: NGFW, WAF, antivirus on endpoints, annual pentests. A competitor was breached when attackers bypassed the WAF using a novel SQLi and moved laterally because internal traffic was unmonitored. Which defense-in-depth layer is most critically missing?',
+    options: [
+      'Another WAF from a different vendor for overlapping protection',
+      'Network segmentation with internal monitoring (IDS/IPS on internal segments) and EDR, since defense in depth requires controls at network, host, and application layers, not just the perimeter',
+      'More frequent penetration tests since quarterly tests would have caught the lateral movement',
+      'Stronger password policies since lateral movement was enabled by weak passwords'
+    ],
+    correctAnswer: 1,
+    explanation: 'Defense in depth requires controls at multiple layers (perimeter, network, host, application, data). Current architecture focuses on perimeter (NGFW, WAF) and basic AV. Network segmentation and EDR add internal detection. Option A reinforces one layer. Options C, D address specific vectors.',
+  },
+
+  {
+    id: 202,
+    moduleId: 'blueteam',
+    topic: 'SIEM Architecture',
+    question: 'A company deploys a SIEM for 2,000 endpoints, 50 network devices, 20 servers, and 5 cloud environments. They prioritize detecting lateral movement and privilege escalation. The SIEM has a daily log ingestion limit. Which log source strategy provides the highest detection value?',
+    options: [
+      'Collect all logs from all sources equally, distributing the budget proportionally',
+      'Ingest only firewall logs because they capture all network traffic',
+      'Prioritize Windows Event Logs (4688 Process Creation, 4624 Logon, 4663 Object Access), authentication logs from DCs, and cloud audit logs (CloudTrail, Azure Audit Logs) for the most relevant data',
+      'Collect only cloud logs because on-premises security is less important'
+    ],
+    correctAnswer: 2,
+    explanation: 'Windows Event Logs (process creation, logon events) and DC security logs are high-value for lateral movement and privilege escalation detection. Cloud audit logs address cloud threats. Option A dilutes budget. Option B misses endpoint-level activity. Option D ignores on-premises.',
+  },
+
+  {
+    id: 203,
+    moduleId: 'blueteam',
+    topic: 'Log Correlation',
+    question: 'A SOC analyst sees an alert: multiple failed logins followed by a successful login for a user from IP 185.x.x.x at 2 AM. The analyst needs to determine if this is a successful brute-force. Which logs should be correlated?',
+    options: [
+      'Immediately block the IP and reset the password; multiple failed logins always indicate an attack',
+      'Check: (1) Did successful login come from the same IP? (2) Was it followed by unusual activity (service creation, unusual data access)? (3) Is the account normally accessed from that region? (4) Is the timestamp consistent with normal hours?',
+      'Ignore the alert because failed logins are common and rarely indicate compromise',
+      'Email the user asking if they recognize the activity and wait for a response'
+    ],
+    correctAnswer: 1,
+    explanation: 'Log correlation provides context: same IP confirms brute-force, post-login anomalies indicate compromise, geographic anomalies suggest credential abuse, off-hours activity is suspicious. Option A is premature. Option C is negligent. Option D delays response unnecessarily.',
+  },
+
+  {
+    id: 204,
+    moduleId: 'blueteam',
+    topic: 'Signal-to-Noise Ratio (SNR)',
+    question: 'A new detection rule for PowerShell downloading executables generates 5,000 alerts/day. Only 3 are confirmed malicious. The rest are from legitimate IT automation. The SOC has 5 analysts handling ~100 alerts/day each. What is the primary problem?',
+    options: [
+      'The rule misses true positives; 5,000 alerts should contain more than 3 attacks',
+      'The SNR is extremely poor (0.06%), overwhelming analysts and causing alert fatigue that leads to missed real attacks',
+      'The rule works perfectly by detecting 3 attacks per day',
+      'The analysts need to handle more alerts per day to keep up'
+    ],
+    correctAnswer: 1,
+    explanation: 'SNR of 0.06% (3/5000) is very poor. With 500 alerts/day capacity vs 5,000 generated, alert fatigue is inevitable. The rule needs tuning: add exceptions for legitimate automation, require additional context. Options A and C ignore the noise problem.',
+  },
+
+  {
+    id: 205,
+    moduleId: 'blueteam',
+    topic: 'IDS vs IPS',
+    question: 'A company deploys a network security solution that monitors traffic, generates alerts, and logs activity but cannot actively block traffic. A zero-day exploit targeting their web server is released; the solution detects the exploit pattern on a Friday evening. What is the limitation?',
+    options: [
+      'The solution is an IDS (detects/alert but cannot block), requiring manual intervention or a separate IPS to actively stop the attack',
+      'The solution is working as intended; detecting and alerting is sufficient',
+      'The solution should be replaced because any tool that cannot block is useless',
+      'The solution is an IPS that is malfunctioning by not blocking traffic'
+    ],
+    correctAnswer: 0,
+    explanation: 'An IDS is passive: it monitors, detects, and alerts but cannot block. An IPS actively drops/ blocks malicious traffic. Here, the IDS detects but cannot prevent. Manual intervention (WAF rules, firewall blocks) is needed. Options B and C misunderstand IDS value.',
+  },
+
+  {
+    id: 206,
+    moduleId: 'blueteam',
+    topic: 'Signature vs Anomaly Detection',
+    question: 'An analyst configures a network IDS. They need to detect both known attacks (e.g., SQLi patterns) and novel attacks (e.g., new obfuscation bypassing signatures). Which approach should be prioritized for each?',
+    options: [
+      'Anomaly detection for known attacks; signature for unknown attacks since anomaly is more precise',
+      'Signature-based (Snort rules with specific payload patterns) for known attacks; anomaly-based (statistical baselining) for unknown or novel attacks deviating from normal behavior',
+      'Only anomaly detection since it covers both without signature updates',
+      'Only signature-based since anomaly detection generates too many false positives'
+    ],
+    correctAnswer: 1,
+    explanation: 'Signature detection excels at known threats with specific patterns (low false positives). Anomaly detection establishes normal baselines and flags deviations, suitable for zero-days and novel attacks. Defense-in-depth uses both. Options A, C, D are too absolute.',
+  },
+
+  {
+    id: 207,
+    moduleId: 'blueteam',
+    topic: 'Snort/Suricata/Zeek',
+    question: 'A blue team analyst evaluates NSM tools. Requirements: (1) 10 Gbps inspection, (2) multi-threading support, (3) HTTP/DNS/SMB protocol analysis, (4) full network conversation logging for forensics, (5) intrusion detection signatures. Which tool best meets all requirements simultaneously?',
+    options: [
+      'Snort, because it is the most widely used IDS with all features natively',
+      'Suricata, which supports multi-threading for high-speed inspection, has built-in IDS/IPS with signature detection, and logs full network transactions via its logging engine',
+      'Zeek (formerly Bro), which is primarily a protocol analysis and logging framework with limited IDS capabilities',
+      'Tcpdump for packet capture; the foundation of network monitoring'
+    ],
+    correctAnswer: 1,
+    explanation: 'Suricata is designed for high performance with native multi-threading (unlike Snort which is predominantly single-threaded). It combines IDS/IPS with comprehensive protocol logging (HTTP, DNS, TLS, SMB). Zeek (C) excels at protocol analysis but has different signature capabilities.',
+  },
+
+  {
+    id: 208,
+    moduleId: 'blueteam',
+    topic: 'Forensic Acquisition',
+    question: 'A server in the DMZ is compromised but critical to operations and cannot be taken offline. The IR team needs to acquire forensic evidence while the server is running. Which approach is most appropriate?',
+    options: [
+      'Hard power-off to preserve the hard drive state, then create a full disk image with a write-blocker',
+      'Live forensic acquisition: capture volatile data first (RAM, processes, connections, logged-in users) using trusted tools on a USB drive, then acquire a logical image of relevant disk partitions',
+      'Create a full disk image over the network via dd with SSH while the server is running',
+      'Skip evidence acquisition and proceed to reimaging because the server cannot be taken offline'
+    ],
+    correctAnswer: 1,
+    explanation: 'Live forensic acquisition follows the order of volatility: capture volatile data (RAM, processes, connections) first since it is lost on power-off. Trusted tools ensure evidence integrity. Option A causes downtime and loses volatile data. Option C risks evidence alteration.',
+  },
+
+  {
+    id: 209,
+    moduleId: 'blueteam',
+    topic: 'Chain of Custody',
+    question: 'A forensic analyst acquires a hard drive from a compromised server, creates a forensic image with SHA-256 hash, stores the original in a locked evidence locker, and analyzes the image. Six months later, the case goes to court and the defense challenges the evidence. What documentation is most critical?',
+    options: [
+      'The original purchase receipt for the hard drive',
+      'A complete chain of custody form documenting every person who handled the evidence with timestamps, purpose, and signatures, along with SHA-256 hash values proving the image has not been modified',
+      'A written narrative of the incident response from memory since formal documentation was not maintained',
+      'The resume of the forensic analyst showing qualifications'
+    ],
+    correctAnswer: 1,
+    explanation: 'Chain of custody documents every transfer with who, when, why, and condition. Cryptographic hashes prove the image is unmodified. This is essential for evidence admissibility. Option A (receipt) is irrelevant. Option C lacks contemporaneous documentation.',
+  },
+
+  {
+    id: 210,
+    moduleId: 'blueteam',
+    topic: 'Volatility',
+    question: 'A forensic analyst has a memory dump from a compromised Windows 10 workstation. Suspected rootkit hiding processes from the Windows API. The analyst needs to find hidden processes, injected code, running processes, and command-line arguments. Which Volatility plugin sequence should they use?',
+    options: [
+      'imageinfo (OS profile) -> pslist (API processes) -> psscan (hidden processes via EPROCESS pool) -> malfind (injected code) -> cmdline (command-line arguments)',
+      'pslist only; it shows all processes and is sufficient for rootkit detection',
+      'malfind first, then pslist; injected code detection should be prioritized',
+      'hashdump first to extract password hashes since credential theft is the most common rootkit goal'
+    ],
+    correctAnswer: 0,
+    explanation: 'Correct Volatility workflow: 1) imageinfo for profile, 2) pslist (API enumeration), 3) psscan (EPROCESS pool scan, cross-ref with pslist for hidden processes), 4) malfind (suspicious memory regions), 5) cmdline. Option B misses hidden processes. Options C, D are out of order.',
+  },
+
+  {
+    id: 211,
+    moduleId: 'blueteam',
+    topic: 'Incident Response - NIST Phases',
+    question: 'An organization discovers customer payment card data may have been exfiltrated. The CEO pressures the team to \'find who did it\' immediately. The IR team lead needs to explain proper process. Which NIST phase addresses containment before attribution?',
+    options: [
+      'Preparation: the team should have prepared for attribution before the incident',
+      'Detection and Analysis: attribution is part of analysis before containment',
+      'Containment, Eradication, and Recovery: containing the breach (removing server from network) and preserving evidence before attempting attribution, which may occur later or through law enforcement',
+      'Post-Incident Activity: attribution happens after the incident is closed'
+    ],
+    correctAnswer: 2,
+    explanation: 'NIST SP 800-61 phases: Preparation, Detection/ Analysis, Containment/Eradication/Recovery, Post-Incident Activity. Containment (removing from network, preserving evidence) takes priority over attribution. Attribution may come later. Option B is incorrect: containment precedes deep analysis.',
+  },
+
+  {
+    id: 212,
+    moduleId: 'blueteam',
+    topic: 'Runbooks',
+    question: 'A SOC team faces repeated incidents where analysts handle the same type of alert differently, leading to inconsistent response quality and missed steps. Which improvement would most directly address this?',
+    options: [
+      'Purchase more advanced SIEM tools that automate all investigation steps',
+      'Develop and maintain detailed incident response runbooks with step-by-step procedures for each alert type, including triage, investigation, containment, and escalation criteria',
+      'Hire senior analysts who intuitively know the correct response for each scenario',
+      'Reduce the number of alerts so analysts have more time per alert'
+    ],
+    correctAnswer: 1,
+    explanation: 'Runbooks standardize response procedures, ensuring consistent and complete handling of common incident types. They include triage steps, investigation procedures, containment guidance, and escalation criteria. Option A cannot fully replace human judgment. Option C is unrealistic. Option D doesn\'t address consistency.',
+  },
+
+  {
+    id: 213,
+    moduleId: 'blueteam',
+    topic: 'Severity Classification',
+    question: 'A SOC analyst triages the following simultaneously: (A) a single workstation with antivirus detecting a known PUAP, (B) a domain admin account exhibiting lateral movement to 15 servers, (C) a phishing email reported by one user (not clicked), (D) a critical server with 90% disk usage alert. How should these be prioritized?',
+    options: [
+      'A then B then C then D based on detection order',
+      'B (Domain Admin lateral movement to 15 servers) first as active, verified compromise with broad impact. D (disk usage) second as availability impact. A (PUAP) third as low severity. C (unclicked phish) last as not exploited.',
+      'C first because phishing is the most common attack vector',
+      'D first because critical server availability is always the top priority'
+    ],
+    correctAnswer: 1,
+    explanation: 'B is the highest priority: verified compromise with lateral movement from a privileged account. D is an availability issue but not necessarily security. A is low severity (PUAP). C is a reported phish with no click, requiring investigation but not immediate response. Context matters for prioritization.',
+  },
+
+  {
+    id: 214,
+    moduleId: 'blueteam',
+    topic: 'Threat Hunting - Methodology',
+    question: 'A threat hunter hypothesizes that attackers are using PowerShell Empire for post-exploitation. The hunter searches for: unusual PowerShell process creation, base64-encoded command lines, outbound connections on high-numbered ports from PowerShell, and Event ID 4104 (PowerShell script block logging). Which hunting methodology is being used?',
+    options: [
+      'Indicator-based hunting: searching for specific IOCs from known threat reports',
+      'Hypothesis-based hunting: starting with a hypothesis about specific TTPs (PowerShell Empire) and searching for associated behavioral evidence across multiple data sources',
+      'Baseline-based hunting: comparing current behavior to a historical baseline',
+      'Intel-driven hunting: consuming threat intelligence feeds for automated detection'
+    ],
+    correctAnswer: 1,
+    explanation: 'Hypothesis-based hunting starts with a hypothesis (adversaries using PowerShell Empire) and searches for associated behavioral evidence (unusual PowerShell, base64 cmdlines, outbound connections, script block logging). This is a proactive approach based on TTP knowledge, not specific IOCs.',
+  },
+
+  {
+    id: 215,
+    moduleId: 'blueteam',
+    topic: 'Hypothesis-Based Hunting',
+    question: 'A threat hunter develops the hypothesis: \'Attackers may be exploiting the recently disclosed Log4j vulnerability (CVE-2021-44228) in our Java applications.\' The hunter searches all HTTP logs for JNDI lookup patterns, LDAP outbound connections, and unexpected Java process behavior. The search finds no matches. How should the hunter interpret this result?',
+    options: [
+      'The hypothesis was wrong; Log4j is not a relevant threat and should be dismissed',
+      'The negative result is valuable: it provides evidence that either the systems are not vulnerable, the detection missed the attack, or the attack has not occurred, informing risk assessment and potential detection improvements',
+      'The hunter should stop hunting because no results were found',
+      'The hunter should expand the search to all vulnerabilities in the NVD database'
+    ],
+    correctAnswer: 1,
+    explanation: 'Negative hunting results are valuable. They may indicate: systems are patched/not vulnerable, current detections miss the attack pattern (needing improvement), or the attack has not occurred. This informs risk posture and detection coverage. Options A and C dismiss valuable information. Option D is unfocused.',
+  },
+
+  {
+    id: 216,
+    moduleId: 'blueteam',
+    topic: 'Hardening Principles',
+    question: 'A system administrator is hardening a new Linux web server. Current state: default installation with SSH password authentication enabled, root login permitted, all ports open in the firewall, and default Apache configuration. Which hardening principle should be applied first and why?',
+    options: [
+      'Apply the latest security patches because patching is always the highest priority',
+      'Apply the principle of least privilege: disable root SSH login, enforce key-based authentication, close all unnecessary ports, remove default Apache pages, and run the web service under a dedicated non-privileged user',
+      'Install a commercial antivirus because Linux servers are increasingly targeted by malware',
+      'Enable SELinux in enforcing mode immediately, which automatically hardens all configurations'
+    ],
+    correctAnswer: 1,
+    explanation: 'The principle of least privilege dictates that systems should run with the minimum necessary permissions. Disabling root SSH, key-based auth, closing unnecessary ports, removing defaults, and using a dedicated user limit the attack surface. Patches (A) are important but privilege reduction is foundational.',
+  },
+
+  {
+    id: 217,
+    moduleId: 'blueteam',
+    topic: 'Least Privilege',
+    question: 'An application requires read access to a specific database table \'orders\' for reporting. The development team requests a SQL account with \'sa\' (system administrator) privileges \'just to be safe.\' The DBA is concerned about least privilege. What should the DBA do?',
+    options: [
+      'Grant sa access since the developers know what they need and refusing creates bottlenecks',
+      'Create a dedicated database user with EXECUTE on the specific reporting stored procedure and SELECT on only the required columns in the orders table, denying all other permissions',
+      'Grant db_owner role on the database since it provides complete control over all database objects',
+      'Provide the root database password and let developers manage their own permissions'
+    ],
+    correctAnswer: 1,
+    explanation: 'Least privilege requires granting only the minimum permissions needed. A dedicated user with specific object-level permissions (EXECUTE on specific proc, SELECT on needed columns) is appropriate. Option A grants excessive privilege. Options C and D violate least privilege entirely.',
+  },
+
+  {
+    id: 218,
+    moduleId: 'blueteam',
+    topic: 'CIS Benchmarks',
+    question: 'A security auditor checks a Windows Server 2019 against industry best practices and finds: password policy allows 4-character passwords, guest account is enabled, SMBv1 is enabled, and auditing is not configured. Which standard provides specific hardening recommendations for this scenario?',
+    options: [
+      'PCI DSS, because it covers all security configurations for any system',
+      'ISO 27001, which provides a framework for information security management',
+      'CIS Benchmarks for Windows Server 2019, which provide specific, consensus-based hardening recommendations including password policy, account configuration, protocol disabling, and audit policy settings',
+      'NIST SP 800-53, which provides security and privacy controls for federal information systems'
+    ],
+    correctAnswer: 2,
+    explanation: 'CIS (Center for Internet Security) Benchmarks provide specific, step-by-step hardening guidelines for operating systems, including password policies, account management, disabling legacy protocols (SMBv1), and audit configuration. PCI DSS (A) focuses on payment card data. ISO 27001 (B) is a management framework.',
+  },
+
+  {
+    id: 219,
+    moduleId: 'blueteam',
+    topic: 'BCP vs DRP',
+    question: 'A company experiences a ransomware attack that encrypts all servers in the primary data center. The company has a Disaster Recovery Plan (DRP) that includes restoring from backups at a secondary site, estimated to take 72 hours. However, the business requires critical operations to resume within 4 hours to avoid significant financial loss. What is the gap in the current planning?',
+    options: [
+      'The DRP is sufficient because 72 hours is a standard recovery time for ransomware',
+      'The company needs a Business Continuity Plan (BCP) that defines the maximum tolerable downtime (4 hours) and implements alternative processing arrangements (such as a hot standby site or cloud failover) to meet the 4-hour requirement',
+      'The backup strategy is flawed; the company should use tape backups instead of disk backups',
+      'The DRP should be abandoned because ransomware attacks cannot be recovered from'
+    ],
+    correctAnswer: 1,
+    explanation: 'The gap is between the RTO (Recovery Time Objective) of 4 hours needed by the business and the 72-hour DRP capability. A BCP addresses business continuity requirements including RTO/RPO and may require a hot standby or active-active architecture. Option A ignores the business requirement. Option C doesn\'t address time.',
+  },
+
+  {
+    id: 220,
+    moduleId: 'blueteam',
+    topic: 'RTO/RPO',
+    question: 'A company defines the following recovery objectives for its core banking application: maximum acceptable data loss is 15 minutes, and the application must be fully operational within 2 hours of a disaster. Which RTO and RPO values correspond to these requirements?',
+    options: [
+      'RTO = 15 minutes, RPO = 2 hours',
+      'RTO = 2 hours, RPO = 15 minutes',
+      'RTO = 2 hours, RPO = 2 hours',
+      'RTO = 15 minutes, RPO = 15 minutes'
+    ],
+    correctAnswer: 1,
+    explanation: 'RTO (Recovery Time Objective) is the maximum time to restore operations (2 hours). RPO (Recovery Point Objective) is the maximum acceptable data loss measured in time (15 minutes). Option A swaps the definitions. Options C and D do not match the stated requirements.',
+  },
+
+  {
+    id: 221,
+    moduleId: 'blueteam',
+    topic: '3-2-1 Backup Rule',
+    question: 'A company stores its backup data on a single Network Attached Storage (NAS) device in the same server room as the production systems. A fire in the server room destroys both the production servers and the NAS. The company loses all data. Which backup best practice was violated?',
+    options: [
+      'The 3-2-1 backup rule: maintain at least 3 copies of data, on 2 different media types, with 1 copy offsite. Storing the only backup on a single NAS in the same physical location violates all three principles.',
+      'No rule was violated because the NAS backup is a standard practice; the company was simply unlucky',
+      'The company should have used RAID on the NAS, which would have protected against the fire',
+      'The company should have backed up to tape instead of NAS'
+    ],
+    correctAnswer: 0,
+    explanation: 'The 3-2-1 rule: 3 copies of data, 2 different media types, 1 offsite. The company had only 1 backup copy on 1 medium in 1 location (same room). RAID (C) protects against disk failure, not site destruction. Tape vs NAS (D) doesn\'t address the offsite requirement.',
+  },
+
+  {
+    id: 222,
+    moduleId: 'blueteam',
+    topic: 'Defense in Depth - Network',
+    question: 'A security architect is designing network security for a multi-tier web application with web servers, application servers, and database servers. The architect places the web servers in a DMZ, the application servers in an internal network with strict firewall rules allowing only web server traffic on specific ports, and the database servers in a restricted network accessible only from the application servers. This design implements which defense-in-depth principle?',
+    options: [
+      'Security through obscurity by hiding the database servers',
+      'Network segmentation with tiered access controls, creating separate security zones that limit lateral movement and contain potential breaches',
+      'Complete network isolation, making all services inaccessible',
+      'Perimeter security only, focusing all defenses at the internet edge'
+    ],
+    correctAnswer: 1,
+    explanation: 'Network segmentation creates security zones (DMZ, internal, restricted) with different trust levels. Firewall rules enforce only necessary traffic between tiers. This limits lateral movement: compromising a web server does not grant direct database access. Option A is not security through obscurity. Option C is too restrictive.',
+  },
+
+  {
+    id: 223,
+    moduleId: 'blueteam',
+    topic: 'SIEM - False Positive Management',
+    question: 'A SOC team implements a SIEM correlation rule that alerts when a single user logs into more than 3 servers within 10 minutes. The rule generates 100 alerts per day, but 90 are legitimate system administrators performing routine maintenance. The team needs to reduce false positives. Which approach is most effective?',
+    options: [
+      'Delete the rule entirely because it generates too many false positives',
+      'Modify the rule to exclude known admin accounts and maintenance windows via an allowlist, and increase the threshold to 5 servers within 10 minutes for non-excluded accounts',
+      'Keep the rule and increase SOC staffing to handle 100 alerts per day',
+      'Escalate all alerts to Tier 3 analysts since they are experienced enough to identify false positives quickly'
+    ],
+    correctAnswer: 1,
+    explanation: 'False positive management requires tuning: adding exceptions for known legitimate activity (admin accounts, maintenance windows) and adjusting thresholds. The rule itself has value for detecting compromised accounts. Option A removes detection entirely. Option C is inefficient. Option D escalates without resolution.',
+  },
+
+  {
+    id: 224,
+    moduleId: 'blueteam',
+    topic: 'Incident Response Preparation',
+    question: 'An organization is building an incident response capability from scratch. They have no existing IR plan, tools, or trained personnel. A ransomware attack occurs before the capability is mature. Which immediate action should the organization take?',
+    options: [
+      'Attempt to negotiate with the attackers and pay the ransom to recover data quickly',
+      'Isolate affected systems from the network to contain the spread, activate any available backup procedures, engage an external IR firm with ransomware expertise, and preserve evidence for potential law enforcement involvement',
+      'Shut down all systems immediately and start rebuilding from scratch without investigation',
+      'Ignore the incident and continue operations since ransomware rarely causes permanent damage'
+    ],
+    correctAnswer: 1,
+    explanation: 'Without mature IR capability, the immediate priorities are containment (isolate affected systems), engage experts (external IR firm), leverage existing backups, and preserve evidence. Option A (paying) is risky and not recommended. Option C destroys forensic evidence. Option D is negligent.',
+  },
+
+  {
+    id: 225,
+    moduleId: 'blueteam',
+    topic: 'Threat Hunting - Pyramid of Pain',
+    question: 'A threat hunter is developing detection strategies for a specific APT group. The hunter can detect: (A) specific MD5 hashes of known tools, (B) domain names used by the group, (C) TTPs such as specific registry modifications, (D) IP addresses of known C2 servers, and (E) specific artifacts like named pipes. The hunter wants to focus on detection methods that are hardest for the adversary to change. Which detection types should the hunter prioritize based on the Pyramid of Pain?',
+    options: [
+      'Hash values (A) because they are the easiest to implement',
+      'IP addresses (D) because they are the most commonly shared IOCs',
+      'TTPs (C) because behaviors are the most difficult for adversaries to change, sitting at the top of the Pyramid of Pain',
+      'Domain names (B) because they are expensive for adversaries to replace'
+    ],
+    correctAnswer: 2,
+    explanation: 'The Pyramid of Pain ranks indicators by difficulty for adversaries to change: Hash values (easy), IP addresses, Domain names, Network/host artifacts, Tools, TTPs (hardest). TTPs describe adversary behaviors and are most difficult to change without significant investment. Options A, B, D target lower-hanging fruit.',
+  },
+
+  {
+    id: 226,
+    moduleId: 'blueteam',
+    topic: 'Hardening - Windows',
+    question: 'A security team is hardening Windows 10 workstations for high-security users (executives). The current configuration allows users to install applications, has UAC set to the default level, PowerShell is unrestricted, and RDP is enabled. Which hardening measures should the team prioritize?',
+    options: [
+      'Disable all user accounts to prevent any installation',
+      'Apply the Microsoft Security Baselines for Windows 10, which include: setting UAC to maximum, restricting PowerShell execution policy, disabling RDP unless required with Network Level Authentication, enabling AppLocker or WDAC for application control, and enforcing standard user accounts',
+      'Upgrade all workstations to Windows 11 which is inherently more secure',
+      'Remove all network access so workstations cannot communicate with the internet'
+    ],
+    correctAnswer: 1,
+    explanation: 'Microsoft Security Baselines provide tested configurations for hardening Windows. Key measures: UAC max, restricted PowerShell, disabled RDP with NLA, AppLocker/WDAC for application whitelisting, standard user accounts. Option A prevents all work. Option C is not a hardening step. Option D breaks functionality.',
+  },
+
+  {
+    id: 227,
+    moduleId: 'blueteam',
+    topic: 'IDS/IPS - Placement',
+    question: 'A network security engineer needs to deploy an IPS to protect a critical application server farm containing customer PII. The traffic flow is: Internet -> Firewall -> Load Balancer -> Web Servers -> App Servers -> Database Servers. The engineer has budget for two IPS sensors. Which placement provides the most effective protection?',
+    options: [
+      'One sensor between the firewall and load balancer (monitoring inbound internet traffic) and one at the internet edge before the firewall',
+      'One sensor between the load balancer and web servers (monitoring decrypted traffic after SSL termination) and one between the web servers and application servers (monitoring internal traffic for lateral movement)',
+      'Both sensors at the database server network because that is where the sensitive data resides',
+      'One sensor at each web server host directly since network sensors are ineffective'
+    ],
+    correctAnswer: 1,
+    explanation: 'Placing one IPS after SSL termination (where traffic is decrypted) is critical for inspecting web application attacks. The second sensor between web and app servers detects lateral movement if a web server is compromised. Option A misses internal lateral movement. Option C misses web attacks. Option D is host-based.',
+  },
+
+  {
+    id: 228,
+    moduleId: 'blueteam',
+    topic: 'Forensics - Order of Volatility',
+    question: 'An incident responder arrives at a compromised Linux server. The server is still running. The responder needs to collect evidence. According to the Order of Volatility (RFC 3227), which sequence is correct?',
+    options: [
+      'Hard drive -> RAM -> network connections -> running processes -> system logs',
+      'RAM -> network connections -> running processes -> temporary file systems -> hard drive',
+      'Registers/cache -> routing table/ARP cache -> process table/kernel memory -> temporary file systems -> disk -> remote logs/monitoring data',
+      'System logs -> network connections -> running processes -> RAM -> hard drive'
+    ],
+    correctAnswer: 2,
+    explanation: 'RFC 3227 Order of Volatility: CPU registers/cache (most volatile), routing table/ARP cache, process table/kernel statistics/memory, temporary file systems, disk, remote logs/monitoring data (least volatile). Option B is close but misses registers. Options A and D collect disk before RAM, losing volatile data.',
+  },
+
+  {
+    id: 229,
+    moduleId: 'blueteam',
+    topic: 'Incident Response - Eradication',
+    question: 'After a ransomware incident, the IR team has contained the outbreak and identified the root cause: an unpatched internet-facing RDP server. The team restored all encrypted servers from clean backups. However, the CISO asks: \'How do we know the attackers are completely removed from our environment?\' Which eradication step is most critical before declaring recovery complete?',
+    options: [
+      'Change all passwords and rotate all cryptographic keys/ certificates, re-image all affected systems (not just restore from backup), verify that the initial access vector (unpatched RDP) is remediated, and conduct a comprehensive hunt for persistence mechanisms',
+      'Restore from backups and assume the attackers are removed since backups are clean',
+      'Simply patch the RDP server and declare the incident resolved',
+      'Reinstall the operating system on the RDP server only'
+    ],
+    correctAnswer: 0,
+    explanation: 'Thorough eradication includes: password/key rotation, re-imaging affected systems (backups may contain latent malware), closing the initial access vector, and actively hunting for persistence (backdoors, new accounts, scheduled tasks). Option B assumes backups are clean without verification. Options C and D are incomplete.',
+  },
+
+  {
+    id: 230,
+    moduleId: 'blueteam',
+    topic: 'Threat Hunting - Data Sources',
+    question: 'A threat hunter wants to search for evidence of Pass-the-Hash attacks using NTLM hashes across the network. The hunter needs to correlate activity across multiple systems. Which data sources should the hunter prioritize?',
+    options: [
+      'NetFlow data alone, which shows all network connections',
+      'Windows Security Event Logs (especially 4624 Logon with LogonType 3 and 4648 explicit credentials), NTLM authentication logs on domain controllers, and EDR process creation logs showing tools like Mimikatz or Invoke-Mimikatz loaded',
+      'Firewall logs showing all outbound traffic',
+      'DNS query logs showing all domain resolution requests'
+    ],
+    correctAnswer: 1,
+    explanation: 'Pass-the-Hash detection requires: Windows Event 4624 (NTLM logon with specific logon types), DC NTLM authentication logs for unusual source workstations, and EDR logs for credential dumping tools. NetFlow (A) doesn\'t show authentication details. Firewall (C) and DNS (D) logs are too generic.',
+  },
+
+  {
+    id: 231,
+    moduleId: 'blueteam',
+    topic: 'BCP - Tabletop Exercise',
+    question: 'A company develops a Business Continuity Plan for its data center. The BCP assumes the primary data center will be available within 4 hours of a disaster. During a tabletop exercise, the facilitator reveals that the primary data center has been destroyed by a regional flood and will be unavailable for 7 days. What does this scenario reveal?',
+    options: [
+      'The BCP is perfect because 4 hours is a standard RTO',
+      'The BCP has a flawed assumption about a single failure scenario; tabletop exercises help identify such gaps by stress-testing plans against realistic scenarios that deviate from assumptions',
+      'Tabletop exercises are useless because they reveal flaws without providing solutions',
+      'The flood scenario is unrealistic and should be ignored for planning purposes'
+    ],
+    correctAnswer: 1,
+    explanation: 'Tabletop exercises reveal planning gaps by stress-testing assumptions. Assuming the data center is available in 4 hours ignores scenarios where it is destroyed. The exercise reveals the need for an alternative site or cloud failover. Options A and D ignore the revealed gap. Option C is wrong: identifying flaws is valuable.',
+  },
+
+  {
+    id: 232,
+    moduleId: 'blueteam',
+    topic: 'SIEM - Use Case',
+    question: 'A SOC manager wants to create a SIEM use case for detecting \'insider threat: data exfiltration by a departing employee.\' Which combination of log sources and detection logic would be most effective?',
+    options: [
+      'Alert on any employee accessing the HR system (privacy violation)',
+      'Correlate: (1) HR system notification of employee resignation (HR system), (2) employee accessing sensitive data they do not normally access (DLP/file audit logs), (3) unusual download volume (proxy/egress logs), (4) USB device connection (device control logs) within a 2-week window before departure date',
+      'Block all USB ports and DLP violations immediately for all employees',
+      'Monitor only the departing employee\'s email for the final week'
+    ],
+    correctAnswer: 1,
+    explanation: 'An effective insider threat use case correlates multiple signals: HR context (resignation), abnormal data access (file audit), unusual volume (proxy/egress), USB activity. This combination reduces false positives. Option A creates privacy issues. Options C and D are too narrow.',
+  },
+
+  {
+    id: 233,
+    moduleId: 'blueteam',
+    topic: 'MITRE ATT&CK - Defensive Mapping',
+    question: 'A blue team wants to map their existing security controls to the MITRE ATT&CK framework to identify detection coverage gaps. They have EDR covering execution and persistence, a WAF covering initial access via web exploits, and DLP covering exfiltration. Which tactic has the most significant detection gap based on this mapping?',
+    options: [
+      'Initial Access: fully covered by the WAF',
+      'Execution: fully covered by EDR',
+      'Lateral Movement and Command and Control: no controls mapped, leaving a significant gap where an attacker who compromises one host can move laterally and communicate with C2 undetected',
+      'Exfiltration: fully covered by DLP'
+    ],
+    correctAnswer: 2,
+    explanation: 'Mapping controls to ATT&CK reveals gaps. EDR covers Execution/Persistence, WAF covers Initial Access (web), DLP covers Exfiltration. But Lateral Movement and C2 have no mapped controls, meaning an attacker who bypasses the WAF or enters through another vector (phishing, VPN) can move freely.',
+  },
+
+  {
+    id: 234,
+    moduleId: 'blueteam',
+    topic: 'Zeek - Log Analysis',
+    question: 'A blue team analyst reviews Zeek logs after a reported compromise. The analyst finds: (1) conn.log shows sustained TLS connections from a workstation to an external IP on port 443, (2) ssl.log shows the TLS certificate is self-signed, (3) http.log shows no HTTP traffic from that workstation, and (4) dns.log shows the workstation queried a domain that was registered 3 days ago. What does this indicate?',
+    options: [
+      'Normal browsing activity: many websites use self-signed certificates',
+      'Suspicious: sustained encrypted traffic with a self-signed certificate to a newly registered domain with no HTTP traffic suggests possible C2 communication using HTTPS to blend in',
+      'The self-signed certificate confirms the connection is to a legitimate internal resource',
+      'Newly registered domains are not suspicious because many legitimate businesses register domains daily'
+    ],
+    correctAnswer: 1,
+    explanation: 'The combination of sustained TLS (not typical browsing), self-signed certificate (unusual for legitimate external services), newly registered domain (common for adversary infrastructure), and no HTTP traffic (pure encrypted connection) is highly suspicious and suggests HTTPS C2. Options A, C, D ignore these indicators.',
+  },
+
+  {
+    id: 235,
+    moduleId: 'blueteam',
+    topic: 'Forensics - Timeline Analysis',
+    question: 'A forensic analyst is analyzing a compromised Linux web server and finds the following timestamps: /var/www/html/shell.php created at 2024-03-15 03:17:22, auth.log shows SSH login from 185.x.x.x at 03:18:01, /etc/cron.d/backup created at 03:20:15 with a reverse shell command, and /var/log/apache2/access.log shows access to shell.php starting at 03:25:00. What is the correct timeline of events?',
+    options: [
+      'The web shell was uploaded first (03:17), then the attacker SSH\'d in (03:18), created a cron persistence (03:20), and used the web shell (03:25)',
+      'The attacker SSH\'d in first (03:18), uploaded the web shell via SCP (03:17 has wrong timestamp), then created cron job (03:20)',
+      'The cron job was created first (03:20), the web shell was uploaded (03:17), and the SSH login (03:18) is unrelated',
+      'All events happened at the same time; timestamps can never be trusted on compromised systems'
+    ],
+    correctAnswer: 0,
+    explanation: 'Timeline analysis: the web shell was uploaded at 03:17 via web vulnerability, the attacker then SSH\'d at 03:18 using stolen or brute-forced credentials, created persistence via cron at 03:20, and accessed the web shell at 03:25. Timeline construction is critical for understanding the attack sequence.',
+  },
+
+  {
+    id: 236,
+    moduleId: 'blueteam',
+    topic: 'Incident Response - Communication',
+    question: 'During a major incident involving potential data breach of customer PII, the IR team discovers that the breach likely occurred 6 months ago but was only detected now. The legal team advises immediate notification of affected customers. The CEO wants to delay notification until the investigation is complete. Which consideration should guide this decision?',
+    options: [
+      'The CEO\'s preference to delay notification is absolute',
+      'Legal and regulatory requirements (GDPR, CCPA, sector-specific regulations) typically require notification within specific timeframes after discovery, regardless of investigation completeness. The IR team must balance thorough investigation with legal compliance.',
+      'Delay notification indefinitely because the investigation will eventually determine exactly who was affected',
+      'Notify only if customers ask; otherwise, avoid notification to prevent reputational damage'
+    ],
+    correctAnswer: 1,
+    explanation: 'Many regulations (GDPR 72 hours, CCPA, HIPAA, state breach notification laws) mandate notification within specific timeframes after breach discovery. Legal compliance and customer protection must be balanced with investigation needs. Option A ignores legal obligations. Options C and D risk legal penalties.',
+  },
+
+  {
+    id: 237,
+    moduleId: 'blueteam',
+    topic: 'Threat Hunting - Intelligence-Driven',
+    question: 'A threat intelligence report indicates that a specific ransomware group (LockBit 3.0) is using a new technique to disable Windows Defender via WMI and deploy ransomware through scheduled tasks. A threat hunter wants to proactively search for this activity in the environment. Which hunting approach is this?',
+    options: [
+      'Reactive hunting: responding to a confirmed incident',
+      'Intel-driven hunting: using threat intelligence about specific TTPs to proactively search for associated indicators and behaviors before a confirmed compromise',
+      'Baseline hunting: looking for deviations from normal behavior patterns',
+      'Compliance-driven hunting: checking for regulatory compliance violations'
+    ],
+    correctAnswer: 1,
+    explanation: 'Intel-driven hunting uses threat intelligence about adversary TTPs to proactively search for associated evidence in the environment. The intelligence about LockBit 3.0\'s specific techniques (WMI Defender disablement, scheduled task deployment) drives the hunt hypothesis and search parameters.',
+  },
+
+  {
+    id: 238,
+    moduleId: 'blueteam',
+    topic: 'Container Security',
+    question: 'A security team is hardening a Kubernetes deployment. The current configuration runs all containers as root, uses the latest image tag in production, and containers can communicate with each other without restrictions. Which hardening measure should the team prioritize?',
+    options: [
+      'Run containers as non-root user, specify immutable image tags (not :latest), implement Kubernetes Network Policies to restrict pod-to-pod communication based on least privilege, and use read-only root filesystems where possible',
+      'Install antivirus inside each container, since containers are just lightweight VMs',
+      'Disable all network communications between pods, making microservices unable to function',
+      'Scan container images only once during initial deployment, as containers do not change after deployment'
+    ],
+    correctAnswer: 0,
+    explanation: 'Container hardening: non-root execution (reduces escape impact), immutable tags (ensures version control), Network Policies (implements least privilege between pods), read-only filesystems. Option B misunderstands container security. Option C breaks functionality. Option D ignores image updates.',
+  },
+
+  {
+    id: 239,
+    moduleId: 'blueteam',
+    topic: 'Incident Response - Lessons Learned',
+    question: 'After a phishing incident that compromised three user accounts and led to a limited data breach, the IR team completes the technical response. The CISO asks what should be done next to prevent recurrence. What is the most important post-incident activity?',
+    options: [
+      'Conduct a lessons-learned meeting with all stakeholders to discuss what went well, what went wrong, and identify actionable improvements to people, processes, and technology, then track these improvements to completion',
+      'Move on to the next incident without review since the team is busy',
+      'Punish the employees who clicked the phishing email to discourage future mistakes',
+      'Purchase more security tools because the current tools clearly failed'
+    ],
+    correctAnswer: 0,
+    explanation: 'The lessons-learned phase (NIST Post-Incident Activity) is critical for improvement. It identifies root causes and drives improvements in people (training), processes (incident response), and technology (detection gaps). Option B misses the improvement opportunity. Option C discourages reporting. Option D may not address root causes.',
+  },
+
+  {
+    id: 240,
+    moduleId: 'blueteam',
+    topic: 'Blue Team - Detection Engineering',
+    question: 'A detection engineer needs to create a rule to detect \'Kerberoasting\' attacks where an adversary requests Kerberos service tickets for service accounts to crack offline. The engineer considers: (A) Event ID 4769 (Kerberos Service Ticket Requested) with encryption type 0x17 (RC4-HMAC), (B) Windows Security Log volume, (C) false positive rate from legitimate service ticket requests, (D) baseline of normal service ticket requests per account. Which considerations are most important for effective detection?',
+    options: [
+      'Only A matters because Event ID 4769 with RC4 encryption is the definitive indicator of Kerberoasting',
+      'A and D: monitoring Event 4769 with RC4 encryption is necessary but insufficient without establishing a baseline of normal service account ticket requests per user to distinguish legitimate requests from anomalous bulk requests',
+      'Only B matters because log volume determines SIEM cost',
+      'Only C matters because false positives should never be tolerated'
+    ],
+    correctAnswer: 1,
+    explanation: 'Effective Kerberoasting detection requires: monitoring Event 4769 with RC4-HMAC (0x17) encryption AND establishing baselines for normal service ticket requests. A single request from a system administrator may be legitimate, but 50 requests from a standard user is suspicious. Options A, C, D ignore necessary context.',
+  },
+
+  {
+    id: 241,
+    moduleId: 'gestao',
+    topic: 'VM Lifecycle',
+    question: 'A vulnerability management team receives a notification about a critical vulnerability in Apache Log4j (CVE-2021-44228) affecting 200 servers. The team needs to prioritize remediation. The vulnerability has a CVSS of 10.0, is being actively exploited, and proof-of-concept code is publicly available. According to the VM lifecycle, which immediate steps should the team take?',
+    options: [
+      'Wait for the next quarterly scan cycle to identify all affected systems before taking action',
+      'Initiate the vulnerability management lifecycle: emergency vulnerability assessment (identify all affected versions), risk assessment (CVSS 10, active exploitation), prioritization (all affected systems), remediation (apply patches or mitigating controls), and verification (confirm patching)',
+      'Immediately patch all 200 servers without testing, since the CVSS score is 10.0',
+      'Ignore the vulnerability because Log4j is only used in development environments'
+    ],
+    correctAnswer: 1,
+    explanation: 'The VM lifecycle: identify/assess, evaluate risk, prioritize, remediate, verify. For emergency vulnerabilities like Log4j, the lifecycle accelerates but still includes assessment and prioritization. Option A delays response dangerously. Option C skips testing (may cause outages). Option D is negligent.',
+  },
+
+  {
+    id: 242,
+    moduleId: 'gestao',
+    topic: 'Asset Inventory',
+    question: 'A vulnerability management team is deploying a new scanner and discovers that the scan identifies 5,000 hosts, but the official IT asset inventory only lists 3,000 hosts. The extra 2,000 hosts include development servers, cloud instances, and shadow IT systems. What is the primary implication of this discrepancy?',
+    options: [
+      'The asset inventory is accurate; the scanner is generating false positives for 2,000 non-existent hosts',
+      'There are 2,000 unmanaged or unknown assets (shadow IT) that are not covered by patching, monitoring, or vulnerability management, representing a significant security gap',
+      'The scanner should be reconfigured to only scan the 3,000 known hosts',
+      'The extra 2,000 hosts are likely network devices that do not need vulnerability scanning'
+    ],
+    correctAnswer: 1,
+    explanation: 'A critical finding: 40% of assets are unknown to IT. These shadow IT systems are not patched, monitored, or covered by security controls. This is a significant risk. The VM team must work with IT to inventory and manage these assets. Options A and C ignore the security gap.',
+  },
+
+  {
+    id: 243,
+    moduleId: 'gestao',
+    topic: 'Authenticated vs Unauthenticated Scans',
+    question: 'A vulnerability scan of a Windows server using an unauthenticated scan finds 15 vulnerabilities. When the same server is scanned with domain administrator credentials (authenticated scan), it finds 87 vulnerabilities. What best explains this discrepancy?',
+    options: [
+      'The authenticated scan is generating false positives because credentials introduce inaccuracies',
+      'Unauthenticated scans can only identify vulnerabilities detectable from the network perspective (like open ports and banner information), while authenticated scans have local access to check registry settings, file versions, missing patches, and configuration issues, providing a much more comprehensive assessment',
+      'The unauthenticated scan is more accurate because it tests the server as an attacker would see it',
+      'Both scan results are equally valid; the team should average the severity counts'
+    ],
+    correctAnswer: 1,
+    explanation: 'Unauthenticated scans are network-based, detecting only externally visible issues. Authenticated scans (credentialled) have local system access to check actual patch levels, registry settings, file versions, and configurations, giving a complete picture of the patch posture. Both are valuable but serve different purposes.',
+  },
+
+  {
+    id: 244,
+    moduleId: 'gestao',
+    topic: 'Network vs Web vs Container Scanners',
+    question: 'A company needs to assess the security of: (A) 500 internal workstations and servers, (B) 3 custom web applications, and (C) a Kubernetes cluster with 50 container images. The company has budget for one type of scanner. Which approach is most appropriate?',
+    options: [
+      'Use only a network vulnerability scanner (like Nessus) for all three because it covers network, web apps, and containers',
+      'This scenario requires multiple specialized tools: a network scanner (OpenVAS/Nessus) for the workstations/servers, a web application scanner (like Burp Suite or Acunetix) for the web apps, and a container scanner (like Trivy or Clair) for the container images, as each target type requires different assessment methodologies',
+      'Use only a web application scanner because web apps are the most commonly exploited targets',
+      'Use only a container scanner because containers represent modern infrastructure'
+    ],
+    correctAnswer: 1,
+    explanation: 'Different targets require different scanning methodologies. Network scanners check OS/services, web scanners analyze web app logic and parameters, and container scanners check image layers and dependencies. One scanner type cannot adequately assess all three. Option A is incorrect. Options C and D ignore significant portions of the environment.',
+  },
+
+  {
+    id: 245,
+    moduleId: 'gestao',
+    topic: 'SAST vs DAST',
+    question: 'A development team is implementing application security testing. They want to find vulnerabilities early in the SDLC (Shift Left) during the coding phase, before the application is deployed. The application is written in Java and uses numerous third-party libraries. Which testing approach should they prioritize?',
+    options: [
+      'DAST (Dynamic Application Security Testing) because it tests the running application, finding vulnerabilities an attacker could exploit',
+      'SAST (Static Application Security Testing) integrated into the CI/CD pipeline and IDE, which analyzes source code without executing it, identifying vulnerabilities like SQLi, XSS, and insecure dependencies early in development',
+      'Penetration testing performed once before production release',
+      'Manual code review by developers only, without automated tools'
+    ],
+    correctAnswer: 1,
+    explanation: 'SAST (Static Analysis) scans source code during development (Shift Left), finding vulnerabilities before deployment. It excels at finding injection flaws, insecure deserialization, and vulnerable dependencies. DAST (A) tests running applications later in the SDLC. Pen testing (C) is even later. Manual review alone (D) is insufficient.',
+  },
+
+  {
+    id: 246,
+    moduleId: 'gestao',
+    topic: 'SAST vs DAST',
+    question: 'A security team compares SAST and DAST results for the same web application. SAST reports a potential SQL injection vulnerability in a database access function. DAST does not detect this vulnerability in the running application. Which conclusion is most accurate?',
+    options: [
+      'DAST is correct; the SAST finding is a false positive because the vulnerability cannot be exploited',
+      'SAST is correct; DAST missed the vulnerability because DAST requires specific conditions (e.g., the vulnerable code path must be reachable through the UI, and proper fuzzing payloads must be used) that may not have been triggered during the DAST scan',
+      'Both tools are unreliable; the team should ignore automated scanning results',
+      'The vulnerability exists only in the source code and has no security impact'
+    ],
+    correctAnswer: 1,
+    explanation: 'SAST finds vulnerabilities by analyzing code paths. DAST may miss it because: the vulnerable function may not be reachable through the UI during DAST scanning, the DAST payloads may not have triggered it, or authentication/state issues may prevent access. Both SAST and DAST have different strengths and blind spots.',
+  },
+
+  {
+    id: 247,
+    moduleId: 'gestao',
+    topic: 'CVSS Metrics - Base',
+    question: 'A vulnerability analyst is calculating the CVSS v3.1 base score for a newly discovered vulnerability in a widely used VPN appliance. The vulnerability: can be exploited remotely over the network without authentication, requires no user interaction, has low attack complexity, and can cause complete compromise of confidentiality, integrity, and availability. What CVSS base score range should the analyst expect?',
+    options: [
+      'Low (0.1-3.9) because VPN appliances are typically well-secured',
+      'Medium (4.0-6.9) because network access is required',
+      'Critical (9.0-10.0): AV:N, AC:L, PR:N, UI:N, S:C, C:H, I:H, A:H maps to CVSS 9.8 or higher',
+      'High (7.0-8.9) because some exploits require authentication'
+    ],
+    correctAnswer: 2,
+    explanation: 'CVSS vector: AV:N (Network), AC:L (Low), PR:N (None), UI:N (None), S:C (Changed), C:H (High), I:H (High), A:H (High) calculates to a base score of 9.8-10.0 (Critical). This is a remotely exploitable, no-authentication, complete-compromise scenario — the most severe category.',
+  },
+
+  {
+    id: 248,
+    moduleId: 'gestao',
+    topic: 'CVSS Metrics - Temporal',
+    question: 'A vulnerability was initially scored CVSS 9.8 (Critical) when first disclosed. Three months later, the following information is available: a working exploit is publicly available, the vendor has released an official patch, and there are no known workarounds. How should the temporal score be adjusted?',
+    options: [
+      'The score remains 9.8 because temporal metrics do not change the base score',
+      'The temporal score should be adjusted: E:H (Exploitability High) may increase the score, while RL:O (Remediation Level: Official Fix) and RC:C (Report Confidence: Confirmed) refine the risk. The overall temporal score helps prioritize urgency.',
+      'The score decreases because a patch is available, so the vulnerability is no longer critical',
+      'The score should be increased because a working exploit is publicly available'
+    ],
+    correctAnswer: 1,
+    explanation: 'CVSS temporal metrics adjust for time-sensitive factors: Exploitability (E) ranges from U to H, Remediation Level (RL) from U to O, Report Confidence (RC) from U to C. E:H increases urgency, RL:O provides confidence in resolution paths. Temporal scoring helps prioritize: a vulnerability with public exploits and a patch available is urgent to remediate.',
+  },
+
+  {
+    id: 249,
+    moduleId: 'gestao',
+    topic: 'CVSS Metrics - Environmental',
+    question: 'A cloud service provider assesses a vulnerability in a web server library. The base CVSS score is 9.8 (Critical). However, in their specific environment: the vulnerable component is not directly internet-facing (behind a WAF and firewall), compensating controls exist (WAF rules block the attack pattern), and the affected data is non-sensitive cached content. How should the environmental score be calculated?',
+    options: [
+      'Ignore environmental factors; the base score of 9.8 determines priority regardless of context',
+      'Modify environmental metrics: Security Requirements (CR, IR, AR) based on asset criticality, and Modified Base Metrics (MAV, MAC, MPR, etc.) reflecting compensating controls. The resulting environmental score may be significantly lower, reflecting the reduced risk in this specific deployment',
+      'Increase the score because any Critical vulnerability in a web server is unacceptable',
+      'Use the base score but apply a manual severity reduction without formal CVSS calculation'
+    ],
+    correctAnswer: 1,
+    explanation: 'CVSS environmental metrics allow tailoring scores to the specific environment. Modified Base Metrics reflect compensating controls (e.g., WAF blocking). Security Requirements (Confidentiality, Integrity, Availability) adjust based on asset criticality. A vulnerability behind controls with non-sensitive data should score lower than the base 9.8.',
+  },
+
+  {
+    id: 250,
+    moduleId: 'gestao',
+    topic: 'CVSS Vector',
+    question: 'A vulnerability report includes the following CVSS v3.1 vector: CVSS:3.1/AV:N/AC:L/PR:H/UI:R/S:U/C:L/I:L/A:N. What does this vector describe in plain language?',
+    options: [
+      'A critical, remotely exploitable vulnerability requiring no privileges that leads to complete compromise',
+      'A vulnerability requiring high network privileges, resulting in low confidentiality and integrity impact, with no availability impact. Attack complexity is low, but privileges required are high and user interaction is required.',
+      'A vulnerability that requires physical access and results in high impact to all security attributes',
+      'A medium severity vulnerability that requires authentication and user interaction, is exploitable over the network, has low attack complexity, and results in low confidentiality and integrity impact with no availability impact',
+    ],
+    correctAnswer: 2,
+    explanation: 'CVSS vector breakdown: AV:N (Network) = exploitable remotely, AC:L (Low) = easy to exploit, PR:H (High privileges) = requires privileged account, UI:R (Required) = victim must interact, S:U (Unchanged) = vulnerability stays in same security authority, C:L/I:L/A:N = limited data access, limited modification ability, no denial of service.',
+  },
+
+  {
+    id: 251,
+    moduleId: 'gestao',
+    topic: 'Risk Matrix',
+    question: 'A vulnerability management team uses a 5x5 risk matrix (Likelihood vs Impact) to prioritize findings. A critical infrastructure server has a vulnerability with High likelihood (public exploit available, no authentication required) and High impact (remote code execution as SYSTEM). However, the server is isolated from the internet and accessible only via jump box with MFA. What is the correct risk rating?',
+    options: [
+      'Critical (5x5) because both likelihood and impact are high',
+      'Moderate: while the technical impact is high, the likelihood is reduced by the network isolation and access controls. The analyst should adjust likelihood based on the compensating controls, potentially rating it Medium or High depending on the effectiveness of isolation',
+      'Informational because the server is not internet-facing',
+      'The risk matrix should not be used for this scenario because compensating controls are not applicable'
+    ],
+    correctAnswer: 1,
+    explanation: 'Risk = Likelihood x Impact. While Impact is High (RCE as SYSTEM), Likelihood is reduced by compensating controls (network isolation, MFA-based access controls). The risk matrix should reflect the actual risk in the environment, not theoretical maximum. Option A ignores compensating controls. Option C is too dismissive.',
+  },
+
+  {
+    id: 252,
+    moduleId: 'gestao',
+    topic: 'Remediation vs Mitigation',
+    question: 'A vulnerability management team identifies a critical SQL injection vulnerability in a legacy application that cannot be patched because the vendor is out of business and the source code is unavailable. The team needs to address the risk. Which approach represents remediation vs mitigation?',
+    options: [
+      'Remediation: rewriting the application from scratch. Mitigation: doing nothing.',
+      'Remediation is not possible (no patch available). Mitigation options include: implementing a WAF rule to block SQLi patterns, applying network segmentation to limit database access, and increasing monitoring for exploitation attempts. These reduce risk without fixing the underlying code.',
+      'Remediation: purchasing a new application from a different vendor. Mitigation: ignoring the vulnerability.',
+      'Remediation: applying a virtual patch via the WAF. Mitigation: rewriting the application.'
+    ],
+    correctAnswer: 1,
+    explanation: 'Remediation fixes the root cause (patching, code fix). Mitigation reduces risk without fixing the root cause (WAF rules, segmentation, monitoring). Since no patch exists, remediation is not currently possible. Mitigation controls reduce exploitation risk. Option A is wrong: rewriting is remediation, and doing nothing is not mitigation.',
+  },
+
+  {
+    id: 253,
+    moduleId: 'gestao',
+    topic: 'Patch Management',
+    question: 'An organization has a monthly patch cycle for its 5,000 workstations and 500 servers. A critical vulnerability (CVSS 9.8, actively exploited) in the Windows Print Spooler service is announced on the 5th of the month. The next scheduled patch cycle is on the 25th. What should the organization do?',
+    options: [
+      'Wait for the scheduled patch cycle on the 25th because following the established process is more important than speed',
+      'Initiate an emergency patch cycle: assess affected systems, test the patch in a non-production environment as quickly as possible (1-2 days), deploy to all affected systems using automated patch management tools, and verify deployment within 7 days',
+      'Only patch internet-facing systems since internal workstations are protected by the firewall',
+      'Disable the Print Spooler service on all systems as an immediate compensating control, then deploy the patch within the regular cycle'
+    ],
+    correctAnswer: 1,
+    explanation: 'Actively exploited critical vulnerabilities require emergency patch cycles. The standard process compresses: accelerated testing, expedited deployment, and verification. Option A is unacceptable given active exploitation. Option C ignores lateral movement risks. Option D (disabling Spooler) is a valid compensating control but patching is the preferred remediation.',
+  },
+
+  {
+    id: 254,
+    moduleId: 'gestao',
+    topic: 'Compensating Controls',
+    question: 'A critical vulnerability (CVSS 9.8) is found in a third-party application that cannot be patched for 90 days due to contractual requirements and vendor limitations. The application handles sensitive customer data. The vulnerability allows remote code execution without authentication. Which compensating controls would most effectively reduce risk while awaiting the patch?',
+    options: [
+      'Accept the risk and take no action since the patch is coming eventually',
+      'Deploy a WAF with virtual patching rules specific to this vulnerability, restrict network access to the application to only authorized IP ranges, implement application-level authentication if possible, enable detailed logging and monitoring for exploitation attempts, and have an incident response plan ready',
+      'Disconnect the application from the network entirely, making it unusable',
+      'Document the vulnerability and hope it is not exploited before the patch arrives'
+    ],
+    correctAnswer: 1,
+    explanation: 'Compensating controls reduce risk when patching is delayed: virtual patching (WAF rules blocking exploit attempts), network segmentation (reducing attack surface), authentication (adding access barriers), enhanced monitoring (early detection of exploitation). Option A is irresponsible. Option C may not be business-feasible. Option D is passive.',
+  },
+
+  {
+    id: 255,
+    moduleId: 'gestao',
+    topic: 'Nessus vs OpenVAS vs Qualys',
+    question: 'A vulnerability management team is selecting a vulnerability scanner. Their requirements: (1) agent-based scanning for mobile/remote endpoints, (2) integration with their existing SIEM and ticketing system, (3) compliance benchmarking (CIS benchmarks), (4) cloud workload scanning for AWS/Azure, and (5) on-premises deployment option. Which scanner best meets these requirements?',
+    options: [
+      'Nessus Professional, which is a standalone desktop scanner for ad-hoc assessments',
+      'OpenVAS, which is free and open-source with limited enterprise features',
+      'Qualys VM, which provides cloud-based scanning with agent capabilities, broad API integrations, CIS benchmarking, cloud workload scanning for AWS/Azure, and offers a Cloud Agent for remote endpoints. However, Qualys is primarily cloud-based; the team should verify on-premises requirements against available deployment models.',
+      'Nmap with vulnerability scripts, which is free and covers all requirements'
+    ],
+    correctAnswer: 2,
+    explanation: 'Qualys VM offers comprehensive enterprise features: Cloud Agent for remote endpoints, extensive API integrations, CIS benchmarks, cloud workload scanning. The team should evaluate deployment models (cloud vs on-premises). Nessus Professional (A) is a desktop tool. OpenVAS (B) lacks enterprise features. Nmap (D) is not a full VM scanner.',
+  },
+
+  {
+    id: 256,
+    moduleId: 'gestao',
+    topic: 'Vulnerability SLAs',
+    question: 'A vulnerability management policy defines SLAs: Critical (7 days), High (30 days), Medium (90 days), Low (180 days). A critical vulnerability is discovered on 200 systems. On day 10, only 50 systems are patched. Which of the following best describes the situation?',
+    options: [
+      'The SLA is being met because 50 systems were patched; 7 days is too aggressive for 200 systems',
+      'The SLA has been breached for 150 systems (those not patched within 7 days). The VM team needs to escalate, provide status updates, and implement compensating controls for unpatched systems while accelerating the remediation effort',
+      'The SLA does not apply because 200 systems is too many; the SLA should be adjusted based on the number of affected systems',
+      'The remaining 150 systems should be taken offline immediately to enforce compliance with the SLA'
+    ],
+    correctAnswer: 1,
+    explanation: 'SLAs are targets that should be met. A breach on 150 of 200 systems requires escalation, communication, compensating controls, and accelerated remediation. Option A redefines SLAs without authority. Option C avoids accountability. Option D may be necessary for extreme risk but is a drastic measure.',
+  },
+
+  {
+    id: 257,
+    moduleId: 'gestao',
+    topic: 'Risk Acceptance',
+    question: 'A business-critical legacy application has a high-risk vulnerability (CVSS 8.2, remote code execution) that cannot be patched because the vendor no longer supports the software. The application processes non-critical internal data and is accessible only from the internal network behind multiple firewall layers. The business unit requests risk acceptance. What should the risk acceptance process include?',
+    options: [
+      'The business unit manager signs a one-line email saying they accept the risk',
+      'A formal risk acceptance process including: detailed documentation of the vulnerability and compensating controls, risk assessment with residual risk rating, signed acceptance by the appropriate risk owner (CISO or business unit head depending on risk level), timeframe for re-evaluation, and contingency plan if exploitation occurs',
+      'Deny the risk acceptance and immediately take the application offline',
+      'Ignore the vulnerability because the application is not internet-facing'
+    ],
+    correctAnswer: 1,
+    explanation: 'Risk acceptance is a formal process for situations where remediation is not feasible. It requires: documentation of risk, compensating controls description, residual risk calculation, authorized sign-off from appropriate risk owner, review timeframe, and incident response plan. Option A is informal. Option C may not be business-feasible. Option D is implicit acceptance without process.',
+  },
+
+  {
+    id: 258,
+    moduleId: 'gestao',
+    topic: 'KPIs - MTTR',
+    question: 'A vulnerability management team reports that the average MTTR (Mean Time to Remediate) for critical vulnerabilities decreased from 45 days to 12 days over the past year. The number of critical vulnerabilities found increased from 100 to 300 per quarter. How should this KPI be interpreted?',
+    options: [
+      'The VM program is failing because more vulnerabilities are being found each quarter',
+      'The VM program is improving: MTTR reduction from 45 to 12 days shows faster remediation, while the increase in findings (100 to 300) likely reflects improved scanning coverage rather than a deteriorating security posture',
+      'The MTTR decrease is irrelevant because the number of findings increased',
+      'The 12-day MTTR indicates critical SLAs are not being met since most policies require 7-day remediation'
+    ],
+    correctAnswer: 1,
+    explanation: 'MTTR measures remediation speed. A decrease from 45 to 12 days indicates significant improvement in remediation efficiency. The increased finding count likely reflects broader scanning coverage, not worsening security. MTTR should be evaluated alongside other metrics (vulnerability count, criticality distribution, SLA compliance).',
+  },
+
+  {
+    id: 259,
+    moduleId: 'gestao',
+    topic: 'KPIs - Trends',
+    question: 'A VM manager needs to present vulnerability management metrics to the board. The manager wants to demonstrate whether the program is improving over time. Which combination of KPIs would best communicate overall program effectiveness to executives?',
+    options: [
+      'Total number of vulnerabilities found this quarter (higher is better for showing thoroughness)',
+      'Vulnerability remediation rate (percentage of vulnerabilities closed within SLA), critical vulnerabilities MTTR trend, age of oldest open critical vulnerability, and vulnerability recurrence rate (are same systems repeatedly missing patches). Trending these over multiple quarters shows direction of improvement.',
+      'CVSS scores of all open vulnerabilities (board members understand CVSS scores)',
+      'Number of security tools deployed (more tools equals better security)'
+    ],
+    correctAnswer: 1,
+    explanation: 'Executive reporting should show trend-based KPIs: remediation rate (% closed within SLA) measures process effectiveness, MTTR trend shows speed improvement, oldest critical vulnerability age shows worst-case risk, recurrence rate shows quality. These KPIs tell a story of program maturity over time. Options A and C lack context. Option D measures inputs, not outcomes.',
+  },
+
+  {
+    id: 260,
+    moduleId: 'gestao',
+    topic: 'Executive Reporting',
+    question: 'A VM analyst is preparing a monthly report for the CISO. The data shows: 1,200 total vulnerabilities (250 Critical, 400 High, 350 Medium, 200 Low), 65% remediation rate within SLA, average MTTR for Critical vulnerabilities is 14 days (policy requires 7), and 12 systems have had the same critical vulnerability for over 6 months. What is the most important finding the analyst should highlight?',
+    options: [
+      'The total vulnerability count of 1,200 shows the organization is very insecure',
+      'The 65% SLA remediation rate is acceptable because most teams achieve around 60%',
+      'The 12 systems with critical vulnerabilities open for over 6 months represent a significant risk acceptance gap or remediation failure that needs executive attention and escalation to determine why these systems are not being patched',
+      'The 14-day MTTR is only 7 days over the SLA, which is not a concern'
+    ],
+    correctAnswer: 2,
+    explanation: 'Twelve systems with unpatched critical vulnerabilities for over 6 months indicate systemic remediation failure or unauthorized risk acceptance. This needs escalation to identify root causes: unsupported software, lack of owner accountability, or insufficient resources. Options A and C provide context but the 12 long-standing items are the key actionable finding.',
+  },
+
+  {
+    id: 261,
+    moduleId: 'gestao',
+    topic: 'Asset Criticality',
+    question: 'A vulnerability scanner reports the same critical vulnerability (CVSS 9.8) on two servers: (1) a public-facing web server handling customer payment data, and (2) an internal development test server. Both have the same severity and exploitability. The VM team has limited resources to patch today. Which server should be prioritized and why?',
+    options: [
+      'Both equally; identical CVSS score means identical priority',
+      'The public-facing web server handling payment data, because asset criticality (business impact) must be considered alongside vulnerability severity. The development server has lower impact if compromised.',
+      'The development server first because it is likely easier to patch without change management',
+      'Neither should be prioritized until a full risk assessment is completed for both'
+    ],
+    correctAnswer: 1,
+    explanation: 'Asset criticality differentiates priority when vulnerability severity is identical. The payment-processing web server has higher confidentiality, integrity, and availability requirements, and greater business impact if compromised. CVSS provides base severity, but asset value determines actual organizational risk. Options A, C ignore asset context.',
+  },
+
+  {
+    id: 262,
+    moduleId: 'gestao',
+    topic: 'Patch Testing',
+    question: 'A critical security patch for a widely used enterprise application is released. The patch addresses a vulnerability being actively exploited in the wild. The IT team typically tests patches for 4 weeks in a staging environment before production deployment. What should the IT team do?',
+    options: [
+      'Follow the 4-week testing cycle because breaking production is worse than delaying security',
+      'Accelerate the testing cycle: perform focused, risk-based testing within 48-72 hours on the most critical scenarios, then deploy to production with enhanced monitoring and rollback readiness. Active exploitation changes the risk balance.',
+      'Deploy immediately to all production systems without any testing since the vulnerability is critical',
+      'Skip testing entirely and deploy to staging only, leaving production unpatched until the next release cycle'
+    ],
+    correctAnswer: 1,
+    explanation: 'Active exploitation shifts the risk balance: unpatched vulnerability risk outweighs patch-induced outage risk. Accelerated but responsible testing (focused on critical scenarios) enables faster deployment. Option A ignores active exploitation urgency. Option C risks outages without testing. Option D leaves production exposed.',
+  },
+
+  {
+    id: 263,
+    moduleId: 'gestao',
+    topic: 'Vulnerability Scanning Frequency',
+    question: 'A large organization currently scans its entire infrastructure once per quarter. A recent breach exploited a vulnerability that was disclosed 3 weeks before the next scheduled scan. The organization wants to reduce the window of exposure. What scanning frequency strategy is most effective?',
+    options: [
+      'Continue quarterly scanning because the breach happened before the scan was due, not because of frequency',
+      'Implement a tiered scanning strategy: critical/high-value assets weekly, internal infrastructure monthly, and full environment quarterly. Additionally, subscribe to threat intelligence feeds to trigger emergency scans when vulnerabilities with active exploitation are disclosed.',
+      'Scan everything daily to ensure no vulnerability window exists',
+      'Scan only after each vulnerability disclosure, regardless of criticality'
+    ],
+    correctAnswer: 1,
+    explanation: 'A tiered strategy balances coverage with resource constraints. High-value assets (internet-facing, critical systems) need more frequent scanning (weekly). Internal systems monthly. Full scans quarterly. Threat intelligence triggers emergency scans for actively exploited vulnerabilities. Option A is complacent. Option C may overload resources. Option D is reactive only.',
+  },
+
+  {
+    id: 264,
+    moduleId: 'gestao',
+    topic: 'Vulnerability Validation',
+    question: 'A vulnerability report from an authenticated scan lists 50 MS SQL Servers with \'SA account has empty password\' (CVSS 9.8). The IT team investigates and finds that all 50 databases use Windows Authentication only (SQL Server Authentication is disabled), and the SA account is disabled. How should the VM team classify this finding?',
+    options: [
+      'True positive with CVSS 9.8: the SA account exists with an empty password, which is exactly what the scanner found',
+      'False positive or validated finding with context: the scanner correctly identified the SA account with empty password, but since Windows Authentication is enforced and SA is disabled, the actual exploitability is minimal. The finding should be updated with compensating control context and the risk adjusted downward.',
+      'Ignore the finding because the scanner is clearly wrong about all 50 servers',
+      'The finding is correct and all 50 servers must have SA passwords set immediately regardless of authentication mode'
+    ],
+    correctAnswer: 1,
+    explanation: 'The scanner finding is technically correct (SA account exists with empty password) but the actual risk is mitigated because SQL Server Authentication is disabled and SA is disabled. The VM team should document these compensating controls, adjust the risk rating, and consider the finding validated with context rather than a pure false positive.',
+  },
+
+  {
+    id: 265,
+    moduleId: 'gestao',
+    topic: 'Remediation Verification',
+    question: 'After a critical vulnerability remediation campaign, the IT team reports that all 500 affected servers have been patched for CVE-2024-xxx. The VM team needs to verify remediation. Which verification approach is most reliable?',
+    options: [
+      'Trust the IT team\'s report since they confirmed all servers are patched',
+      'Perform a targeted authenticated vulnerability scan of all 500 servers to verify the patch is installed, checking for the specific vulnerability rather than a full scan',
+      'Check one server to confirm the patch works and assume the rest are the same',
+      'Wait for the next quarterly full scan to verify'
+    ],
+    correctAnswer: 1,
+    explanation: 'Remediation verification should use the same scanning methodology that found the vulnerability to confirm it has been resolved. A targeted scan for the specific CVE is efficient and reliable. Option A relies on manual reporting which may have errors. Option C assumes uniformity without verification. Option D delays verification unacceptably.',
+  },
+
+  {
+    id: 266,
+    moduleId: 'gestao',
+    topic: 'VM - Cloud Environments',
+    question: 'A company uses AWS with 200 EC2 instances. The VM team wants to scan these instances for vulnerabilities. However, traditional network scanning of cloud IPs from outside AWS may be blocked by security groups and may not cover instances without public IPs. Which approach is most effective for cloud vulnerability scanning?',
+    options: [
+      'Scan from the internet because all cloud instances should be accessible for security testing',
+      'Deploy agent-based scanners on each EC2 instance (e.g., Amazon Inspector agent, or third-party agents like Nessus Agent) that report back to the VM console, or use native cloud scanning tools (like Amazon Inspector) that integrate with AWS without requiring external network access',
+      'Use only Security Groups and AWS Config for vulnerability management in the cloud',
+      'Periodically snapshot all instances and scan the snapshots offline'
+    ],
+    correctAnswer: 1,
+    explanation: 'Agent-based scanning or native cloud scanners (AWS Inspector) are most effective for cloud environments. Agents run inside instances regardless of network connectivity, and native tools integrate with cloud APIs for comprehensive coverage. Option A may be blocked and misses internal instances. Option C misses OS-level vulnerabilities. Option D is impractical at scale.',
+  },
+
+  {
+    id: 267,
+    moduleId: 'gestao',
+    topic: 'Container Vulnerability Management',
+    question: 'A DevOps team uses Docker containers in production with images pulled from Docker Hub. The VM team needs to manage vulnerabilities in these containers. The containers are rebuilt and redeployed multiple times daily. Traditional per-scanning of running containers is insufficient. What approach should the VM team implement?',
+    options: [
+      'Scan only the host OS running Docker; container vulnerabilities do not matter since containers are ephemeral',
+      'Integrate container image scanning into the CI/CD pipeline (using tools like Trivy, Clair, or Snyk) to scan images before deployment, block builds with critical/high vulnerabilities, and maintain an inventory of approved base images with known-good versions',
+      'Scan running containers once per month on the same schedule as VMs',
+      'Disable all container deployments until a comprehensive scanning solution is implemented'
+    ],
+    correctAnswer: 1,
+    explanation: 'Container security is most effective when integrated into the CI/CD pipeline. Scanning images before deployment prevents vulnerable containers from reaching production. Blocking critical/high findings, maintaining approved base images, and automated rebuilds with patched bases address the high velocity of container updates. Options A and C miss the ephemeral nature.',
+  },
+
+  {
+    id: 268,
+    moduleId: 'gestao',
+    topic: 'VM - Third-Party Components',
+    question: 'A vulnerability scan reveals that a Java application uses Log4j 2.14.1 (affected by CVE-2021-44228). The development team states they cannot update Log4j because it would break the application. The vulnerability is critical and actively exploited. What is the most appropriate course of action?',
+    options: [
+      'Accept the risk since the development team said they cannot update',
+      'Work with development to identify the specific compatibility issues, explore alternative mitigation (upgrading to Log4j 2.17.x which may be compatible, or implementing JNDI lookup disabling via log4j2.formatMsgNoLookups), apply a WAF virtual patch, and implement enhanced monitoring while a permanent fix is developed',
+      'Immediately remove the application from production until Log4j is updated',
+      'Ignore the vulnerability since Log4j vulnerabilities are overhyped'
+    ],
+    correctAnswer: 1,
+    explanation: 'Third-party component vulnerabilities require a balanced approach: technical analysis of upgrade blockers, exploring available mitigations (configuration changes, WAF rules, environment variables), and enhanced monitoring. The development team needs support, not just a directive. Option A is passive. Option C may be disproportionate. Option D is negligent.',
+  },
+
+  {
+    id: 269,
+    moduleId: 'gestao',
+    topic: 'Vulnerability Disclosure Coordination',
+    question: 'A security researcher contacts the VM team via email, claiming to have discovered a critical vulnerability in one of the company\'s public-facing web applications and is demanding $50,000 to not disclose it publicly. What is the most appropriate response?',
+    options: [
+      'Pay the $50,000 to prevent public disclosure',
+      'Ignore the email; it is likely a scam',
+      'Engage the legal team and follow the organization\'s vulnerability disclosure policy: establish communication through proper channels, verify the vulnerability through the company\'s bug bounty program or coordinated disclosure process, and never pay demands for silence',
+      'Threaten to sue the researcher for extortion'
+    ],
+    correctAnswer: 2,
+    explanation: 'Organizations should have a vulnerability disclosure policy (VDP) that provides a framework for responding to external researchers. The appropriate response is: involve legal, follow the VDP, request verified proof of concept through proper channels, and never pay demands to prevent disclosure. Option A encourages extortion. Option B ignores a potentially valid report. Option D is adversarial.',
+  },
+
+  {
+    id: 270,
+    moduleId: 'gestao',
+    topic: 'Vulnerability Management Program Maturity',
+    question: 'A VM team has been scanning for one year. They have full asset coverage, consistent scanning schedules, automated ticketing, and a 75% SLA remediation rate for critical vulnerabilities. However, the same types of vulnerabilities (e.g., missing patches for Adobe Reader, Java, and browser plugins) appear quarter after quarter on the same workstations. What does this pattern indicate about program maturity?',
+    options: [
+      '75% is an excellent SLA remediation rate; the program is mature',
+      'The recurring vulnerabilities on the same systems indicate a gap between detection and remediation effectiveness. The VM program identifies vulnerabilities but does not address root causes (like decentralized patch management, lack of enforcement policies, or application whitelisting). The program needs to mature from detection-only to driving remediation and prevention.',
+      'Recurring vulnerabilities are normal and expected; not all systems can be patched',
+      'The scanning frequency is insufficient; increase to weekly scans to catch these before they recur'
+    ],
+    correctAnswer: 1,
+    explanation: 'A mature VM program not only identifies vulnerabilities but drives remediation and prevention. Recurring same-system vulnerabilities indicate the program detects but does not resolve root causes. Maturity progression: detection -> remediation -> prevention. Next steps may include enforcing patch policies, automated patch deployment, application whitelisting, or removing vulnerable applications entirely.',
+  },
+
+  {
+    id: 271,
+    moduleId: 'gestao',
+    topic: 'VM and Change Management',
+    question: 'A critical patch requires a server reboot. The server hosts a line-of-business application with a 99.9% uptime SLA. The change management window for reboots is 30 days. The vulnerability is being actively exploited. What should the VM team do?',
+    options: [
+      'Wait for the change window because violating the SLA is worse than the security risk',
+      'Escalate to the change advisory board (CAB) with a risk assessment showing active exploitation, propose an emergency change with accelerated approval, and offer compensating controls (WAF rules, network segmentation) until the change window',
+      'Reboot the server without change approval because security takes priority over everything',
+      'Ignore the patch because the 30-day window means the vulnerability is apparently acceptable'
+    ],
+    correctAnswer: 1,
+    explanation: 'Emergency situations require escalation and prioritization. Presenting risk data (active exploitation, potential impact) to the CAB enables informed decision-making. Emergency change processes exist for exactly this scenario. Compensating controls can bridge the gap until the scheduled reboot. Option A is too rigid. Option C bypasses legitimate process. Option D is negligent.',
+  },
+
+  {
+    id: 272,
+    moduleId: 'gestao',
+    topic: 'Asset Management vs VM',
+    question: 'A VM team completes a scan and identifies 500 hosts. However, the CMDB (Configuration Management Database) shows 800 hosts should exist. Additionally, 100 hosts found by the scanner are not in the CMDB. What is the most significant security concern?',
+    options: [
+      '300 hosts are missing from VM coverage (not scanned), representing a blind spot where vulnerabilities are unknown',
+      '100 hosts are unknown to IT (shadow IT), representing unmanaged assets not covered by patching or monitoring',
+      'Both are significant: 300 unmonitored hosts (the gap between expected and found) and 100 unknown hosts (shadow IT) create blind spots. The VM team must work with IT to reconcile both gaps.',
+      'The CMDB is inaccurate and should be ignored in favor of scanner data'
+    ],
+    correctAnswer: 2,
+    explanation: 'Both gaps are critical: (1) 300 hosts expected but not found means they are not being scanned, potentially due to network segmentation, hostname changes, or being offline during scanning. (2) 100 hosts found but not in CMDB represent shadow IT. Both represent security blind spots. The VM and asset management teams must reconcile these gaps.',
+  },
+
+  {
+    id: 273,
+    moduleId: 'gestao',
+    topic: 'VM Metrics - SLA Compliance',
+    question: 'A VM team tracks SLA compliance for vulnerability remediation: Critical (7 days), High (30 days). Current metrics show: 65% of critical vulnerabilities remediated within 7 days, 85% of high within 30 days. The team wants to improve critical SLA compliance. Which strategy is most likely to be effective?',
+    options: [
+      'Reduce the critical SLA to 14 days so the team can achieve a higher compliance rate',
+      'Analyze the 35% of critical vulnerabilities that miss the 7-day SLA: identify common characteristics (which teams own them, what types of vulnerabilities, what systems). Address root causes: patch testing delays, lack of emergency change approval, resource constraints, or unsupported systems.',
+      'Increase scanning frequency to find fewer critical vulnerabilities',
+      'Outsource all critical vulnerability remediation to a third party'
+    ],
+    correctAnswer: 1,
+    explanation: 'To improve SLA compliance, analyze the failures: are specific teams consistently missing SLAs? Are certain vulnerability types harder to fix (no patch available, requires reboot)? Are unsupported systems causing delays? Root cause analysis enables targeted improvements. Option A lowers standards instead of improving performance. Options C, D avoid the underlying problems.',
+  },
+
+  {
+    id: 274,
+    moduleId: 'gestao',
+    topic: 'Vulnerability Scoring - CVSS vs Risk',
+    question: 'A VM team uses CVSS v3.1 base score as the sole prioritization metric. They rank all vulnerabilities by CVSS and remediate from highest to lowest. A vulnerability with CVSS 7.5 (High) in a public-facing web server handling customer PII gets lower priority than a CVSS 9.8 (Critical) vulnerability in an internal development server with no sensitive data. What is the problem with this approach?',
+    options: [
+      'No problem; CVSS base score is the industry standard for prioritization',
+      'Using CVSS base score alone ignores asset criticality and environmental context. The web server vulnerability (CVSS 7.5, public-facing, PII data) may represent higher organizational risk than the internal dev server vulnerability (CVSS 9.8, isolated, no sensitive data). Risk-based prioritization combines CVSS with asset value.',
+      'CVSS 9.8 is always higher risk than CVSS 7.5 regardless of context',
+      'Internal servers should be prioritized over external servers because breaches start internally'
+    ],
+    correctAnswer: 1,
+    explanation: 'CVSS base score measures vulnerability severity but not organizational risk. Risk-based vulnerability management combines vulnerability severity with asset criticality, exposure, and compensating controls. A CVSS 7.5 on a critical public-facing system may be higher risk than a CVSS 9.8 on an isolated non-critical system.',
+  },
+
+  {
+    id: 275,
+    moduleId: 'gestao',
+    topic: 'Automated Patch Management',
+    question: 'A VM team identifies that 30% of critical vulnerabilities found in the past quarter could have been prevented by applying patches that were available at the time of the scan. The root cause is that system owners do not apply patches between scan cycles. What solution would best address this?',
+    options: [
+      'Scan more frequently (weekly) to catch unpatched systems sooner',
+      'Implement automated patch management for operating systems and common third-party applications (like Windows Update for Business, WSUS, or third-party patch tools), with enforcement policies for critical security patches',
+      'Reduce the critical vulnerability SLA from 7 days to 24 hours to pressure faster patching',
+      'Remove vulnerabilities from the report if a patch was available before the scan'
+    ],
+    correctAnswer: 1,
+    explanation: 'Automated patch management addresses the root cause: patches are available but not applied. Automated deployment ensures patches are applied promptly after release. Option A (more scanning) identifies problems faster but does not solve them. Option C (tighter SLA) creates pressure without enabling capability. Option D hides the problem.',
+  },
+
+  {
+    id: 276,
+    moduleId: 'gestao',
+    topic: 'Network Scanning - Credentialed vs Non-Credentialed',
+    question: 'A VM team performs unauthenticated scans of their internal network quarterly. A new CISO asks whether the team performs credentialed scans. The VM lead explains that credentialed scans are not done because \'they require too much coordination and might disrupt systems.\' The CISO insists on credentialed scanning. Why is credentialed scanning important?',
+    options: [
+      'It is not important; unauthenticated scans simulate an external attacker and are more realistic',
+      'Credentialed scans provide significantly deeper visibility: they can check registry settings, actual patch levels, file versions, and local configuration issues that are invisible to network-only scans. This typically reveals 3-5x more vulnerabilities.',
+      'Credentialed scans are only useful for Windows systems; Linux systems do not benefit',
+      'Unauthenticated scans find all vulnerabilities; credentialed scans add minimal value'
+    ],
+    correctAnswer: 1,
+    explanation: 'Credentialed (authenticated) scans have local system access and can verify actual patch installation, check registry/file configurations, audit local policies, and detect vulnerabilities invisible from the network. Studies show credentialed scans typically find 3-5x more vulnerabilities than unauthenticated scans. Options A, C, D are incorrect.',
+  },
+
+  {
+    id: 277,
+    moduleId: 'gestao',
+    topic: 'Remediation Ownership',
+    question: 'A vulnerability scan shows that 200 servers are missing a critical security patch. The servers are owned by five different application teams who claim they do not have time to apply patches during their release cycles. The VM team has no authority to enforce remediation. What is the most effective approach?',
+    options: [
+      'Accept that the VM team cannot enforce action and document the risk',
+      'Escalate to senior IT leadership with a risk briefing showing the exposure, potential business impact, and ask for governance: clear assignment of remediation ownership, SLAs, and consequences for non-compliance. Propose automated patching for common vulnerabilities to reduce burden on application teams.',
+      'Apply the patches anyway without the teams\' knowledge',
+      'Report the vulnerability to the regulatory authority to force the organization to act'
+    ],
+    correctAnswer: 1,
+    explanation: 'When VM lacks enforcement authority, escalation to senior leadership with business context (not just technical details) is necessary. Proposing solutions (automated patching, dedicated maintenance windows) addresses resource constraints. Option A accepts failure. Option C bypasses change management. Option D is extreme and adversarial.',
+  },
+
+  {
+    id: 278,
+    moduleId: 'gestao',
+    topic: 'Vulnerability Management - Cloud Native',
+    question: 'A company adopts a cloud-native architecture with auto-scaling groups, infrastructure as code (Terraform), and immutable infrastructure (servers are replaced, not patched). The traditional vulnerability management approach (scanning running instances, generating tickets, and waiting for patching) is not working. What changes are needed for cloud-native VM?',
+    options: [
+      'Traditional VM still applies; scan auto-scaling instances when they are launched and generate tickets as usual',
+      'Shift-left: scan AMIs and container images in the CI/CD pipeline before deployment, use infrastructure as code scanning (Checkov, tfsec) to find misconfigurations before provisioning, implement deployment gates that block vulnerable images, and automatically replace instances using updated base images',
+      'Cloud-native environments do not need vulnerability management because the cloud provider handles security',
+      'Scan the cloud provider APIs instead of instances for VM coverage'
+    ],
+    correctAnswer: 1,
+    explanation: 'Cloud-native VM shifts security left: scanning images/AMIs in CI/CD catches vulnerabilities before deployment. IaC scanning catches misconfigurations before provisioning. Deployment gates enforce security. Immutable infrastructure replaces patching with rebuilding using updated base images, making traditional scanning+ticketing+patching cycles obsolete.',
+  },
+
+  {
+    id: 279,
+    moduleId: 'gestao',
+    topic: 'Vulnerability Management - Risk Scoring',
+    question: 'A VM team uses a custom risk scoring system that multiplies CVSS base score by an asset criticality factor (1-5). A vulnerability with CVSS 9.8 on a critical asset (factor 5) scores 49. The same vulnerability on a low-value asset (factor 1) scores 9.8. A different vulnerability with CVSS 4.0 on a critical asset scores 20. What is a potential flaw with this multiplicative approach?',
+    options: [
+      'This scoring system is perfect because it accounts for both severity and asset value',
+      'A multiplicative approach can amplify small differences. CVSS 4.0 x 5 (20) outranks CVSS 9.8 x 2 (19.6), meaning a medium vulnerability on a moderately important asset would be prioritized over a critical vulnerability on a less critical but still important asset. The team should validate scores against real risk scenarios.',
+      'Asset criticality should never influence vulnerability prioritization',
+      'CVSS base scores should always be the sole prioritization metric'
+    ],
+    correctAnswer: 1,
+    explanation: 'Multiplicative scoring can produce counterintuitive results. A medium vulnerability on a critical asset can outrank a critical vulnerability on a moderately important asset. Teams should validate risk scoring against real scenarios and consider additive or tiered approaches. Options C and D ignore asset context which is essential for risk-based prioritization.',
+  },
+
+  {
+    id: 280,
+    moduleId: 'gestao',
+    topic: 'Vulnerability Management - Board Reporting',
+    question: 'The VM team needs to prepare a quarterly report for the board of directors. The team has extensive data: 5,000 vulnerabilities, MTTR trends, SLA compliance rates, patch deployment times, and team-level metrics. The board has 15 minutes for this presentation. What is the most effective approach?',
+    options: [
+      'Present all data since the board needs complete information to make decisions',
+      'Provide a three-slide executive summary: (1) Current risk posture: percentage of critical assets with outstanding critical vulnerabilities, trend over past 4 quarters, (2) Top 3 risks requiring board attention (e.g., unsupported systems, understaffed remediation teams), (3) Recommended strategic investments with estimated costs and risk reduction impact. Include detailed appendix for follow-up.',
+      'Present only the total vulnerability count since that is the single most important metric',
+      'Focus on blaming specific teams for non-compliance so the board can hold them accountable'
+    ],
+    correctAnswer: 1,
+    explanation: 'Board reporting requires concise, strategic communication. Three slides: current posture with trends (not raw numbers), top risks needing governance decisions, and investment recommendations with expected risk reduction. The appendix enables deeper dives. Option A overwhelms. Option C oversimplifies. Option D is unprofessional.',
+  },
+
+  // === GOVERNANÇA, RISCO E CONFORMIDADE (GRC) ===
+  {
+    id: 281,
+    moduleId: 'grc',
+    topic: 'Introdução à GRC',
+    question: 'Uma empresa de médio porte está expandindo suas operações e deseja implementar um programa de GRC estruturado. Atualmente, as áreas de compliance, risco e auditoria trabalham de forma isolada. O CISO defende a integração dessas áreas em um modelo único. Qual o principal benefício que a integração GRC trará para esta organização?',
+    options: [
+      'Eliminar completamente todos os riscos de segurança',
+      'Integrar governança, risco e compliance em um modelo coeso, eliminando silos e melhorando a tomada de decisão',
+      'Reduzir o quadro de funcionários das áreas de risco e compliance',
+      'Garantir que a empresa nunca será multada por órgãos reguladores',
+    ],
+    correctAnswer: 1,
+    explanation: 'A integração GRC elimina silos organizacionais, permitindo que governança, risco e compliance atuem de forma coordenada. Isso melhora a visibilidade, reduz duplicidade de esforços e fortalece a tomada de decisão baseada em riscos.',
+  },
+  {
+    id: 282,
+    moduleId: 'grc',
+    topic: 'Introdução à GRC',
+    question: 'Durante a implementação de GRC em uma organização, o consultor identificou que a empresa não possui um canal de denúncia, as políticas de segurança estão desatualizadas e não há um processo formal de gestão de riscos. Considerando os pilares do GRC, qual aspecto está mais diretamente relacionado à ausência de um processo formal de gestão de riscos?',
+    options: [
+      'Governança, pois a gestão de riscos é parte da estrutura de governança corporativa',
+      'Risco, pois sem um processo estruturado a organização não consegue identificar, analisar e tratar ameaças de forma sistemática',
+      'Conformidade, pois riscos não gerenciados violam regulamentações',
+      'Operações, pois a gestão de riscos é uma atividade puramente operacional',
+    ],
+    correctAnswer: 1,
+    explanation: 'A gestão de riscos é o pilar responsável por identificar, analisar, avaliar e tratar riscos. Sem um processo formal, a organização fica exposta a ameaças sem ter visibilidade ou controle sobre elas.',
+  },
+  {
+    id: 283,
+    moduleId: 'grc',
+    topic: 'Governança Corporativa e de TI',
+    question: 'Uma empresa listada em bolsa está implementando práticas de governança corporativa. O conselho deseja estabelecer um framework que garanta o alinhamento entre TI e os objetivos estratégicos do negócio, otimizando recursos e gerenciando riscos de tecnologia. Qual framework atende melhor a esta necessidade?',
+    options: [
+      'ITIL, por ser focado em gerenciamento de serviços de TI',
+      'COBIT, por ser o principal framework de governança de TI, alinhando tecnologia aos objetivos de negócio',
+      'ISO 27001, por ser a norma de segurança da informação mais reconhecida',
+      'PMBOK, por ser focado em gerenciamento de projetos',
+    ],
+    correctAnswer: 1,
+    explanation: 'COBIT é especificamente desenhado para governança de TI, com foco em alinhamento estratégico, entrega de valor, gestão de riscos, otimização de recursos e transparência. ITIL é para serviços, ISO 27001 para segurança e PMBOK para projetos.',
+  },
+  {
+    id: 284,
+    moduleId: 'grc',
+    topic: 'Governança Corporativa e de TI',
+    question: 'Uma startup de tecnologia cresceu rapidamente e agora possui 200 funcionários. O CEO percebeu que decisões de TI estão sendo tomadas de forma descentralizada, sem alinhamento com a estratégia do negócio. Qual princípio de governança corporativa está sendo negligenciado?',
+    options: [
+      'Transparência — a empresa não divulga suas decisões publicamente',
+      'Equidade — os funcionários não são tratados de forma justa',
+      'Prestação de Contas (Accountability) — não há clareza sobre quem é responsável pelas decisões de TI e como elas se alinham à estratégia',
+      'Responsabilidade Corporativa — a empresa não investe em sustentabilidade',
+    ],
+    correctAnswer: 2,
+    explanation: 'A descentralização sem alinhamento estratégico indica falta de accountability. Não está claro quem responde pelas decisões de TI e como elas se conectam aos objetivos do negócio. A governança de TI com COBIT ajudaria a estabelecer essa estrutura.',
+  },
+  {
+    id: 285,
+    moduleId: 'grc',
+    topic: 'Gestão de Riscos',
+    question: 'Uma instituição financeira está realizando uma análise de riscos e identificou que um novo sistema de transações online pode estar vulnerável a ataques de injeção de SQL. A equipe de segurança estima que a probabilidade de exploração é "Alta" e o impacto financeiro é "Muito Alto". A diretoria decide contratar um seguro cibernético para cobrir eventuais perdas. Qual estratégia de tratamento de risco foi adotada?',
+    options: [
+      'Evitar — o risco foi eliminado',
+      'Reduzir — controles foram implementados para diminuir o risco',
+      'Transferir — o risco foi compartilhado com uma seguradora',
+      'Aceitar — a organização decidiu conviver com o risco',
+    ],
+    correctAnswer: 2,
+    explanation: 'Contratar um seguro é uma estratégia de transferência de risco. A organização não eliminou ou reduziu a vulnerabilidade, mas transferiu parte do impacto financeiro para a seguradora.',
+  },
+  {
+    id: 286,
+    moduleId: 'grc',
+    topic: 'Gestão de Riscos',
+    question: 'Uma empresa de e-commerce está realizando sua análise anual de riscos. O analista identificou 47 riscos e precisa priorizá-los para a diretoria. Ele utilizou uma matriz 5x5 de probabilidade vs impacto. Três riscos foram classificados como "Crítico" (probabilidade alta + impacto muito alto), oito como "Alto" e o restante como "Médio" ou "Baixo". Qual deve ser o próximo passo?',
+    options: [
+      'Tratar todos os 47 riscos simultaneamente com a mesma prioridade',
+      'Focar nos riscos críticos primeiro, definindo planos de tratamento imediatos, seguido pelos altos. Riscos médios e baixos podem ser monitorados ou aceitos',
+      'Ignorar todos os riscos, pois a matriz é apenas um exercício teórico',
+      'Apresentar apenas os riscos críticos para a diretoria e esconder os demais',
+    ],
+    correctAnswer: 1,
+    explanation: 'A priorização baseada em risco concentra recursos onde o impacto é maior. Riscos críticos exigem ação imediata, riscos altos requerem planos de tratamento, e riscos menores podem ser aceitos ou monitorados.',
+  },
+  {
+    id: 287,
+    moduleId: 'grc',
+    topic: 'Conformidade e Auditoria',
+    question: 'Uma empresa brasileira de e-commerce processa dados pessoais de milhões de clientes. Durante uma auditoria interna, foi constatado que a empresa não possui um encarregado de proteção de dados (DPO), não realiza relatórios de impacto (RIPD) e não tem um procedimento claro para responder a solicitações de titulares. Qual regulamentação está sendo descumprida?',
+    options: [
+      'PCI DSS, pois a empresa processa pagamentos com cartão de crédito',
+      'SOX, pois a empresa pode estar listada em bolsa',
+      'LGPD, pois a Lei Geral de Proteção de Dados exige DPO, RIPD e procedimentos para atender titulares',
+      'ISO 27001, pois a empresa não possui certificação de segurança',
+    ],
+    correctAnswer: 2,
+    explanation: 'A LGPD (Lei 13.709/2018) exige a indicação de um Encarregado (DPO), a realização de Relatório de Impacto à Proteção de Dados (RIPD) quando aplicável, e procedimentos para atender solicitações dos titulares dos dados.',
+  },
+  {
+    id: 288,
+    moduleId: 'grc',
+    topic: 'Conformidade e Auditoria',
+    question: 'Uma empresa de tecnologia contratou uma auditoria externa para verificar a conformidade com a ISO 27001. Durante a auditoria, o auditor identificou que a política de segurança da informação não foi revisada nos últimos 3 anos, os treinamentos de conscientização não são realizados desde 2020, e não há um processo formal de gestão de incidentes. Qual será a conclusão mais provável do auditor?',
+    options: [
+      'A empresa será certificada imediatamente, pois os requisitos técnicos são atendidos',
+      'O auditor emitirá não conformidades (NCs) e a certificação não será concedida até que as correções sejam implementadas e verificadas',
+      'A auditoria externa não tem poder para impedir a certificação',
+      'A empresa receberá a certificação com recomendações de melhoria',
+    ],
+    correctAnswer: 1,
+    explanation: 'Auditorias externas de certificação (como ISO 27001) identificam não conformidades que precisam ser corrigidas antes da emissão do certificado. A ausência de revisão de política, treinamentos e gestão de incidentes são falhas graves no SGSI.',
+  },
+  {
+    id: 289,
+    moduleId: 'grc',
+    topic: 'Frameworks e Normas de Segurança',
+    question: 'Uma organização precisa escolher um framework de segurança que seja flexível, baseado em riscos e organizado em 5 funções (Identificar, Proteger, Detectar, Responder, Recuperar). O CISO quer adotar uma abordagem que permita integrar-se facilmente com outros frameworks e seja reconhecida internacionalmente. Qual framework atende melhor a esses critérios?',
+    options: [
+      'ISO 27001, por ser uma norma certificável',
+      'NIST Cybersecurity Framework (CSF), por sua flexibilidade e estrutura em 5 funções baseadas em risco',
+      'COBIT, por seu foco em governança de TI',
+      'CIS Controls, por sua abordagem prática e priorizada',
+    ],
+    correctAnswer: 1,
+    explanation: 'O NIST CSF é organizado nas 5 funções (Identify, Protect, Detect, Respond, Recover) e é conhecido por sua flexibilidade e abordagem baseada em riscos. Ele é projetado para ser complementar a outros frameworks.',
+  },
+  {
+    id: 290,
+    moduleId: 'grc',
+    topic: 'Frameworks e Normas de Segurança',
+    question: 'Uma empresa holding precisa implementar um SGSI (Sistema de Gestão de Segurança da Informação) para todas as suas subsidiárias. O objetivo é obter uma certificação internacional que demonstre conformidade com melhores práticas de segurança. Qual norma deve ser adotada como referência principal?',
+    options: [
+      'ISO 31000 — Gestão de Riscos',
+      'ISO 27001 — Sistema de Gestão de Segurança da Informação',
+      'NIST CSF — Cybersecurity Framework',
+      'ISO 38500 — Governança Corporativa de TI',
+    ],
+    correctAnswer: 1,
+    explanation: 'ISO 27001 é a norma internacional para SGSI que permite certificação formal. Ela adota o ciclo PDCA e define requisitos para implementação, manutenção e melhoria contínua da segurança da informação.',
+  },
+  {
+    id: 291,
+    moduleId: 'grc',
+    topic: 'Políticas e Procedimentos',
+    question: 'Durante a implementação de um programa de compliance, a equipe de segurança precisa criar a documentação normativa. Eles definiram: (1) um documento que estabelece o compromisso da direção e os princípios gerais de segurança, (2) um documento que detalha as regras obrigatórias para classificação da informação, e (3) um guia passo a passo para realizar backups. Como esses documentos devem ser classificados na hierarquia documental?',
+    options: [
+      '(1) Norma, (2) Política, (3) Procedimento',
+      '(1) Política, (2) Norma, (3) Procedimento',
+      '(1) Procedimento, (2) Política, (3) Norma',
+      '(1) Diretriz, (2) Norma, (3) Política',
+    ],
+    correctAnswer: 1,
+    explanation: 'Na hierarquia documental: Políticas são estratégicas (compromisso da direção), Normas são táticas (regras obrigatórias), Procedimentos são operacionais (passo a passo). A classificação correta é: Política de Segurança, Norma de Classificação, Procedimento de Backup.',
+  },
+  {
+    id: 292,
+    moduleId: 'grc',
+    topic: 'Políticas e Procedimentos',
+    question: 'Um funcionário recém-contratado assinou a Política de Uso Aceitável (AUP) da empresa, que proíbe o uso de dispositivos pessoais para acessar sistemas corporativos. Três meses depois, ele conectou seu notebook pessoal à rede corporativa para "agilizar" uma entrega. O que esta situação demonstra sobre o programa de políticas da empresa?',
+    options: [
+      'A política é clara e suficiente, o funcionário deve ser demitido imediatamente',
+      'As políticas existem, mas podem não estar acompanhadas de treinamento e conscientização adequados, além de controles técnicos para enforce',
+      'A política de Uso Aceitável não é importante e pode ser ignorada',
+      'O funcionário está correto, pois dispositivos pessoais aumentam a produtividade',
+    ],
+    correctAnswer: 1,
+    explanation: 'Ter políticas documentadas não é suficiente. É preciso complementar com treinamento, conscientização contínua e controles técnicos (como NAC - Network Access Control) que impeçam o descumprimento. A situação revela lacunas no programa de conscientização.',
+  },
+  {
+    id: 293,
+    moduleId: 'grc',
+    topic: 'Gestão de Incidentes e Continuidade',
+    question: 'Uma empresa sofreu um ataque ransomware que criptografou todos os servidores críticos. A equipe de TI acionou o plano de continuidade de negócios e descobriu que: (a) o backup mais recente tem 72 horas, (b) o RTO definido para o sistema principal é de 4 horas, (c) o RPO definido é de 1 hora. Qual problema estrutural fica evidente?',
+    options: [
+      'O RPO de 1 hora não está sendo atendido, pois o backup tem 72 horas de atraso',
+      'O RTO de 4 horas é muito curto e deve ser ajustado',
+      'Não há problema, pois o backup existe e pode ser restaurado',
+      'O RPO de 1 hora é adequado e o backup de 72 horas está dentro do esperado',
+    ],
+    correctAnswer: 0,
+    explanation: 'O RPO (Recovery Point Objective) definido é de 1 hora — a organização aceita perder no máximo 1 hora de dados. Porém, o backup mais recente é de 72 horas, resultando em perda potencial de 72 horas de dados. Isso indica que o processo de backup não está cumprindo os requisitos de continuidade definidos.',
+  },
+  {
+    id: 294,
+    moduleId: 'grc',
+    topic: 'Gestão de Incidentes e Continuidade',
+    question: 'Durante a fase de "Lições Aprendidas" após um incidente de vazamento de dados, a equipe CSIRT identificou que: o incidente foi detectado 45 dias após ocorrer, a equipe não tinha um playbook específico para vazamento de dados, e a comunicação com o jurídico foi feita informalmente por WhatsApp. Qual melhoria deve ser priorizada?',
+    options: [
+      'Trocar a ferramenta de firewall, pois o ataque passou por ele',
+      'Implementar canais formais de comunicação, criar playbooks específicos e reduzir o tempo de detecção com ferramentas de monitoramento',
+      'Demitir a equipe CSIRT e contratar uma nova',
+      'Ignorar as lições aprendidas, pois o incidente já passou',
+    ],
+    correctAnswer: 1,
+    explanation: 'As lições aprendidas devem gerar melhorias concretas. As três falhas identificadas (detecção tardia, ausência de playbook, comunicação informal) podem ser endereçadas com: ferramentas de detecção (SIEM/EDR), criação de playbooks documentados e canais oficiais de comunicação com o jurídico.',
+  },
+  {
+    id: 295,
+    moduleId: 'grc',
+    topic: 'Métricas e Reportes de GRC',
+    question: 'O CISO precisa preparar um relatório trimestral para o conselho. Ele tem os seguintes dados: 1.247 vulnerabilidades abertas, MTTR de 12 dias para vulnerabilidades críticas, 3 incidentes de segurança no trimestre, orçamento de segurança de R$ 2 milhões, e 78% dos funcionários treinados. Qual conjunto de informações é mais relevante para o conselho?',
+    options: [
+      'O número total de vulnerabilidades e o MTTR, pois são dados técnicos importantes',
+      'A tendência de risco: redução de 15% nas vulnerabilidades críticas nos últimos 2 trimestres, comparação do MTTR com o SLA aprovado (98% dentro do prazo), e recomendações de investimento com retorno esperado',
+      'A lista completa de todas as 1.247 vulnerabilidades para análise detalhada',
+      'Apenas o orçamento de R$ 2 milhões, pois finanças é o que importa para o conselho',
+    ],
+    correctAnswer: 1,
+    explanation: 'O conselho precisa de visão estratégica: tendências (estamos melhorando?), comparação com metas (estamos dentro do esperado?) e recomendações acionáveis (onde investir?). Dados brutos sem contexto não ajudam na tomada de decisão estratégica.',
+  },
+  {
+    id: 296,
+    moduleId: 'grc',
+    topic: 'Métricas e Reportes de GRC',
+    question: 'Uma empresa definiu seus KRIs (Key Risk Indicators) para monitorar a exposição a riscos cibernéticos. A diretoria aprovou um apetite a risco que permite no máximo 5 vulnerabilidades críticas em ativos críticos por mês e no máximo 8 horas de downtime por trimestre. No relatório atual: existem 9 vulnerabilidades críticas em ativos críticos e 6 horas de downtime. Qual deve ser a classificação no semáforo do dashboard?',
+    options: [
+      'Verde — dentro do apetite a risco',
+      'Amarelo — próximo do limite, requer atenção',
+      'Vermelho — o limite de vulnerabilidades críticas (5) foi excedido (9), indicando exposição acima do apetite a risco definido',
+      'Azul — indicador não se aplica',
+    ],
+    correctAnswer: 2,
+    explanation: 'O KRI de vulnerabilidades críticas (9) excedeu o limite aprovado de 5, indicando exposição acima do apetite a risco. O KRI de downtime (6h) está dentro do limite de 8h. O semáforo deve ficar vermelho pois pelo menos um indicador está fora do limite aceitável.',
+  },
+  {
+    id: 297,
+    moduleId: 'grc',
+    topic: 'GRC - Cenário Integrado',
+    question: 'Uma empresa de serviços financeiros está sendo auditada por um órgão regulador. O auditor solicitou evidências de: (1) política de segurança da informação aprovada pela direção, (2) registro de análise de riscos dos últimos 12 meses, (3) comprovantes de treinamento de compliance para todos os funcionários, (4) relatório de resposta ao último incidente de segurança. Esta auditoria está verificando, respectivamente, quais pilares do GRC?',
+    options: [
+      'Risco, Governança, Operações, Conformidade',
+      'Governança (política aprovada), Risco (análise de riscos), Conformidade (treinamento de compliance), Operações (resposta a incidentes)',
+      'Conformidade (política), Governança (riscos), Operações (treinamento), Risco (incidente)',
+      'Todos os quatro itens são exclusivamente de Conformidade',
+    ],
+    correctAnswer: 1,
+    explanation: 'A política aprovada pela direção evidencia Governança (compromisso da alta direção). A análise de riscos representa o pilar Risco. O treinamento de compliance é Conformidade. A resposta a incidentes, embora seja operacional, demonstra a aplicação prática dos controles estabelecidos pela governança.',
+  },
+  {
+    id: 298,
+    moduleId: 'grc',
+    topic: 'GRC - Cenário Integrado',
+    question: 'O conselho de uma empresa multinacional aprovou uma nova estratégia de GRC que inclui: adoção do COBIT para governança de TI, implementação da ISO 31000 para gestão de riscos, adequação à LGPD e PCI DSS para conformidade, e certificação ISO 27001 em até 18 meses. Durante a reunião de kickoff, o gerente de compliance questionou como integrar todos esses frameworks sem criar processos duplicados. Qual abordagem resolve melhor este problema?',
+    options: [
+      'Implementar cada framework separadamente, cada um com sua própria equipe',
+      'Criar um modelo integrado que mapeie os controles de cada framework em uma matriz única, identificando overlays e gaps, e estabelecendo controles comuns que atendam a múltiplos requisitos simultaneamente',
+      'Abandonar todos os frameworks e criar um padrão próprio',
+      'Implementar apenas a ISO 27001, pois ela cobre todos os requisitos dos demais',
+    ],
+    correctAnswer: 1,
+    explanation: 'A abordagem integrada de GRC mapeia requisitos de diferentes frameworks em uma matriz de controles comum. Isso elimina duplicidades, reduz custos e garante que um único controle atenda a múltiplos requisitos (ex: controle de acesso atende ISO 27001, SOX e LGPD simultaneamente).',
+  },
+  {
+    id: 299,
+    moduleId: 'grc',
+    topic: 'GRC - Cenário Integrado',
+    question: 'Uma organização sofreu um ataque de ransomware bem-sucedido. A investigação revelou que uma vulnerabilidade crítica (CVE-2023-XXXX) identificada há 6 meses em um scan de vulnerabilidades nunca foi corrigida porque o time de infraestrutura estava sobrecarregado e não havia um SLA formal estabelecido. Qual foi a falha de GRC mais grave neste cenário?',
+    options: [
+      'Falha técnica no scanner de vulnerabilidades que deveria ter priorizado automaticamente',
+      'Falha de Governança — ausência de um SLA formal de remediação que definisse prazos e responsabilidades, combinada com falta de accountability da gestão',
+      'Falha na equipe de infraestrutura que deveria ter trabalhado horas extras para corrigir',
+      'Falha no fornecedor do software que publicou a vulnerabilidade',
+    ],
+    correctAnswer: 1,
+    explanation: 'A causa raiz não foi técnica, mas sim de governança. Sem SLAs formais, responsabilidades claras e monitoramento da gestão (accountability), vulnerabilidades conhecidas ficam sem correção. Um programa GRC maduro teria um SLA de remediação (ex: 48h para críticas) com escalonamento automático se não cumprido.',
+  },
+  {
+    id: 300,
+    moduleId: 'grc',
+    topic: 'GRC - Plano de Ação',
+    question: 'Uma empresa de tecnologia acabou de contratar um Head de GRC para estruturar a área do zero. A situação atual é: não há políticas de segurança formalizadas, a gestão de riscos é feita informalmente pelo CISO em planilhas, a empresa não possui certificações, e já recebeu uma notificação da ANPD sobre tratamento inadequado de dados. Qual deve ser a PRIMEIRA ação prioritária do Head de GRC?',
+    options: [
+      'Iniciar imediatamente o processo de certificação ISO 27001',
+      'Comprar uma ferramenta de GRC enterprise (Archer, MetricStream)',
+      'Realizar um assessment inicial para entender o gap atual vs requisitos (LGPD, melhores práticas), estabelecer uma política de segurança da informação aprovada pela direção, e criar um roadmap estruturado de implementação',
+      'Contratar uma equipe de 10 pessoas para dar conta de todas as demandas',
+    ],
+    correctAnswer: 2,
+    explanation: 'Antes de qualquer ação, é necessário entender a situação atual (assessment). A política de segurança da informação é o documento fundacional que estabelece o compromisso da direção. A partir dela, um roadmap estruturado prioriza as ações mais críticas (LGPD tem notificação da ANPD — risco imediato). Ferramentas e certificações vêm depois que os processos básicos estão estabelecidos.',
+  },
 ];
 
 export default assessmentQuestions;
