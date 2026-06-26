@@ -23,8 +23,7 @@ export default function BeginnerTrackScreen() {
   ];
 
   function handleModulePress(moduleId) {
-    console.log('Módulo selecionado:', moduleId);
-    // Navegar para página de conteúdo do módulo
+    navigation.navigate('ModuleDetail', { moduleId });
   }
 
   return (
