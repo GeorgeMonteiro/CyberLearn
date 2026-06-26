@@ -25,49 +25,49 @@ const INITIAL_LESSONS = [
     icon: 'git-branch-outline',
     title: 'Fluxogramas',
     description: 'Visualize algoritmos através de representações gráficas.',
-    status: 'locked',
+    status: 'in_progress',
   },
   {
     id: 'logica_4',
     icon: 'cube-outline',
     title: 'Variáveis',
     description: 'Descubra como armazenar e manipular dados na memória.',
-    status: 'locked',
+    status: 'in_progress',
   },
   {
     id: 'logica_5',
     icon: 'layers-outline',
     title: 'Tipos de Dados',
     description: 'Conheça os diferentes tipos de dados usados na programação.',
-    status: 'locked',
+    status: 'in_progress',
   },
   {
     id: 'logica_6',
     icon: 'calculator-outline',
     title: 'Operadores',
     description: 'Utilize operadores para realizar cálculos e comparações.',
-    status: 'locked',
+    status: 'in_progress',
   },
   {
     id: 'logica_7',
     icon: 'git-merge-outline',
     title: 'Estruturas Condicionais',
     description: 'Tome decisões no código com if, else e switch.',
-    status: 'locked',
+    status: 'in_progress',
   },
   {
     id: 'logica_8',
     icon: 'sync-outline',
     title: 'Estruturas de Repetição',
     description: 'Automatize tarefas repetitivas com loops.',
-    status: 'locked',
+    status: 'in_progress',
   },
   {
     id: 'logica_9',
     icon: 'rocket-outline',
     title: 'Exercícios Práticos',
     description: 'Pratique tudo o que aprendeu com exercícios hands-on.',
-    status: 'locked',
+    status: 'in_progress',
   },
 ];
 
@@ -178,11 +178,14 @@ export default function ModuleDetailScreen() {
   const allCompleted = lessons.every((l) => l.status === 'completed');
 
   function handleStudy(lessonId) {
-    navigation.navigate('Lesson', { lessonId, moduleId: 'logica' });
+    if (lessonId === 'logica_9') {
+      navigation.navigate('Exercise', { moduleId: 'logica' });
+    } else {
+      navigation.navigate('Lesson', { lessonId, moduleId: 'logica' });
+    }
   }
 
   function handleStartQuiz() {
-    if (!allCompleted) return;
     navigation.navigate('Quiz', { moduleId: 'logica' });
   }
 
@@ -241,12 +244,11 @@ export default function ModuleDetailScreen() {
 
         <TouchableOpacity
           onPress={handleStartQuiz}
-          disabled={!allCompleted}
           activeOpacity={0.8}
-          style={[styles.quizOuter, !allCompleted && styles.quizOuterDisabled]}
+          style={styles.quizOuter}
         >
           <LinearGradient
-            colors={allCompleted ? [colors.gradientStart, colors.gradientEnd] : [colors.surfaceLight, colors.surfaceLight]}
+            colors={[colors.gradientStart, colors.gradientEnd]}
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 1 }}
             style={styles.quizButton}
@@ -254,10 +256,10 @@ export default function ModuleDetailScreen() {
             <Ionicons
               name="trophy-outline"
               size={24}
-              color={allCompleted ? colors.white : colors.textMuted}
+              color={colors.white}
             />
-            <Text style={[styles.quizButtonText, !allCompleted && styles.quizButtonTextDisabled]}>
-              Iniciar Quiz
+            <Text style={styles.quizButtonText}>
+              Iniciar avaliação
             </Text>
           </LinearGradient>
         </TouchableOpacity>

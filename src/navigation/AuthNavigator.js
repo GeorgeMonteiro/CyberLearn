@@ -11,6 +11,8 @@ import BeginnerTrackScreen from '../screens/BeginnerTrackScreen';
 import ExpertTrackScreen from '../screens/ExpertTrackScreen';
 import ModuleDetailScreen from '../screens/ModuleDetailScreen';
 import LessonScreen from '../screens/LessonScreen';
+import ExerciseScreen from '../screens/ExerciseScreen';
+import QuizScreen from '../screens/QuizScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -33,6 +35,8 @@ export default function AuthNavigator() {
       <Stack.Screen name="ExpertTrack" component={ExpertTrackScreen} />
       <Stack.Screen name="ModuleDetail" component={ModuleDetailScreen} />
       <Stack.Screen name="Lesson" component={LessonScreen} />
+      <Stack.Screen name="Exercise" component={ExerciseScreen} />
+      <Stack.Screen name="Quiz" component={QuizScreen} />
     </Stack.Navigator>
   );
 }

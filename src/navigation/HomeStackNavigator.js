@@ -6,6 +6,7 @@ import ModuleScreen from '../screens/ModuleScreen';
 import ModuleDetailScreen from '../screens/ModuleDetailScreen';
 import LessonScreen from '../screens/LessonScreen';
 import QuizScreen from '../screens/QuizScreen';
+import ExerciseScreen from '../screens/ExerciseScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -21,6 +22,7 @@ export default function HomeStackNavigator() {
       <Stack.Screen name="Module" component={ModuleScreen} />
       <Stack.Screen name="ModuleDetail" component={ModuleDetailScreen} />
       <Stack.Screen name="Lesson" component={LessonScreen} />
+      <Stack.Screen name="Exercise" component={ExerciseScreen} />
       <Stack.Screen name="Quiz" component={QuizScreen} />
     </Stack.Navigator>
   );
