@@ -1,75 +1,61 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, SafeAreaView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { colors, spacing, typography, radius, shadows } from '../theme';
+import { useProgress } from '../context/ProgressContext';
 
-const INITIAL_LESSONS = [
-  {
-    id: 'logica_1',
-    icon: 'code-slash-outline',
-    title: 'O que é Lógica de Programação',
-    description: 'Entenda o conceito fundamental da lógica aplicada à programação.',
-    status: 'in_progress',
+const MODULE_DATA = {
+  logica: {
+    title: 'Lógica de Programação',
+    icon: 'code-slash',
+    banner: 'Aprenda os fundamentos da lógica de programação, desenvolvendo o raciocínio necessário para iniciar seus estudos em cibersegurança.',
+    lessons: [
+      { id: 'logica_1', icon: 'code-slash-outline', title: 'O que é Lógica de Programação', description: 'Entenda o conceito fundamental da lógica aplicada à programação.' },
+      { id: 'logica_2', icon: 'list-outline', title: 'Algoritmos', description: 'Aprenda a criar sequências lógicas de instruções para resolver problemas.' },
+      { id: 'logica_3', icon: 'git-branch-outline', title: 'Fluxogramas', description: 'Visualize algoritmos através de representações gráficas.' },
+      { id: 'logica_4', icon: 'cube-outline', title: 'Variáveis', description: 'Descubra como armazenar e manipular dados na memória.' },
+      { id: 'logica_5', icon: 'layers-outline', title: 'Tipos de Dados', description: 'Conheça os diferentes tipos de dados usados na programação.' },
+      { id: 'logica_6', icon: 'calculator-outline', title: 'Operadores', description: 'Utilize operadores para realizar cálculos e comparações.' },
+      { id: 'logica_7', icon: 'git-merge-outline', title: 'Estruturas Condicionais', description: 'Tome decisões no código com if, else e switch.' },
+      { id: 'logica_8', icon: 'sync-outline', title: 'Estruturas de Repetição', description: 'Automatize tarefas repetitivas com loops.' },
+      { id: 'logica_9', icon: 'rocket-outline', title: 'Exercícios Práticos', description: 'Pratique tudo o que aprendeu com exercícios hands-on.' },
+    ],
   },
-  {
-    id: 'logica_2',
-    icon: 'list-outline',
-    title: 'Algoritmos',
-    description: 'Aprenda a criar sequências lógicas de instruções para resolver problemas.',
-    status: 'in_progress',
+  redes: {
+    title: 'Fundamentos de Redes',
+    icon: 'wifi',
+    banner: 'Aprenda os fundamentos de redes de computadores, desde o modelo OSI até protocolos de comunicação e segurança de rede.',
+    lessons: [
+      { id: 'redes_1', icon: 'wifi-outline', title: 'Introdução às Redes', description: 'Entenda o conceito fundamental de redes de computadores e suas topologias.' },
+      { id: 'redes_2', icon: 'layers-outline', title: 'Modelo OSI', description: 'Conheça as 7 camadas do modelo OSI e como os dados fluem entre elas.' },
+      { id: 'redes_3', icon: 'aperture-outline', title: 'Modelo TCP/IP', description: 'Aprenda o modelo TCP/IP e sua relação com o modelo OSI.' },
+      { id: 'redes_4', icon: 'code-slash-outline', title: 'Endereçamento IP', description: 'Entenda IPv4, IPv6, máscaras de sub-rede e endereçamento.' },
+      { id: 'redes_5', icon: 'search-outline', title: 'DNS', description: 'Descubra como o Sistema de Nomes de Domínio funciona na prática.' },
+      { id: 'redes_6', icon: 'globe-outline', title: 'Protocolos de Comunicação', description: 'Conheça os principais protocolos: HTTP, HTTPS, FTP, SMTP, DHCP e SSH.' },
+      { id: 'redes_7', icon: 'hardware-chip-outline', title: 'Dispositivos de Rede', description: 'Aprenda sobre hubs, switches, roteadores e meios de transmissão.' },
+      { id: 'redes_8', icon: 'shield-checkmark-outline', title: 'Segurança em Redes', description: 'Proteja sua rede com firewalls, VPNs e criptografia.' },
+      { id: 'redes_9', icon: 'rocket-outline', title: 'Exercícios Práticos', description: 'Pratique tudo o que aprendeu com exercícios hands-on.' },
+    ],
   },
-  {
-    id: 'logica_3',
-    icon: 'git-branch-outline',
-    title: 'Fluxogramas',
-    description: 'Visualize algoritmos através de representações gráficas.',
-    status: 'in_progress',
+  seguranca: {
+    title: 'Fundamentos de Cibersegurança',
+    icon: 'shield-checkmark',
+    banner: 'Aprenda os fundamentos da cibersegurança, desde os 3 pilares da informação até os principais tipos de malware, ameaças e ataques cibernéticos.',
+    lessons: [
+      { id: 'seguranca_1', icon: 'shield-outline', title: 'Introdução à Cibersegurança', description: 'Entenda o que é cibersegurança, sua importância e o cenário atual de ameaças.' },
+      { id: 'seguranca_2', icon: 'key-outline', title: 'Os 3 Pilares da Informação', description: 'Conheça a Tríade CIA: Confidencialidade, Integridade e Disponibilidade.' },
+      { id: 'seguranca_3', icon: 'bug-outline', title: 'Malware', description: 'Aprenda sobre vírus, worms, trojans, ransomware, spyware e outros malwares.' },
+      { id: 'seguranca_4', icon: 'warning-outline', title: 'Ameaças e Vulnerabilidades', description: 'Entenda a diferença entre ameaça, vulnerabilidade e risco em segurança.' },
+      { id: 'seguranca_5', icon: 'flash-off-outline', title: 'Tipos de Ataques', description: 'Conheça os principais ataques: phishing, DDoS, MitM, SQL Injection e engenharia social.' },
+      { id: 'seguranca_6', icon: 'lock-closed-outline', title: 'Criptografia', description: 'Descubra como a criptografia simétrica, assimétrica e hashing protegem os dados.' },
+      { id: 'seguranca_7', icon: 'shield-half-outline', title: 'Segurança em Redes e Firewall', description: 'Aprenda sobre firewalls, IDS/IPS, VPNs e proteção de perímetro.' },
+      { id: 'seguranca_8', icon: 'checkmark-done-outline', title: 'Boas Práticas de Segurança', description: 'Implemente políticas de senhas, backups, 2FA e conscientização.' },
+      { id: 'seguranca_9', icon: 'rocket-outline', title: 'Exercícios Práticos', description: 'Pratique tudo o que aprendeu com exercícios hands-on.' },
+    ],
   },
-  {
-    id: 'logica_4',
-    icon: 'cube-outline',
-    title: 'Variáveis',
-    description: 'Descubra como armazenar e manipular dados na memória.',
-    status: 'in_progress',
-  },
-  {
-    id: 'logica_5',
-    icon: 'layers-outline',
-    title: 'Tipos de Dados',
-    description: 'Conheça os diferentes tipos de dados usados na programação.',
-    status: 'in_progress',
-  },
-  {
-    id: 'logica_6',
-    icon: 'calculator-outline',
-    title: 'Operadores',
-    description: 'Utilize operadores para realizar cálculos e comparações.',
-    status: 'in_progress',
-  },
-  {
-    id: 'logica_7',
-    icon: 'git-merge-outline',
-    title: 'Estruturas Condicionais',
-    description: 'Tome decisões no código com if, else e switch.',
-    status: 'in_progress',
-  },
-  {
-    id: 'logica_8',
-    icon: 'sync-outline',
-    title: 'Estruturas de Repetição',
-    description: 'Automatize tarefas repetitivas com loops.',
-    status: 'in_progress',
-  },
-  {
-    id: 'logica_9',
-    icon: 'rocket-outline',
-    title: 'Exercícios Práticos',
-    description: 'Pratique tudo o que aprendeu com exercícios hands-on.',
-    status: 'in_progress',
-  },
-];
+};
 
 function getIconGradient(status) {
   if (status === 'completed') return ['#22C55E', '#16A34A'];
@@ -170,23 +156,39 @@ function LessonCard({ lesson, onStudy }) {
 export default function ModuleDetailScreen() {
   const navigation = useNavigation();
   const route = useRoute();
-  const [lessons, setLessons] = useState(INITIAL_LESSONS);
+  const { moduleId } = route.params || {};
+  const moduleData = MODULE_DATA[moduleId] || MODULE_DATA.logica;
+  const { isLessonCompleted, isLessonUnlocked, getModuleProgress } = useProgress();
 
-  const completedCount = lessons.filter((l) => l.status === 'completed').length;
-  const totalCount = lessons.length;
-  const progress = Math.round((completedCount / totalCount) * 100);
-  const allCompleted = lessons.every((l) => l.status === 'completed');
+  const totalCount = moduleData.lessons.length;
+  const { completed: completedCount, percentage: progress } = getModuleProgress(moduleId, totalCount);
+
+  const lessons = moduleData.lessons.map((l) => {
+    const lessonNumber = parseInt(l.id.split('_')[1], 10);
+    const completed = isLessonCompleted(moduleId, l.id);
+    const unlocked = isLessonUnlocked(moduleId, lessonNumber);
+    let status;
+    if (completed) {
+      status = 'completed';
+    } else if (unlocked) {
+      status = 'in_progress';
+    } else {
+      status = 'locked';
+    }
+    return { ...l, status };
+  });
 
   function handleStudy(lessonId) {
-    if (lessonId === 'logica_9') {
-      navigation.navigate('Exercise', { moduleId: 'logica' });
+    const isLastLesson = lessonId.endsWith('_9');
+    if (isLastLesson) {
+      navigation.navigate('Exercise', { moduleId });
     } else {
-      navigation.navigate('Lesson', { lessonId, moduleId: 'logica' });
+      navigation.navigate('Lesson', { lessonId, moduleId });
     }
   }
 
   function handleStartQuiz() {
-    navigation.navigate('Quiz', { moduleId: 'logica' });
+    navigation.navigate('Quiz', { moduleId });
   }
 
   return (
@@ -202,7 +204,7 @@ export default function ModuleDetailScreen() {
             <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
               <Ionicons name="chevron-back" size={24} color={colors.white} />
             </TouchableOpacity>
-            <Text style={styles.headerTitle}>Lógica de Programação</Text>
+            <Text style={styles.headerTitle}>{moduleData.title}</Text>
             <View style={styles.headerRight} />
           </View>
 
@@ -225,13 +227,10 @@ export default function ModuleDetailScreen() {
               colors={['rgba(0, 212, 255, 0.15)', 'rgba(139, 61, 255, 0.15)']}
               style={styles.bannerIconBg}
             >
-              <Ionicons name="code-slash" size={44} color={colors.cyberBlue} />
+              <Ionicons name={moduleData.icon} size={44} color={colors.cyberBlue} />
             </LinearGradient>
           </View>
-          <Text style={styles.bannerText}>
-            Aprenda os fundamentos da lógica de programação, desenvolvendo o raciocínio
-            necessário para iniciar seus estudos em cibersegurança.
-          </Text>
+          <Text style={styles.bannerText}>{moduleData.banner}</Text>
         </View>
 
         <Text style={styles.sectionTitle}>Lições</Text>
@@ -245,21 +244,22 @@ export default function ModuleDetailScreen() {
         <TouchableOpacity
           onPress={handleStartQuiz}
           activeOpacity={0.8}
-          style={styles.quizOuter}
+          disabled={completedCount < totalCount}
+          style={[styles.quizOuter, completedCount < totalCount && styles.quizOuterDisabled]}
         >
           <LinearGradient
-            colors={[colors.gradientStart, colors.gradientEnd]}
+            colors={completedCount < totalCount ? [colors.surfaceLight, colors.surfaceLight] : [colors.gradientStart, colors.gradientEnd]}
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 1 }}
             style={styles.quizButton}
           >
             <Ionicons
-              name="trophy-outline"
+              name={completedCount < totalCount ? 'lock-closed-outline' : 'trophy-outline'}
               size={24}
-              color={colors.white}
+              color={completedCount < totalCount ? colors.textMuted : colors.white}
             />
-            <Text style={styles.quizButtonText}>
-              Iniciar avaliação
+            <Text style={[styles.quizButtonText, completedCount < totalCount && styles.quizButtonTextDisabled]}>
+              {completedCount < totalCount ? 'Complete todas as lições primeiro' : 'Iniciar avaliação'}
             </Text>
           </LinearGradient>
         </TouchableOpacity>

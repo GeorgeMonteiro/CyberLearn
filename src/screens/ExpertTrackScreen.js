@@ -1,10 +1,20 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Pressable } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { colors, spacing, typography, radius, shadows } from '../theme';
 import ShieldIcon from '../components/ShieldIcon';
 import Avatar from '../components/Avatar';
+import { useProgress } from '../context/ProgressContext';
+
+const MODULE_LESSONS = {
+  cti: 9,
+  redteam: 9,
+  blueteam: 9,
+  gestao: 9,
+  grc: 9,
+};
 
 const modules = [
   { id: 'cti', title: 'Cyber Threat Intelligence' },
@@ -14,9 +24,21 @@ const modules = [
   { id: 'grc', title: 'Governança, Risco e Conformidade (GRC)' },
 ];
 
+function totalTrailLessons() {
+  return modules.reduce((sum, m) => sum + (MODULE_LESSONS[m.id] || 9), 0);
+}
+
 export default function ExpertTrackScreen() {
   const navigation = useNavigation();
+  const { getModuleProgress } = useProgress();
   const [dropdownVisible, setDropdownVisible] = useState(false);
+
+  const totalLessons = totalTrailLessons();
+  const totalCompleted = modules.reduce(
+    (sum, m) => sum + getModuleProgress(m.id, MODULE_LESSONS[m.id]).completed,
+    0
+  );
+  const trailProgress = Math.round((totalCompleted / totalLessons) * 100);
 
   const dropdownOptions = [
     { label: 'Meu Perfil', action: () => {} },
@@ -25,7 +47,7 @@ export default function ExpertTrackScreen() {
   ];
 
   function handleModulePress(moduleId) {
-    console.log('Módulo selecionado:', moduleId);
+    navigation.navigate('ModuleDetail', { moduleId });
   }
 
   return (
@@ -72,20 +94,50 @@ export default function ExpertTrackScreen() {
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
+        <View style={styles.trailProgressSection}>
+          <View style={styles.trailProgressRow}>
+            <Ionicons name="trophy-outline" size={20} color={colors.warning} />
+            <Text style={styles.trailProgressTitle}>Progresso da Trilha</Text>
+          </View>
+          <View style={styles.trailProgressBarTrack}>
+            <View style={[styles.trailProgressBarFill, { width: `${trailProgress}%` }]} />
+          </View>
+          <Text style={styles.trailProgressLabel}>
+            {totalCompleted}/{totalLessons} aulas concluídas ({trailProgress}%)
+          </Text>
+        </View>
+
         <Text style={styles.title}>Trilha Especializada</Text>
         <Text style={styles.subtitle}>Escolha sua área de especialização para continuar:</Text>
 
         <View style={styles.modulesContainer}>
-          {modules.map((module) => (
-            <TouchableOpacity
-              key={module.id}
-              style={styles.moduleButton}
-              onPress={() => handleModulePress(module.id)}
-              activeOpacity={0.75}
-            >
-              <Text style={styles.moduleButtonText}>{module.title}</Text>
-            </TouchableOpacity>
-          ))}
+          {modules.map((module) => {
+            const { completed, percentage } = getModuleProgress(module.id, MODULE_LESSONS[module.id]);
+            return (
+              <TouchableOpacity
+                key={module.id}
+                style={styles.moduleButton}
+                onPress={() => handleModulePress(module.id)}
+                activeOpacity={0.75}
+              >
+                <View style={styles.moduleButtonContent}>
+                  <Text style={styles.moduleButtonText}>
+                    {module.title}
+                  </Text>
+                  <View style={styles.moduleProgressRow}>
+                    <View style={styles.moduleProgressTrack}>
+                      <View
+                        style={[styles.moduleProgressFill, { width: `${percentage}%` }]}
+                      />
+                    </View>
+                    <Text style={styles.moduleProgressLabel}>
+                      {completed}/{MODULE_LESSONS[module.id]}
+                    </Text>
+                  </View>
+                </View>
+              </TouchableOpacity>
+            );
+          })}
         </View>
       </ScrollView>
     </LinearGradient>
@@ -151,6 +203,44 @@ const styles = StyleSheet.create({
     paddingBottom: spacing.xxxl,
     paddingTop: spacing.xxl,
   },
+  trailProgressSection: {
+    width: '100%',
+    backgroundColor: 'rgba(255,255,255,0.1)',
+    borderRadius: radius.xl,
+    padding: spacing.lg,
+    marginBottom: spacing.xxl,
+  },
+  trailProgressRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.sm,
+    marginBottom: spacing.md,
+  },
+  trailProgressTitle: {
+    fontSize: typography.fontSize.md,
+    fontWeight: typography.fontWeight.bold,
+    color: colors.textLight,
+    letterSpacing: typography.letterSpacing.wide,
+  },
+  trailProgressBarTrack: {
+    width: '100%',
+    height: 10,
+    backgroundColor: 'rgba(255,255,255,0.2)',
+    borderRadius: radius.full,
+    overflow: 'hidden',
+  },
+  trailProgressBarFill: {
+    height: '100%',
+    backgroundColor: colors.warning,
+    borderRadius: radius.full,
+  },
+  trailProgressLabel: {
+    fontSize: typography.fontSize.sm,
+    fontWeight: typography.fontWeight.semibold,
+    color: 'rgba(255,255,255,0.8)',
+    marginTop: spacing.sm,
+    textAlign: 'center',
+  },
   title: {
     fontSize: typography.fontSize.display,
     fontWeight: typography.fontWeight.bold,
@@ -176,12 +266,11 @@ const styles = StyleSheet.create({
   moduleButton: {
     backgroundColor: colors.buttonBg,
     borderRadius: radius.xxl,
+    ...shadows.md,
+  },
+  moduleButtonContent: {
     paddingVertical: spacing.lg,
     paddingHorizontal: spacing.xl,
-    alignItems: 'center',
-    justifyContent: 'center',
-    minHeight: 60,
-    ...shadows.md,
   },
   moduleButtonText: {
     fontSize: typography.fontSize.xl,
@@ -189,5 +278,28 @@ const styles = StyleSheet.create({
     fontWeight: typography.fontWeight.bold,
     letterSpacing: typography.letterSpacing.wide,
     textAlign: 'center',
+    marginBottom: spacing.sm,
+  },
+  moduleProgressRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.sm,
+  },
+  moduleProgressTrack: {
+    flex: 1,
+    height: 6,
+    backgroundColor: 'rgba(255,255,255,0.15)',
+    borderRadius: radius.full,
+    overflow: 'hidden',
+  },
+  moduleProgressFill: {
+    height: '100%',
+    backgroundColor: colors.success,
+    borderRadius: radius.full,
+  },
+  moduleProgressLabel: {
+    fontSize: typography.fontSize.xs,
+    fontWeight: typography.fontWeight.bold,
+    color: 'rgba(255,255,255,0.7)',
   },
 });

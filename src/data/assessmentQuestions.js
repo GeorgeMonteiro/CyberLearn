@@ -2,6 +2,7 @@ const assessmentQuestions = [
   // === Lógica de Programação (1-5) ===
   {
     id: 1,
+    moduleId: 'logica',
     topic: 'Lógica de Programação',
     question: 'João precisa criar um programa que ajude uma lanchonete a calcular o troco. Ele definiu os seguintes passos: (1) ler valor total da compra, (2) ler valor pago pelo cliente, (3) calcular troco = valor pago - valor total, (4) exibir troco. Em qual etapa está aplicado o princípio da lógica de programação de forma mais evidente?',
     options: [
@@ -15,6 +16,7 @@ const assessmentQuestions = [
   },
   {
     id: 2,
+    moduleId: 'logica',
     topic: 'Lógica de Programação',
     question: 'Analise a seguinte sequência de raciocínio: "Todos os alunos de programação sabem lógica. Maria é aluna de programação. Logo, Maria sabe lógica." Este é um exemplo clássico de qual tipo de raciocínio lógico?',
     options: [
@@ -28,6 +30,7 @@ const assessmentQuestions = [
   },
   {
     id: 3,
+    moduleId: 'logica',
     topic: 'Lógica de Programação',
     question: 'Em lógica de programação, uma proposição é uma sentença que pode ser classificada como verdadeira ou falsa. Considere a sentença: "x + 5 = 10". Esta sentença pode ser considerada uma proposição lógica?',
     options: [
@@ -41,6 +44,7 @@ const assessmentQuestions = [
   },
   {
     id: 4,
+    moduleId: 'logica',
     topic: 'Lógica de Programação',
     question: 'Considere o seguinte problema: "Um programa deve determinar se um aluno foi aprovado (média >= 7) ou reprovado (média < 7), mas antes precisa verificar se o aluno tem frequência suficiente (>= 75%). Se a frequência for insuficiente, o aluno é reprovado independentemente da nota." Quantas condições lógicas independentes o programa precisa avaliar e em qual ordem?',
     options: [
@@ -54,6 +58,7 @@ const assessmentQuestions = [
   },
   {
     id: 5,
+    moduleId: 'logica',
     topic: 'Lógica de Programação',
     question: 'Um programador está documentando um sistema e precisa descrever a regra de negócio: "Clientes com mais de 60 anos têm prioridade no atendimento. Clientes com deficiência também têm prioridade, independentemente da idade." Quantas proposições lógicas distintas estão presentes nesta regra e como elas se combinam?',
     options: [
@@ -69,6 +74,7 @@ const assessmentQuestions = [
   // === Algoritmos (6-10) ===
   {
     id: 6,
+    moduleId: 'logica',
     topic: 'Algoritmos',
     question: 'Considere o algoritmo abaixo para calcular o fatorial de um número N:\n\n1. Ler N\n2. Se N < 0, exibir "Erro" e encerrar\n3. Se N == 0, resultado = 1\n4. Senão, resultado = 1 e contador = 1\n5. Enquanto contador <= N: resultado = resultado * contador e contador = contador + 1\n6. Exibir resultado\n\nQual propriedade fundamental dos algoritmos está sendo garantida pelo passo 2?',
     options: [
@@ -82,6 +88,7 @@ const assessmentQuestions = [
   },
   {
     id: 7,
+    moduleId: 'logica',
     topic: 'Algoritmos',
     question: 'Dois programadores criaram algoritmos diferentes para ordenar uma lista de números. O primeiro executa em n² passos (n é o tamanho da lista). O segundo executa em n×log(n) passos. Para uma lista de 1000 números, qual a diferença aproximada no número de operações executadas?',
     options: [
@@ -95,6 +102,7 @@ const assessmentQuestions = [
   },
   {
     id: 8,
+    moduleId: 'logica',
     topic: 'Algoritmos',
     question: 'Um algoritmo precisa encontrar um número específico em uma lista telefônica com 1 milhão de nomes ordenados alfabeticamente. Qual estratégia é mais eficiente e quantas comparações seriam necessárias no pior caso?',
     options: [
@@ -108,6 +116,7 @@ const assessmentQuestions = [
   },
   {
     id: 9,
+    moduleId: 'logica',
     topic: 'Algoritmos',
     question: 'Analise o seguinte pseudocódigo:\n\nalgoritmo "misterio"\nvar\n   a, b, temp: inteiro\ninicio\n   ler a, b\n   temp <- a\n   a <- b\n   b <- temp\n   exibir a, b\nfim\n\nO que este algoritmo faz e qual conceito fundamental ele demonstra?',
     options: [
@@ -121,6 +130,7 @@ const assessmentQuestions = [
   },
   {
     id: 10,
+    moduleId: 'logica',
     topic: 'Algoritmos',
     question: 'Um algoritmo recebe como entrada a idade de uma pessoa e deve classificar como: "Criança" (0-12), "Adolescente" (13-17), "Adulto" (18-59) ou "Idoso" (60+). Qual a abordagem mais clara e eficiente para implementar esta classificação?',
     options: [
@@ -136,6 +146,7 @@ const assessmentQuestions = [
   // === Fluxogramas (11-15) ===
   {
     id: 11,
+    moduleId: 'logica',
     topic: 'Fluxogramas',
     question: 'Em um fluxograma de um sistema de segurança, o losango "Senha correta?" tem duas saídas: SIM (acesso liberado) e NÃO (tentar novamente). Se o usuário errar 3 vezes, o sistema bloqueia. Como representar corretamente este contador de tentativas no fluxograma?',
     options: [
@@ -149,6 +160,7 @@ const assessmentQuestions = [
   },
   {
     id: 12,
+    moduleId: 'logica',
     topic: 'Fluxogramas',
     question: 'Qual a diferença fundamental entre usar um fluxograma e pseudocódigo para representar um algoritmo de cálculo de imposto de renda com múltiplas faixas de alíquota?',
     options: [
@@ -162,6 +174,7 @@ const assessmentQuestions = [
   },
   {
     id: 13,
+    moduleId: 'logica',
     topic: 'Fluxogramas',
     question: 'Analise a descrição: "Um fluxograma possui um losango que pergunta se o número é par. Se SIM, exibe PAR. Se NÃO, exibe ÍMPAR. Depois, ambos os caminhos se encontram em um único ponto antes de encerrar." Qual símbolo é usado para unificar os dois caminhos de volta a um fluxo único?',
     options: [
@@ -175,6 +188,7 @@ const assessmentQuestions = [
   },
   {
     id: 14,
+    moduleId: 'logica',
     topic: 'Fluxogramas',
     question: 'Um programador precisa representar em fluxograma um sistema que: (1) lê um número, (2) se for negativo, exibe "Inválido" e encerra, (3) se for positivo, calcula a raiz quadrada e exibe. Qual a sequência correta de símbolos?',
     options: [
@@ -188,6 +202,7 @@ const assessmentQuestions = [
   },
   {
     id: 15,
+    moduleId: 'logica',
     topic: 'Fluxogramas',
     question: 'Considere um fluxograma que representa o processo de saque em um caixa eletrônico. Os símbolos incluem: "Inserir cartão", "Digitar senha", "Senha válida?", "Digitar valor", "Saldo suficiente?", "Emitir dinheiro" e "Encerrar". Quantos losangos de decisão este fluxograma deve conter no mínimo?',
     options: [
@@ -203,6 +218,7 @@ const assessmentQuestions = [
   // === Variáveis (16-20) ===
   {
     id: 16,
+    moduleId: 'logica',
     topic: 'Variáveis',
     question: 'Em um programa, declaramos: nome = "Maria", idade = 28, altura = 1.65, e aprovada = true. Quantos bytes aproximadamente cada variável ocupa na memória, considerando tipos string, int, float e bool respectivamente?',
     options: [
@@ -216,6 +232,7 @@ const assessmentQuestions = [
   },
   {
     id: 17,
+    moduleId: 'logica',
     topic: 'Variáveis',
     question: 'Após executar o seguinte trecho de código, qual o valor final de x?\n\nx = 10\ny = x\nx = 20\ny = y + x',
     options: [
@@ -229,6 +246,7 @@ const assessmentQuestions = [
   },
   {
     id: 18,
+    moduleId: 'logica',
     topic: 'Variáveis',
     question: 'Qual a diferença entre escopo global e escopo local de variáveis, e por que essa distinção é importante em programas maiores?',
     options: [
@@ -242,6 +260,7 @@ const assessmentQuestions = [
   },
   {
     id: 19,
+    moduleId: 'logica',
     topic: 'Variáveis',
     question: 'Considere: a = 5, b = a + 2, a = b * 2, c = a - b. Quais os valores finais de a, b e c?',
     options: [
@@ -255,6 +274,7 @@ const assessmentQuestions = [
   },
   {
     id: 20,
+    moduleId: 'logica',
     topic: 'Variáveis',
     question: 'Um programador precisa armazenar as notas de 30 alunos de uma turma. Qual estrutura de dados é mais adequada e por quê?',
     options: [
@@ -270,6 +290,7 @@ const assessmentQuestions = [
   // === Tipos de Dados (21-25) ===
   {
     id: 21,
+    moduleId: 'logica',
     topic: 'Tipos de Dados',
     question: 'Em uma aplicação bancária, precisamos armazenar: saldo da conta (R$ 1500,50), número de agência (1234), nome do titular ("João Silva"), e conta ativa (sim). Quais tipos de dados são mais adequados para cada campo?',
     options: [
@@ -283,6 +304,7 @@ const assessmentQuestions = [
   },
   {
     id: 22,
+    moduleId: 'logica',
     topic: 'Tipos de Dados',
     question: 'Em JavaScript, qual o resultado de: "5" + 3 e "5" - 3? Explique por que os resultados são diferentes.',
     options: [
@@ -296,6 +318,7 @@ const assessmentQuestions = [
   },
   {
     id: 23,
+    moduleId: 'logica',
     topic: 'Tipos de Dados',
     question: 'Qual a diferença fundamental entre tipos de dados primitivos e tipos compostos (ou estruturados) em programação?',
     options: [
@@ -309,6 +332,7 @@ const assessmentQuestions = [
   },
   {
     id: 24,
+    moduleId: 'logica',
     topic: 'Tipos de Dados',
     question: 'Considere a expressão em Python: resultado = 10 / 3 e resultado = 10 // 3. Qual a diferença entre os dois resultados e por que isso é importante?',
     options: [
@@ -322,6 +346,7 @@ const assessmentQuestions = [
   },
   {
     id: 25,
+    moduleId: 'logica',
     topic: 'Tipos de Dados',
     question: 'Por que linguagens de tipagem forte (como Java e C++) são consideradas mais seguras que linguagens de tipagem fraca (como JavaScript) em relação a tipos de dados?',
     options: [
@@ -337,6 +362,7 @@ const assessmentQuestions = [
   // === Operadores (26-30) ===
   {
     id: 26,
+    moduleId: 'logica',
     topic: 'Operadores',
     question: 'Analise a expressão lógica: (idade >= 18 && possuiCarteira) || (idade > 65 && !saudeRuim). Uma pessoa de 70 anos com carteira de motorista e saúde ruim pode dirigir legalmente segundo esta expressão?',
     options: [
@@ -350,6 +376,7 @@ const assessmentQuestions = [
   },
   {
     id: 27,
+    moduleId: 'logica',
     topic: 'Operadores',
     question: 'Qual a precedência correta dos operadores na expressão: !a && b || c == d + e * f? Considere que todas as variáveis estão definidas.',
     options: [
@@ -363,6 +390,7 @@ const assessmentQuestions = [
   },
   {
     id: 28,
+    moduleId: 'logica',
     topic: 'Operadores',
     question: 'Qual a diferença entre os operadores de incremento ++x (pré-incremento) e x++ (pós-incremento) quando usados dentro de uma expressão maior?',
     options: [
@@ -376,6 +404,7 @@ const assessmentQuestions = [
   },
   {
     id: 29,
+    moduleId: 'logica',
     topic: 'Operadores',
     question: 'Considere: a = true, b = false, c = true. Qual o resultado de: (a && b) || (!c && a) || (b || c)?',
     options: [
@@ -389,6 +418,7 @@ const assessmentQuestions = [
   },
   {
     id: 30,
+    moduleId: 'logica',
     topic: 'Operadores',
     question: 'Em uma calculadora de imposto, a regra é: "Se renda <= 2000, isento. Se renda <= 5000, taxa de 10%. Se renda <= 10000, taxa de 20%. Acima disso, taxa de 30%." Qual expressão calcula corretamente o imposto para renda de 7500?',
     options: [
@@ -404,6 +434,7 @@ const assessmentQuestions = [
   // === Estruturas Condicionais (31-35) ===
   {
     id: 31,
+    moduleId: 'logica',
     topic: 'Estruturas Condicionais',
     question: 'Analise o código: if (nota >= 7) { situacao = "Aprovado"; } else if (nota >= 5) { situacao = "Recuperação"; } else { situacao = "Reprovado"; } console.log(situacao); Se nota = 7, qual o valor exibido?',
     options: [
@@ -417,6 +448,7 @@ const assessmentQuestions = [
   },
   {
     id: 32,
+    moduleId: 'logica',
     topic: 'Estruturas Condicionais',
     question: 'Qual problema potencial existe no código: if (x = 10) { console.log("x é 10"); } em vez de if (x == 10) { console.log("x é 10"); }?',
     options: [
@@ -430,6 +462,7 @@ const assessmentQuestions = [
   },
   {
     id: 33,
+    moduleId: 'logica',
     topic: 'Estruturas Condicionais',
     question: 'Em um switch-case, qual a consequência de omitir a instrução break em cada caso?',
     options: [
@@ -443,6 +476,7 @@ const assessmentQuestions = [
   },
   {
     id: 34,
+    moduleId: 'logica',
     topic: 'Estruturas Condicionais',
     question: 'Qual a diferença entre if-else aninhado e operador ternário (condição ? valor1 : valor2), e quando usar cada um?',
     options: [
@@ -456,6 +490,7 @@ const assessmentQuestions = [
   },
   {
     id: 35,
+    moduleId: 'logica',
     topic: 'Estruturas Condicionais',
     question: 'Considere a lógica: "Um sistema de alarme dispara se: (porta_aberta || janela_aberta) && !modo_descanso. Um sensor de presença interno também dispara se: presenca_detectada && !modo_descanso." Qual expressão representa o disparo do alarme ou do sensor?',
     options: [
@@ -471,6 +506,7 @@ const assessmentQuestions = [
   // === Estruturas de Repetição (36-40) ===
   {
     id: 36,
+    moduleId: 'logica',
     topic: 'Estruturas de Repetição',
     question: 'Analise: for (i = 1; i <= 10; i++) { if (i % 2 == 0) { console.log(i); } } Quantas vezes a condição i % 2 == 0 será testada e quantos números serão exibidos?',
     options: [
@@ -484,6 +520,7 @@ const assessmentQuestions = [
   },
   {
     id: 37,
+    moduleId: 'logica',
     topic: 'Estruturas de Repetição',
     question: 'Qual a diferença crucial entre while e do-whle que pode impactar a lógica de um programa de validação de entrada do usuário?',
     options: [
@@ -497,6 +534,7 @@ const assessmentQuestions = [
   },
   {
     id: 38,
+    moduleId: 'logica',
     topic: 'Estruturas de Repetição',
     question: 'Um loop infinito ocorre quando a condição de parada nunca se torna verdadeira. Qual situação NÃO causa um loop infinito?',
     options: [
@@ -510,6 +548,7 @@ const assessmentQuestions = [
   },
   {
     id: 39,
+    moduleId: 'logica',
     topic: 'Estruturas de Repetição',
     question: 'Qual a vantagem de usar "for" em vez de "while" quando se conhece o número exato de repetições?',
     options: [
@@ -523,6 +562,7 @@ const assessmentQuestions = [
   },
   {
     id: 40,
+    moduleId: 'logica',
     topic: 'Estruturas de Repetição',
     question: 'Considere o problema: "Calcular a soma dos números pares de 1 a 100." Qual implementação é mais eficiente e por quê?',
     options: [
@@ -533,6 +573,1156 @@ const assessmentQuestions = [
     ],
     correctAnswer: 1,
     explanation: 'A opção for (i = 2; i <= 100; i += 2) é mais eficiente porque: (1) executa apenas 50 iterações em vez de 100, (2) elimina o teste condicional (if i % 2 == 0) dentro do loop. Isso demonstra como a escolha da estratégia de iteração pode otimizar o desempenho — ao invés de gerar todos os números e filtrar, geramos apenas os números desejados ajustando o incremento do loop.',
+  },
+  // === Introdução às Redes (41-45) ===
+  {
+    id: 41,
+    moduleId: 'redes',
+    topic: 'Introdução às Redes',
+    question: 'Uma empresa possui 5 computadores em um mesmo andar que precisam compartilhar arquivos e uma impressora. Qual tipo de rede é mais adequada para essa situação?',
+    options: [
+      'WAN — Wide Area Network, pois permite conectar dispositivos em longas distâncias',
+      'LAN — Local Area Network, pois conecta dispositivos em uma área geográfica limitada',
+      'MAN — Metropolitan Area Network, pois abrange uma cidade',
+      'PAN — Personal Area Network, pois conecta dispositivos pessoais',
+    ],
+    correctAnswer: 1,
+    explanation: 'Uma LAN (Local Area Network) é a escolha ideal para conectar dispositivos em uma área limitada como um escritório, prédio ou andar. Ela permite compartilhamento de arquivos e periféricos com alta velocidade e baixo custo.',
+  },
+  {
+    id: 42,
+    moduleId: 'redes',
+    topic: 'Introdução às Redes',
+    question: 'Em uma topologia em estrela, o que acontece com a rede se o dispositivo central falhar?',
+    options: [
+      'Apenas o dispositivo central é afetado; os demais continuam se comunicando',
+      'Toda a rede fica inoperante, pois todos os dispositivos dependem do nó central',
+      'Os dispositivos se reorganizam automaticamente em uma topologia em malha',
+      'Apenas um dispositivo aleatório perde conexão',
+    ],
+    correctAnswer: 1,
+    explanation: 'Na topologia em estrela, todos os dispositivos se conectam a um nó central (switch/hub). Se o dispositivo central falhar, toda a rede fica inoperante, pois não há caminho alternativo para a comunicação entre os dispositivos.',
+  },
+  {
+    id: 43,
+    moduleId: 'redes',
+    topic: 'Introdução às Redes',
+    question: 'Qual das seguintes alternativas NÃO é uma vantagem das redes de computadores?',
+    options: [
+      'Compartilhamento de recursos como impressoras e arquivos',
+      'Comunicação rápida entre usuários',
+      'Isolamento total de cada computador, garantindo segurança máxima',
+      'Acesso a informações e bancos de dados centralizados',
+    ],
+    correctAnswer: 2,
+    explanation: 'O isolamento total de cada computador não é uma vantagem das redes — na verdade, as redes promovem exatamente o oposto: a interconexão e o compartilhamento. Embora a segurança seja uma preocupação em redes, o isolamento total eliminaria os benefícios da rede.',
+  },
+  {
+    id: 44,
+    moduleId: 'redes',
+    topic: 'Introdução às Redes',
+    question: 'Qual topologia de rede oferece a maior redundância e tolerância a falhas?',
+    options: [
+      'Topologia em barramento',
+      'Topologia em anel',
+      'Topologia em estrela',
+      'Topologia em malha',
+    ],
+    correctAnswer: 3,
+    explanation: 'A topologia em malha oferece a maior redundância, pois cada dispositivo possui conexões com vários outros dispositivos. Se um link falhar, existem caminhos alternativos para os dados chegarem ao destino. Porém, é a mais cara de implementar devido à quantidade de cabos necessários.',
+  },
+  {
+    id: 45,
+    moduleId: 'redes',
+    topic: 'Introdução às Redes',
+    question: 'Qual das alternativas descreve corretamente uma rede WAN?',
+    options: [
+      'Rede que conecta dispositivos em uma área metropolitana, como uma cidade',
+      'Rede que abrange uma grande área geográfica, como países ou continentes',
+      'Rede pessoal com alcance de poucos metros',
+      'Rede que conecta dispositivos em um único prédio',
+    ],
+    correctAnswer: 1,
+    explanation: 'WAN (Wide Area Network) é uma rede que cobre uma grande área geográfica, podendo conectar dispositivos em diferentes cidades, países ou até continentes. A internet é o maior exemplo de WAN.',
+  },
+
+  // === Modelo OSI (46-50) ===
+  {
+    id: 46,
+    moduleId: 'redes',
+    topic: 'Modelo OSI',
+    question: 'Em qual camada do modelo OSI os protocolos Ethernet e Wi-Fi operam?',
+    options: [
+      'Camada Física',
+      'Camada de Enlace de Dados',
+      'Camada de Rede',
+      'Camada de Transporte',
+    ],
+    correctAnswer: 1,
+    explanation: 'Ethernet e Wi-Fi operam na camada de Enlace de Dados (Layer 2) do modelo OSI. Esta camada é responsável pela transferência confiável de dados entre dois dispositivos diretamente conectados, utilizando endereços MAC.',
+  },
+  {
+    id: 47,
+    moduleId: 'redes',
+    topic: 'Modelo OSI',
+    question: 'O que acontece com os dados à medida que descem pelas camadas do modelo OSI no dispositivo transmissor?',
+    options: [
+      'Os dados são fragmentados e descartados',
+      'Cada camada adiciona um cabeçalho (header) às informações recebidas da camada superior — processo chamado de encapsulamento',
+      'Os dados são criptografados e comprimidos automaticamente',
+      'As camadas removem informações para tornar os dados mais leves',
+    ],
+    correctAnswer: 1,
+    explanation: 'O encapsulamento é o processo pelo qual cada camada do modelo OSI adiciona seu próprio cabeçalho (header) aos dados recebidos da camada superior. Por exemplo, a camada de Transporte adiciona informações TCP, a de Rede adiciona o endereço IP, e a de Enlace adiciona o endereço MAC.',
+  },
+  {
+    id: 48,
+    moduleId: 'redes',
+    topic: 'Modelo OSI',
+    question: 'Qual camada do modelo OSI é responsável por estabelecer, gerenciar e encerrar sessões de comunicação entre aplicações?',
+    options: [
+      'Camada de Apresentação',
+      'Camada de Sessão',
+      'Camada de Transporte',
+      'Camada de Aplicação',
+    ],
+    correctAnswer: 1,
+    explanation: 'A camada de Sessão (Layer 5) é responsável por estabelecer, manter e encerrar sessões de comunicação entre aplicações. Ela gerencia o diálogo, sincronização e checkpointing da comunicação.',
+  },
+  {
+    id: 49,
+    moduleId: 'redes',
+    topic: 'Modelo OSI',
+    question: 'Qual a função principal da camada de Apresentação (Layer 6) do modelo OSI?',
+    options: [
+      'Roteamento de pacotes entre redes diferentes',
+      'Estabelecimento de sessões de comunicação',
+      'Tradução, criptografia e compressão dos dados',
+      'Detecção de erros na transmissão física',
+    ],
+    correctAnswer: 2,
+    explanation: 'A camada de Apresentação (Layer 6) atua como um tradutor entre o formato dos dados da aplicação e o formato de rede. Ela é responsável por criptografia, descriptografia, compressão e conversão de formatos (como de ASCII para EBCDIC).',
+  },
+  {
+    id: 50,
+    moduleId: 'redes',
+    topic: 'Modelo OSI',
+    question: 'Qual a unidade de dados da camada de Transporte (Layer 4) do modelo OSI?',
+    options: [
+      'Bits',
+      'Quadros (Frames)',
+      'Pacotes',
+      'Segmentos',
+    ],
+    correctAnswer: 3,
+    explanation: 'Na camada de Transporte, os dados são chamados de segmentos (TCP) ou datagramas (UDP). Cada camada do modelo OSI tem um nome específico para sua unidade de dados: bits (Física), quadros (Enlace), pacotes (Rede), segmentos (Transporte).',
+  },
+
+  // === Modelo TCP/IP (51-55) ===
+  {
+    id: 51,
+    moduleId: 'redes',
+    topic: 'Modelo TCP/IP',
+    question: 'Quantas camadas possui o modelo TCP/IP?',
+    options: [
+      '3 camadas',
+      '4 camadas',
+      '5 camadas',
+      '7 camadas',
+    ],
+    correctAnswer: 1,
+    explanation: 'O modelo TCP/IP possui 4 camadas: Aplicação, Transporte, Internet (Rede) e Interface de Rede (Acesso à Rede). É um modelo mais enxuto que o OSI, combinando algumas das 7 camadas do OSI em camadas mais amplas.',
+  },
+  {
+    id: 52,
+    moduleId: 'redes',
+    topic: 'Modelo TCP/IP',
+    question: 'Qual camada do modelo TCP/IP corresponde às camadas de Sessão, Apresentação e Aplicação do modelo OSI?',
+    options: [
+      'Camada de Interface de Rede',
+      'Camada de Internet',
+      'Camada de Transporte',
+      'Camada de Aplicação',
+    ],
+    correctAnswer: 3,
+    explanation: 'No modelo TCP/IP, a camada de Aplicação engloba as funcionalidades das camadas de Sessão, Apresentação e Aplicação do modelo OSI. É onde residem protocolos como HTTP, FTP, SMTP e DNS.',
+  },
+  {
+    id: 53,
+    moduleId: 'redes',
+    topic: 'Modelo TCP/IP',
+    question: 'Qual a principal característica do protocolo UDP em relação ao TCP?',
+    options: [
+      'UDP é orientado à conexão e garante entrega dos dados',
+      'UDP é mais rápido pois não estabelece conexão prévia nem garante entrega',
+      'UDP só pode ser usado em redes locais',
+      'UDP oferece criptografia integrada',
+    ],
+    correctAnswer: 1,
+    explanation: 'UDP (User Datagram Protocol) é um protocolo não orientado à conexão, o que significa que não há handshake antes da transmissão. Ele é mais rápido que o TCP, porém não garante a entrega, ordem ou integridade dos dados. É ideal para aplicações em tempo real como streaming e jogos.',
+  },
+  {
+    id: 54,
+    moduleId: 'redes',
+    topic: 'Modelo TCP/IP',
+    question: 'Durante o handshake TCP de três vias, quais flags são trocadas na sequência correta?',
+    options: [
+      'ACK, SYN, ACK',
+      'SYN, SYN-ACK, ACK',
+      'SYN, ACK, SYN-ACK',
+      'FIN, ACK, FIN-ACK',
+    ],
+    correctAnswer: 1,
+    explanation: 'O handshake TCP de três vias (three-way handshake) funciona assim: 1) Cliente envia SYN (sincronização), 2) Servidor responde com SYN-ACK (sincronização + confirmação), 3) Cliente envia ACK (confirmação). Após isso, a conexão está estabelecida e os dados podem ser transmitidos.',
+  },
+  {
+    id: 55,
+    moduleId: 'redes',
+    topic: 'Modelo TCP/IP',
+    question: 'Qual protocolo da camada de Internet do TCP/IP é responsável por reportar erros e mensagens de diagnóstico?',
+    options: [
+      'IP (Internet Protocol)',
+      'ARP (Address Resolution Protocol)',
+      'ICMP (Internet Control Message Protocol)',
+      'IGMP (Internet Group Management Protocol)',
+    ],
+    correctAnswer: 2,
+    explanation: 'O ICMP (Internet Control Message Protocol) é usado para enviar mensagens de erro e informações operacionais, como "host não encontrado" ou "TTL excedido". O comando ping utiliza ICMP para testar a conectividade entre dispositivos.',
+  },
+
+  // === Endereçamento IP (56-60) ===
+  {
+    id: 56,
+    moduleId: 'redes',
+    topic: 'Endereçamento IP',
+    question: 'Qual a diferença entre um endereço IPv4 e IPv6 em termos de tamanho?',
+    options: [
+      'IPv4 tem 16 bits; IPv6 tem 64 bits',
+      'IPv4 tem 32 bits; IPv6 tem 128 bits',
+      'IPv4 tem 64 bits; IPv6 tem 32 bits',
+      'IPv4 tem 128 bits; IPv6 tem 32 bits',
+    ],
+    correctAnswer: 1,
+    explanation: 'IPv4 utiliza endereços de 32 bits (cerca de 4,3 bilhões de endereços possíveis), enquanto IPv6 utiliza endereços de 128 bits (cerca de 340 undecilhões de endereços). O IPv6 foi criado devido ao esgotamento dos endereços IPv4.',
+  },
+  {
+    id: 57,
+    moduleId: 'redes',
+    topic: 'Endereçamento IP',
+    question: 'Qual dos seguintes é um endereço IP privado válido?',
+    options: [
+      '8.8.8.8',
+      '280.10.20.30',
+      '192.168.1.10',
+      '0.0.0.1',
+    ],
+    correctAnswer: 2,
+    explanation: '192.168.1.10 é um endereço IP privado (faixa 192.168.0.0 - 192.168.255.255). Endereços privados são usados em redes internas e não são roteados na internet. As outras faixas privadas são 10.0.0.0/8 e 172.16.0.0/12.',
+  },
+  {
+    id: 58,
+    moduleId: 'redes',
+    topic: 'Endereçamento IP',
+    question: 'Para que serve a máscara de sub-rede?',
+    options: [
+      'Criptografar os dados transmitidos na rede',
+      'Determinar qual parte do endereço IP identifica a rede e qual parte identifica o host',
+      'Acelerar a velocidade de transmissão dos pacotes',
+      'Converter endereços IP em nomes de domínio',
+    ],
+    correctAnswer: 1,
+    explanation: 'A máscara de sub-rede é usada para dividir um endereço IP em duas partes: a porção da rede (network) e a porção do host. Por exemplo, com a máscara 255.255.255.0, os primeiros 24 bits identificam a rede e os últimos 8 bits identificam o host.',
+  },
+  {
+    id: 59,
+    moduleId: 'redes',
+    topic: 'Endereçamento IP',
+    question: 'O que é NAT (Network Address Translation)?',
+    options: [
+      'Um protocolo de criptografia de rede',
+      'Uma técnica que permite que múltiplos dispositivos compartilhem um único endereço IP público',
+      'Um tipo de cabo de rede',
+      'Um servidor de nomes de domínio',
+    ],
+    correctAnswer: 1,
+    explanation: 'NAT (Network Address Translation) é uma técnica que permite que vários dispositivos em uma rede local (com IPs privados) compartilhem um único endereço IP público para acessar a internet. O roteador doméstico faz NAT, traduzindo os endereços privados para o IP público.',
+  },
+  {
+    id: 60,
+    moduleId: 'redes',
+    topic: 'Endereçamento IP',
+    question: 'Qual o formato de representação de um endereço IPv6?',
+    options: [
+      'Quatro números decimais separados por pontos (ex: 192.168.0.1)',
+      'Oito grupos de quatro dígitos hexadecimais separados por dois pontos (ex: 2001:0db8:85a3:0000:0000:8a2e:0370:7334)',
+      'Uma sequência de números binários de 32 bits',
+      'Dois números decimais separados por vírgula',
+    ],
+    correctAnswer: 1,
+    explanation: 'IPv6 é representado por oito grupos de quatro dígitos hexadecimais separados por dois pontos (:). Zeros à esquerda podem ser omitidos, e grupos consecutivos de zeros podem ser substituídos por :: (uma vez). Exemplo: 2001:db8::1 equivale a 2001:0db8:0000:0000:0000:0000:0000:0001.',
+  },
+
+  // === DNS (61-65) ===
+  {
+    id: 61,
+    moduleId: 'redes',
+    topic: 'DNS',
+    question: 'Qual a função principal do servidor DNS?',
+    options: [
+      'Armazenar cópias de sites web para acesso mais rápido',
+      'Traduzir nomes de domínio (como google.com) em endereços IP',
+      'Fornecer conexão segura para navegação na web',
+      'Gerenciar endereços IP dinâmicos em uma rede',
+    ],
+    correctAnswer: 1,
+    explanation: 'A função principal do DNS (Domain Name System) é traduzir nomes de domínio legíveis por humanos (como www.google.com) em endereços IP numéricos (como 142.250.217.78) que os computadores usam para se identificar na rede.',
+  },
+  {
+    id: 62,
+    moduleId: 'redes',
+    topic: 'DNS',
+    question: 'Qual a hierarquia correta dos níveis de domínio?',
+    options: [
+      'Subdomínio > Domínio > TLD (ex: www.google.com → www é o TLD)',
+      'TLD > Domínio > Subdomínio (ex: www.google.com → .com é o TLD)',
+      'Domínio > TLD > Subdomínio (ex: www.google.com → google é o TLD)',
+      'Não existe hierarquia — todos os níveis são equivalentes',
+    ],
+    correctAnswer: 1,
+    explanation: 'A hierarquia de domínios é: TLD (Top-Level Domain, ex: .com, .org, .br) → Domínio Principal (ex: google) → Subdomínio (ex: www). O DNS consulta os servidores nesta ordem: primeiro o servidor raiz, depois o TLD, depois o domínio autoritativo.',
+  },
+  {
+    id: 63,
+    moduleId: 'redes',
+    topic: 'DNS',
+    question: 'Qual registro DNS é usado para associar um nome de domínio a um endereço IPv4?',
+    options: [
+      'Registro MX',
+      'Registro CNAME',
+      'Registro A',
+      'Registro NS',
+    ],
+    correctAnswer: 2,
+    explanation: 'O registro A (Address) é o tipo mais fundamental de registro DNS. Ele mapeia um nome de domínio diretamente a um endereço IPv4. Por exemplo, google.com → 142.250.217.78. Para IPv6, utiliza-se o registro AAAA.',
+  },
+  {
+    id: 64,
+    moduleId: 'redes',
+    topic: 'DNS',
+    question: 'Quando você digita um URL no navegador, qual o primeiro passo da resolução DNS?',
+    options: [
+      'Consultar o servidor DNS raiz',
+      'Consultar o cache DNS local do sistema operacional',
+      'Consultar o servidor DNS do ISP',
+      'Consultar o servidor de nomes autoritativo do domínio',
+    ],
+    correctAnswer: 1,
+    explanation: 'Antes de qualquer consulta externa, o sistema verifica o cache DNS local (armazenado no sistema operacional e no navegador). Se o endereço foi consultado recentemente, ele é retornado imediatamente do cache, evitando consultas desnecessárias e acelerando a navegação.',
+  },
+  {
+    id: 65,
+    moduleId: 'redes',
+    topic: 'DNS',
+    question: 'O que é um ataque de envenenamento de cache DNS (DNS cache poisoning)?',
+    options: [
+      'Infectar o servidor DNS com um vírus que deleta registros',
+      'Inserir informações DNS falsas no cache de um resolvedor, redirecionando usuários para sites maliciosos',
+      'Sobrecarregar o servidor DNS com requisições até que ele pare de funcionar',
+      'Modificar o arquivo hosts do sistema para bloquear sites',
+    ],
+    correctAnswer: 1,
+    explanation: 'O envenenamento de cache DNS (DNS spoofing) é um ataque onde informações DNS falsas são inseridas no cache de um resolvedor DNS. Quando um usuário tenta acessar um site legítimo, o resolvedor retorna o endereço IP falso, redirecionando a vítima para um site malicioso controlado pelo atacante.',
+  },
+
+  // === Protocolos de Comunicação (66-70) ===
+  {
+    id: 66,
+    moduleId: 'redes',
+    topic: 'Protocolos de Comunicação',
+    question: 'Qual a diferença fundamental entre HTTP e HTTPS?',
+    options: [
+      'HTTP é mais rápido que HTTPS',
+      'HTTPS utiliza criptografia SSL/TLS para proteger os dados transmitidos',
+      'HTTP só funciona em redes locais',
+      'HTTPS não utiliza portas, ao contrário do HTTP',
+    ],
+    correctAnswer: 1,
+    explanation: 'HTTPS (Hypertext Transfer Protocol Secure) é a versão segura do HTTP. Ele utiliza criptografia SSL/TLS para proteger os dados transmitidos entre o cliente e o servidor, garantindo confidencialidade, integridade e autenticação.',
+  },
+  {
+    id: 67,
+    moduleId: 'redes',
+    topic: 'Protocolos de Comunicação',
+    question: 'Qual porta padrão é utilizada pelo protocolo HTTPS?',
+    options: [
+      'Porta 80',
+      'Porta 443',
+      'Porta 21',
+      'Porta 25',
+    ],
+    correctAnswer: 1,
+    explanation: 'O HTTPS utiliza a porta 443 como padrão, enquanto o HTTP utiliza a porta 80. Outras portas comuns: FTP (21), SSH (22), SMTP (25), DNS (53), DHCP (67/68) e POP3 (110).',
+  },
+  {
+    id: 68,
+    moduleId: 'redes',
+    topic: 'Protocolos de Comunicação',
+    question: 'Qual protocolo é utilizado para transferir arquivos entre computadores na internet?',
+    options: [
+      'SMTP',
+      'HTTP',
+      'FTP',
+      'DHCP',
+    ],
+    correctAnswer: 2,
+    explanation: 'FTP (File Transfer Protocol) é o protocolo padrão para transferência de arquivos entre computadores em uma rede. Ele permite fazer upload e download de arquivos, além de gerenciar diretórios remotos. A versão segura é o SFTP ou FTPS.',
+  },
+  {
+    id: 69,
+    moduleId: 'redes',
+    topic: 'Protocolos de Comunicação',
+    question: 'Qual protocolo é responsável por atribuir automaticamente endereços IP aos dispositivos em uma rede?',
+    options: [
+      'DNS',
+      'ARP',
+      'DHCP',
+      'ICMP',
+    ],
+    correctAnswer: 2,
+    explanation: 'DHCP (Dynamic Host Configuration Protocol) atribui automaticamente endereços IP e outras configurações de rede (máscara, gateway, DNS) aos dispositivos quando eles se conectam à rede. Isso elimina a necessidade de configurar manualmente cada dispositivo.',
+  },
+  {
+    id: 70,
+    moduleId: 'redes',
+    topic: 'Protocolos de Comunicação',
+    question: 'Qual protocolo é usado para acessar remotamente um servidor de forma segura através da linha de comando?',
+    options: [
+      'Telnet',
+      'SSH',
+      'FTP',
+      'HTTP',
+    ],
+    correctAnswer: 1,
+    explanation: 'SSH (Secure Shell) é um protocolo que permite acesso remoto seguro a servidores através de um terminal de linha de comando. Ele criptografa toda a comunicação, incluindo autenticação. Telnet faz o mesmo, mas sem criptografia, sendo inseguro.',
+  },
+
+  // === Dispositivos de Rede (71-75) ===
+  {
+    id: 71,
+    moduleId: 'redes',
+    topic: 'Dispositivos de Rede',
+    question: 'Qual a diferença entre um hub e um switch?',
+    options: [
+      'Hub e switch são o mesmo dispositivo com nomes diferentes',
+      'Hub é mais inteligente que switch',
+      'Hub retransmite dados para todas as portas; switch encaminha seletivamente com base no endereço MAC',
+      'Switch é mais antigo que hub',
+    ],
+    correctAnswer: 2,
+    explanation: 'O hub é um dispositivo simples que retransmite os dados recebidos para todas as portas, sem qualquer inteligência. O switch, por outro lado, aprende os endereços MAC dos dispositivos conectados e encaminha os dados apenas para a porta de destino, tornando a comunicação mais eficiente.',
+  },
+  {
+    id: 72,
+    moduleId: 'redes',
+    topic: 'Dispositivos de Rede',
+    question: 'Qual dispositivo de rede opera na camada 3 (Rede) e é capaz de conectar redes diferentes?',
+    options: [
+      'Hub',
+      'Switch',
+      'Roteador',
+      'Repetidor',
+    ],
+    correctAnswer: 2,
+    explanation: 'O roteador opera na camada 3 (Rede) do modelo OSI. Ele é capaz de conectar redes diferentes, tomando decisões de roteamento com base em endereços IP para encaminhar pacotes entre redes.',
+  },
+  {
+    id: 73,
+    moduleId: 'redes',
+    topic: 'Dispositivos de Rede',
+    question: 'Qual meio de transmissão oferece a maior largura de banda e é menos suscetível a interferências?',
+    options: [
+      'Cabo de par trançado (CAT5e)',
+      'Cabo coaxial',
+      'Fibra óptica',
+      'Sinal Wi-Fi',
+    ],
+    correctAnswer: 2,
+    explanation: 'A fibra óptica oferece a maior largura de banda e é imune a interferências eletromagnéticas, pois transmite dados através de pulsos de luz em vez de sinais elétricos. Ela pode atingir velocidades de centenas de Gbps e distâncias de dezenas de quilômetros.',
+  },
+  {
+    id: 74,
+    moduleId: 'redes',
+    topic: 'Dispositivos de Rede',
+    question: 'O que é um Access Point (Ponto de Acesso)?',
+    options: [
+      'Um dispositivo que converte sinais digitais em analógicos para conexão à internet',
+      'Um dispositivo que permite que dispositivos Wi-Fi se conectem a uma rede com fio',
+      'Um tipo de roteador que não possui portas Ethernet',
+      'Um modem que apenas recebe sinais de internet',
+    ],
+    correctAnswer: 1,
+    explanation: 'Um Access Point (AP) é um dispositivo que cria uma rede sem fio (Wi-Fi) permitindo que dispositivos se conectem a uma rede cabeada existente. Diferente de um roteador, o AP não faz roteamento — ele apenas estende o acesso à rede via wireless.',
+  },
+  {
+    id: 75,
+    moduleId: 'redes',
+    topic: 'Dispositivos de Rede',
+    question: 'Qual a função do modem em uma rede residencial?',
+    options: [
+      'Distribuir o sinal Wi-Fi pela casa',
+      'Converter o sinal do provedor de internet (cabo coaxial, fibra, DSL) em um sinal digital que o roteador possa usar',
+      'Armazenar arquivos compartilhados na rede',
+      'Atribuir endereços IP aos dispositivos',
+    ],
+    correctAnswer: 1,
+    explanation: 'O modem (modulador/demodulador) converte o sinal analógico do provedor de internet (seja via cabo coaxial, fibra óptica ou linha telefônica DSL) em sinais digitais que os dispositivos de rede (como roteadores e computadores) possam processar.',
+  },
+
+  // === Segurança em Redes (76-80) ===
+  {
+    id: 76,
+    moduleId: 'redes',
+    topic: 'Segurança em Redes',
+    question: 'Qual tipo de ataque consiste em enviar uma enorme quantidade de tráfego para um servidor com o objetivo de sobrecarregá-lo e tirá-lo do ar?',
+    options: [
+      'Phishing',
+      'DDoS (Distributed Denial of Service)',
+      'Man-in-the-Middle',
+      'SQL Injection',
+    ],
+    correctAnswer: 1,
+    explanation: 'Um ataque DDoS (Distributed Denial of Service) ocorre quando múltiplos sistemas comprometidos (botnet) enviam uma enxurrada de tráfego para um alvo, sobrecarregando seus recursos e tornando o serviço indisponível para usuários legítimos.',
+  },
+  {
+    id: 77,
+    moduleId: 'redes',
+    topic: 'Segurança em Redes',
+    question: 'O que é um ataque Man-in-the-Middle (MitM)?',
+    options: [
+      'Um ataque em que o invasor se posiciona entre a vítima e o servidor, interceptando a comunicação',
+      'Um malware que se espalha automaticamente pela rede',
+      'Um ataque que explora vulnerabilidades em aplicações web',
+      'Uma tentativa de adivinhar senhas por tentativa e erro',
+    ],
+    correctAnswer: 0,
+    explanation: 'No ataque Man-in-the-Middle (Homem no Meio), o invasor intercepta secretamente a comunicação entre duas partes (ex: cliente e servidor), podendo ler, modificar ou injetar dados na comunicação sem que as partes percebam.',
+  },
+  {
+    id: 78,
+    moduleId: 'redes',
+    topic: 'Segurança em Redes',
+    question: 'Qual tipo de firewall inspeciona o estado das conexões ativas e toma decisões com base no contexto do tráfego?',
+    options: [
+      'Firewall de pacotes (stateless)',
+      'Firewall de estado (stateful)',
+      'Firewall de aplicação (proxy)',
+      'Firewall de perímetro',
+    ],
+    correctAnswer: 1,
+    explanation: 'O firewall stateful (com estado) mantém uma tabela de conexões ativas e inspeciona o contexto do tráfego. Ele não apenas analisa pacotes individuais, mas entende o estado da conexão, permitindo identificar tráfego legítimo de forma mais precisa que firewalls stateless.',
+  },
+  {
+    id: 79,
+    moduleId: 'redes',
+    topic: 'Segurança em Redes',
+    question: 'Qual protocolo é usado para estabelecer uma conexão VPN segura?',
+    options: [
+      'HTTP e SMTP',
+      'IPsec e OpenVPN',
+      'FTP e DHCP',
+      'DNS e ARP',
+    ],
+    correctAnswer: 1,
+    explanation: 'IPsec (Internet Protocol Security) e OpenVPN são protocolos comuns para estabelecer VPNs. IPsec opera na camada de Rede e oferece autenticação e criptografia. OpenVPN é uma solução de código aberto amplamente usada que cria túneis criptografados sobre TCP/UDP.',
+  },
+  {
+    id: 80,
+    moduleId: 'redes',
+    topic: 'Segurança em Redes',
+    question: 'Qual das seguintes é uma boa prática de segurança em redes?',
+    options: [
+      'Manter o firmware do roteador desatualizado para evitar mudanças',
+      'Usar a mesma senha para todos os dispositivos da rede',
+      'Manter o Wi-Fi protegido com WPA3 e desabilitar WPS',
+      'Manter portas de administração remota abertas para facilitar o acesso',
+    ],
+    correctAnswer: 2,
+    explanation: 'Usar WPA3 (ou WPA2 como mínimo) com uma senha forte e desabilitar WPS (Wi-Fi Protected Setup) são boas práticas de segurança. Manter firmwares atualizados, usar senhas diferentes para cada serviço e fechar portas desnecessárias também são recomendações importantes.',
+  },
+  // === Introdução à Cibersegurança (81-85) ===
+  {
+    id: 81,
+    moduleId: 'seguranca',
+    topic: 'Introdução à Cibersegurança',
+    question: 'Uma empresa sofreu um ataque que roubou dados de clientes. Analisando o ocorrido, o CISO afirmou: "Nosso erro foi focar apenas em tecnologia e ignorar as pessoas e processos." Qual aspecto fundamental da cibersegurança ele está destacando?',
+    options: [
+      'Que a cibersegurança depende exclusivamente de firewalls e antivírus',
+      'Que a cibersegurança envolve tecnologia, pessoas e processos de forma integrada',
+      'Que pessoas são irrelevantes para a segurança da informação',
+      'Que processos são mais importantes que tecnologia',
+    ],
+    correctAnswer: 1,
+    explanation: 'A cibersegurança é composta por três pilares interligados: pessoas (treinamento, conscientização), processos (políticas, procedimentos) e tecnologia (firewalls, criptografia). Ignorar qualquer um deles compromete a segurança como um todo.',
+  },
+  {
+    id: 82,
+    moduleId: 'seguranca',
+    topic: 'Introdução à Cibersegurança',
+    question: 'Qual das seguintes áreas da cibersegurança é responsável por investigar crimes cibernéticos e coletar evidências digitais?',
+    options: [
+      'Segurança de Redes',
+      'Resposta a Incidentes',
+      'Forense Digital',
+      'GRC (Governança, Risco e Conformidade)',
+    ],
+    correctAnswer: 2,
+    explanation: 'A Forense Digital é a área responsável por investigar crimes cibernéticos, coletar, preservar e analisar evidências digitais de forma que possam ser usadas em processos judiciais.',
+  },
+  {
+    id: 83,
+    moduleId: 'seguranca',
+    topic: 'Introdução à Cibersegurança',
+    question: 'Uma organização quer implementar um programa de cibersegurança. Qual deve ser a primeira etapa?',
+    options: [
+      'Comprar os firewalls mais caros do mercado',
+      'Contratar uma equipe de hackers para testar a rede',
+      'Realizar uma avaliação de riscos para identificar ativos, ameaças e vulnerabilidades',
+      'Instalar antivírus em todos os computadores',
+    ],
+    correctAnswer: 2,
+    explanation: 'Antes de investir em soluções, é essencial entender o que precisa ser protegido (ativos), contra o quê (ameaças) e quais são as fraquezas (vulnerabilidades). A avaliação de riscos é o ponto de partida de qualquer estratégia de segurança.',
+  },
+  {
+    id: 84,
+    moduleId: 'seguranca',
+    topic: 'Introdução à Cibersegurança',
+    question: 'Qual a diferença entre um hacker ético (white hat) e um criminoso cibernético (black hat)?',
+    options: [
+      'Não há diferença — ambos invadem sistemas sem permissão',
+      'O hacker ético tem autorização para testar sistemas e reporta vulnerabilidades; o criminoso age ilegalmente para obter vantagem',
+      'O hacker ético é mais habilidoso que o criminoso cibernético',
+      'O criminoso cibernético só ataca governos',
+    ],
+    correctAnswer: 1,
+    explanation: 'Hackers éticos (white hat) trabalham com autorização para encontrar e reportar vulnerabilidades, ajudando a melhorar a segurança. Criminosos cibernéticos (black hat) invadem sistemas ilegalmente para roubo, extorsão ou causar danos.',
+  },
+  {
+    id: 85,
+    moduleId: 'seguranca',
+    topic: 'Introdução à Cibersegurança',
+    question: 'Por que 95% das violações de segurança envolvem erro humano?',
+    options: [
+      'Porque os sistemas técnicos são sempre perfeitos',
+      'Porque pessoas são o elo mais fraco — clicam em phishing, usam senhas fracas e ignoram políticas de segurança',
+      'Porque ataques cibernéticos só acontecem por culpa dos usuários',
+      'Porque os firewalls nunca funcionam corretamente',
+    ],
+    correctAnswer: 1,
+    explanation: 'O erro humano é o principal vetor de ataques porque as pessoas podem ser enganadas por engenharia social, negligenciam boas práticas (senhas fracas, falta de atualizações) ou desconhecem os riscos. Por isso treinamento e conscientização são tão importantes quanto tecnologia.',
+  },
+
+  // === Os 3 Pilares da Informação (86-90) ===
+  {
+    id: 86,
+    moduleId: 'seguranca',
+    topic: 'Os 3 Pilares da Informação',
+    question: 'Um hospital sofreu um ataque ransomware que criptografou todos os prontuários dos pacientes. Os médicos não conseguem acessar históricos nem prescrever medicamentos. Quais pilares da Tríade CIA foram diretamente violados?',
+    options: [
+      'Apenas confidencialidade — os dados foram criptografados',
+      'Confidencialidade e integridade — dados foram criptografados e alterados',
+      'Integridade e disponibilidade — dados foram criptografados (alterados) e o acesso foi negado',
+      'Apenas disponibilidade — o sistema ficou fora do ar',
+    ],
+    correctAnswer: 2,
+    explanation: 'O ransomware viola a integridade (os dados foram criptografados/alterados sem autorização) e a disponibilidade (os médicos não conseguem acessar os prontuários). A confidencialidade não é violada porque os dados não foram expostos — foram apenas bloqueados.',
+  },
+  {
+    id: 87,
+    moduleId: 'seguranca',
+    topic: 'Os 3 Pilares da Informação',
+    question: 'Um funcionário mal-intencionado copia a base de clientes da empresa para um pen drive e vende para um concorrente. Qual pilar da segurança foi violado principalmente?',
+    options: [
+      'Disponibilidade — a base de clientes não está mais acessível',
+      'Integridade — os dados foram modificados',
+      'Confidencialidade — dados sigilosos foram acessados por pessoa não autorizada',
+      'Nenhum — o funcionário tinha acesso legítimo',
+    ],
+    correctAnswer: 2,
+    explanation: 'Mesmo tendo acesso legítimo para trabalhar com os dados, o funcionário não tinha autorização para copiá-los e compartilhá-los. A confidencialidade foi violada porque informações sigilosas foram expostas a pessoas não autorizadas (o concorrente).',
+  },
+  {
+    id: 88,
+    moduleId: 'seguranca',
+    topic: 'Os 3 Pilares da Informação',
+    question: 'Qual mecanismo de segurança é mais diretamente associado à garantia da INTEGRIDADE dos dados?',
+    options: [
+      'Criptografia assimétrica (RSA)',
+      'Funções hash (SHA-256)',
+      'Firewall stateful',
+      'Controle de acesso biométrico',
+    ],
+    correctAnswer: 1,
+    explanation: 'Funções hash (como SHA-256) são usadas para verificar integridade: qualquer alteração no dado original produz um hash completamente diferente. Se o hash do arquivo baixado for diferente do hash original, o arquivo foi alterado (integriade comprometida).',
+  },
+  {
+    id: 89,
+    moduleId: 'seguranca',
+    topic: 'Os 3 Pilares da Informação',
+    question: 'Uma empresa adotou um modelo de "confiança zero" (Zero Trust). Qual pilar da Tríade CIA é mais diretamente reforçado por esse modelo?',
+    options: [
+      'Confidencialidade — somente pessoas autorizadas acessam cada recurso',
+      'Disponibilidade — o sistema fica mais disponível',
+      'Integridade — os dados não podem ser alterados',
+      'Todos são igualmente reforçados',
+    ],
+    correctAnswer: 0,
+    explanation: 'Zero Trust reforça principalmente a confidencialidade ao exigir verificação contínua para cada acesso: "nunca confie, sempre verifique". Cada usuário só tem acesso ao mínimo necessário para seu trabalho, reduzindo o risco de exposição não autorizada de dados.',
+  },
+  {
+    id: 90,
+    moduleId: 'seguranca',
+    topic: 'Os 3 Pilares da Informação',
+    question: 'Qual das seguintes situações representa uma violação do pilar da DISPONIBILIDADE?',
+    options: [
+      'Um hacker acessa e-mails confidenciais do CEO',
+      'Um funcionário altera notas fiscais sem autorização',
+      'Um ataque DDoS derruba o site de e-commerce na Black Friday',
+      'Um fornecedor descobre a senha do Wi-Fi da empresa',
+    ],
+    correctAnswer: 2,
+    explanation: 'O ataque DDoS derruba o servidor, tornando o site inacessível para usuários legítimos — violação direta da disponibilidade. As outras opções violam confidencialidade (acesso a e-mails, senha descoberta) e integridade (alteração de notas fiscais).',
+  },
+
+  // === Malware (91-95) ===
+  {
+    id: 91,
+    moduleId: 'seguranca',
+    topic: 'Malware',
+    question: 'Um funcionário recebeu um e-mail com um anexo chamado "curriculo.pdf.exe". Ao abrir, o sistema ficou lento e arquivos começaram a ser deletados. Que tipo de malware provavelmente infectou o computador?',
+    options: [
+      'Worm — se espalhou automaticamente pela rede',
+      'Ransomware — deveria ter criptografado os arquivos',
+      'Trojan disfarçado de PDF — executou um vírus ao ser aberto',
+      'Adware — começou a exibir anúncios',
+    ],
+    correctAnswer: 2,
+    explanation: 'O arquivo "curriculo.pdf.exe" é um executável disfarçado de PDF — técnica clássica de Trojan. O usuário achou que era um PDF, mas ao abrir executou um malware. A extensão .exe revela que é um programa, não um documento.',
+  },
+  {
+    id: 92,
+    moduleId: 'seguranca',
+    topic: 'Malware',
+    question: 'Qual malware é conhecido por não precisar de um arquivo hospedeiro e se espalhar automaticamente por vulnerabilidades de rede?',
+    options: [
+      'Vírus',
+      'Worm',
+      'Trojan',
+      'Rootkit',
+    ],
+    correctAnswer: 1,
+    explanation: 'Worms são autônomos e não precisam de um arquivo hospedeiro. Eles se autorreplicam explorando vulnerabilidades de rede, podendo infectar milhares de sistemas em minutos sem qualquer interação do usuário.',
+  },
+  {
+    id: 93,
+    moduleId: 'seguranca',
+    topic: 'Malware',
+    question: 'Um keylogger é um tipo de spyware. Qual dado ele captura principalmente?',
+    options: [
+      'Arquivos de áudio do microfone',
+      'Teclas digitadas pelo usuário para capturar senhas e dados sensíveis',
+      'Histórico de navegação na internet',
+      'Imagens da webcam',
+    ],
+    correctAnswer: 1,
+    explanation: 'Keylogger registra cada tecla digitada pelo usuário, capturando senhas, números de cartão de crédito, mensagens e qualquer outro dado inserido pelo teclado. É uma forma perigosa de spyware focada em roubo de credenciais.',
+  },
+  {
+    id: 94,
+    moduleId: 'seguranca',
+    topic: 'Malware',
+    question: 'Um rootkit é particularmente perigoso porque:',
+    options: [
+      'Ele se espalha mais rápido que qualquer outro malware',
+      'Ele opera em nível de kernel, escondendo sua presença e a de outros malwares do sistema operacional',
+      'Ele só pode ser removido formatando o computador',
+      'Ele criptografa todos os dados da vítima',
+    ],
+    correctAnswer: 1,
+    explanation: 'Rootkits operam em nível de kernel (o núcleo do SO), o que lhes dá controle total sobre o sistema e capacidade de esconder sua presença de antivírus e ferramentas de detecção. Podem esconder processos, arquivos e conexões de rede.',
+  },
+  {
+    id: 95,
+    moduleId: 'seguranca',
+    topic: 'Malware',
+    question: 'Uma botnet é formada por dispositivos infectados com qual tipo de malware?',
+    options: [
+      'Ransomware — todos os dispositivos são mantidos como reféns',
+      'Bot — cada dispositivo infectado se torna um "zumbi" controlado remotamente',
+      'Vírus — todos os arquivos são corrompidos',
+      'Spyware — todos os dados são espionados',
+    ],
+    correctAnswer: 1,
+    explanation: 'Botnet é uma rede de dispositivos infectados com bots (malware do tipo "zumbi"). Cada dispositivo passa a ser controlado remotamente por um servidor de comando e controle (C2), podendo ser usado para ataques DDoS, envio de spam, mineração de criptomoedas e outras atividades criminosas.',
+  },
+
+  // === Ameaças e Vulnerabilidades (96-100) ===
+  {
+    id: 96,
+    moduleId: 'seguranca',
+    topic: 'Ameaças e Vulnerabilidades',
+    question: 'Uma empresa descobriu que seu sistema de autenticação utiliza um algoritmo de hash desatualizado e vulnerável (MD5). Um invasor pode explorar essa fragilidade para quebrar senhas. Neste cenário, o algoritmo MD5 desatualizado representa:',
+    options: [
+      'Uma ameaça',
+      'Uma vulnerabilidade',
+      'Um risco aceitável',
+      'Um ataque em andamento',
+    ],
+    correctAnswer: 1,
+    explanation: 'O algoritmo MD5 desatualizado é uma vulnerabilidade — uma fraqueza no sistema que pode ser explorada. Se um invasor decidir explorá-la, a ameaça se concretiza. O risco é a probabilidade de isso acontecer.',
+  },
+  {
+    id: 97,
+    moduleId: 'seguranca',
+    topic: 'Ameaças e Vulnerabilidades',
+    question: 'Qual das alternativas representa uma ameaça de origem INTERNA?',
+    options: [
+      'Um hacker russo tentando invadir o sistema',
+      'Um furacão destruindo o datacenter',
+      'Um funcionário insatisfeito que vaza dados propositalmente',
+      'Um worm se espalhando pela internet',
+    ],
+    correctAnswer: 2,
+    explanation: 'Ameaças internas (insiders) vêm de dentro da organização: funcionários, ex-funcionários, prestadores de serviço. O funcionário insatisfeito é um exemplo clássico. As demais opções são ameaças externas ou naturais.',
+  },
+  {
+    id: 98,
+    moduleId: 'seguranca',
+    topic: 'Ameaças e Vulnerabilidades',
+    question: 'O que é a "janela de vulnerabilidade" (window of vulnerability)?',
+    options: [
+      'O tempo que um hacker leva para criar um exploit',
+      'O período entre a descoberta de uma vulnerabilidade e a aplicação da correção (patch)',
+      'O espaço de tempo em que o sistema fica offline para manutenção',
+      'O intervalo entre backups',
+    ],
+    correctAnswer: 1,
+    explanation: 'A janela de vulnerabilidade é o período crítico entre o momento em que uma vulnerabilidade é descoberta (ou divulgada publicamente) e o momento em que a correção é aplicada. Quanto maior essa janela, maior o risco de exploração.',
+  },
+  {
+    id: 99,
+    moduleId: 'seguranca',
+    topic: 'Ameaças e Vulnerabilidades',
+    question: 'Qual é a relação entre ameaça, vulnerabilidade e risco?',
+    options: [
+      'Risco = Ameaça + Vulnerabilidade (quanto maiores, maior o risco)',
+      'Risco = Ameaça - Vulnerabilidade (quanto maior a vulnerabilidade, menor o risco)',
+      'Risco existe apenas quando há ameaça, independentemente de vulnerabilidade',
+      'Não há relação entre esses conceitos',
+    ],
+    correctAnswer: 0,
+    explanation: 'O risco é diretamente proporcional à ameaça e à vulnerabilidade. Quanto maior a ameaça (perigo potencial) e maior a vulnerabilidade (fraqueza), maior o risco de um incidente de segurança.',
+  },
+  {
+    id: 100,
+    moduleId: 'seguranca',
+    topic: 'Ameaças e Vulnerabilidades',
+    question: 'Qual das vulnerabilidades é considerada a mais difícil de mitigar?',
+    options: [
+      'Vulnerabilidade de software — basta aplicar um patch',
+      'Vulnerabilidade física — basta trancar a sala',
+      'Vulnerabilidade humana — depende de treinamento, conscientização e mudança de comportamento',
+      'Vulnerabilidade de rede — basta configurar o firewall',
+    ],
+    correctAnswer: 2,
+    explanation: 'A vulnerabilidade humana é a mais desafiadora porque envolve comportamento, hábitos e psicologia. Tecnologia pode ser corrigida com patches, mas mudar comportamentos requer treinamento contínuo, campanhas de conscientização e uma cultura de segurança sólida.',
+  },
+
+  // === Tipos de Ataques (101-105) ===
+  {
+    id: 101,
+    moduleId: 'seguranca',
+    topic: 'Tipos de Ataques',
+    question: 'Maria recebeu um SMS informando que sua conta bancária foi bloqueada e pedindo para clicar em um link para desbloquear. O site parecia idêntico ao do banco, mas era falso. Que tipo de ataque Maria sofreu?',
+    options: [
+      'DDoS — o banco foi sobrecarregado',
+      'Phishing via SMS (smishing) — mensagem falsa para roubar credenciais',
+      'SQL Injection — o site falso injetou comandos SQL',
+      'Brute Force — a senha foi descoberta por tentativas',
+    ],
+    correctAnswer: 1,
+    explanation: 'Smishing é phishing via SMS. A mensagem urgente ("conta bloqueada") é uma tática de engenharia social para criar pânico e fazer a vítima agir sem pensar. O link leva a um site falso que rouba as credenciais bancárias.',
+  },
+  {
+    id: 102,
+    moduleId: 'seguranca',
+    topic: 'Tipos de Ataques',
+    question: 'Um site de comércio eletrônico foi atacado e o invasor conseguiu acessar o banco de dados digitando "1=1--" em um campo de busca. Qual tipo de ataque foi utilizado?',
+    options: [
+      'Phishing',
+      'Man-in-the-Middle (MitM)',
+      'SQL Injection',
+      'Zero-Day',
+    ],
+    correctAnswer: 2,
+    explanation: '"1=1--" é uma string clássica de SQL Injection. O invasor tenta fazer com que a condição "1=1" (sempre verdadeira) seja injetada em uma consulta SQL, potencialmente acessando dados não autorizados. O "--" comenta o resto da consulta original.',
+  },
+  {
+    id: 103,
+    moduleId: 'seguranca',
+    topic: 'Tipos de Ataques',
+    question: 'Em um ataque Man-in-the-Middle (MitM), qual das seguintes medidas protege efetivamente a comunicação?',
+    options: [
+      'Usar HTTP em vez de HTTPS',
+      'Conectar-se a redes Wi-Fi abertas',
+      'Utilizar HTTPS com certificado SSL/TLS válido',
+      'Desabilitar o firewall',
+    ],
+    correctAnswer: 2,
+    explanation: 'HTTPS com certificado SSL/TLS válido criptografa a comunicação entre cliente e servidor, impedindo que um invasor MitM leia ou modifique os dados. HTTP (sem criptografia) é vulnerável a MitM.',
+  },
+  {
+    id: 104,
+    moduleId: 'seguranca',
+    topic: 'Tipos de Ataques',
+    question: 'Qual a melhor defesa contra ataques de força bruta (brute force)?',
+    options: [
+      'Usar senhas curtas para digitar rápido',
+      'Implementar bloqueio após N tentativas falhas e exigir autenticação multifator (MFA)',
+      'Desabilitar a autenticação no sistema',
+      'Usar apenas números na senha',
+    ],
+    correctAnswer: 1,
+    explanation: 'Bloqueio após tentativas falhas impede que o atacante faça milhares de tentativas. MFA adiciona uma camada extra: mesmo que a senha seja descoberta, o atacante precisa do segundo fator (token, biometria). Senhas fortes também ajudam, mas MFA é a proteção mais eficaz.',
+  },
+  {
+    id: 105,
+    moduleId: 'seguranca',
+    topic: 'Tipos de Ataques',
+    question: 'Qual das seguintes NÃO é uma técnica de engenharia social?',
+    options: [
+      'Pretexting — criar um pretexto falso para obter informações',
+      'Baiting — oferecer uma isca (pendrive "achado") para infectar o sistema',
+      'Phishing — enviar mensagens falsas para roubar dados',
+      'Port Scanning — escanear portas abertas em um servidor',
+    ],
+    correctAnswer: 3,
+    explanation: 'Port scanning é uma técnica técnica de reconhecimento de rede, não de engenharia social. As outras três (pretexting, baiting, phishing) são técnicas que manipulam psicologicamente as pessoas para obter informações ou acesso.',
+  },
+
+  // === Criptografia (106-110) ===
+  {
+    id: 106,
+    moduleId: 'seguranca',
+    topic: 'Criptografia',
+    question: 'Uma empresa precisa armazenar senhas de usuários em seu banco de dados de forma segura. Qual é a abordagem correta?',
+    options: [
+      'Armazenar as senhas em texto puro para facilitar a recuperação',
+      'Criptografar as senhas com AES e armazenar a chave junto',
+      'Armazenar apenas o hash das senhas usando algoritmo seguro como bcrypt ou SHA-256 com salt',
+      'Comprimir as senhas para economizar espaço',
+    ],
+    correctAnswer: 2,
+    explanation: 'Senhas nunca devem ser armazenadas em texto puro ou criptografadas (pois a chave pode ser descoberta). O correto é armazenar o hash da senha usando algoritmos específicos para senhas (bcrypt, argon2) com adição de salt — valor aleatório único para cada senha.',
+  },
+  {
+    id: 107,
+    moduleId: 'seguranca',
+    topic: 'Criptografia',
+    question: 'No protocolo HTTPS, como ocorre a troca de chaves entre cliente e servidor?',
+    options: [
+      'Apenas criptografia simétrica é usada durante toda a conexão',
+      'Primeiro usa-se criptografia assimétrica para trocar uma chave simétrica temporária, que é usada para o restante da comunicação',
+      'Apenas criptografia assimétrica é usada durante toda a conexão',
+      'Não há criptografia — HTTPS usa apenas autenticação',
+    ],
+    correctAnswer: 1,
+    explanation: 'HTTPS combina os dois tipos: o handshake inicial usa criptografia assimétrica (RSA/ECC) para autenticar o servidor e trocar uma chave simétrica temporária (session key). A partir daí, a comunicação usa criptografia simétrica (AES), que é mais rápida para grandes volumes de dados.',
+  },
+  {
+    id: 108,
+    moduleId: 'seguranca',
+    topic: 'Criptografia',
+    question: 'Uma função hash criptográfica como SHA-256 tem uma propriedade importante: mesmo uma mudança mínima na entrada produz um hash completamente diferente. Como essa propriedade é chamada?',
+    options: [
+      'Colisão',
+      'Efeito avalanche',
+      'Determinismo',
+      'Reversibilidade',
+    ],
+    correctAnswer: 1,
+    explanation: 'O "efeito avalanche" (avalanche effect) significa que uma pequena mudança na entrada (um único bit) produz mudanças drásticas no hash de saída (aproximadamente 50% dos bits se alteram). Isso torna impossível prever o hash de entradas similares e dificulta ataques de colisão.',
+  },
+  {
+    id: 109,
+    moduleId: 'seguranca',
+    topic: 'Criptografia',
+    question: 'Qual é a principal vantagem da criptografia assimétrica sobre a simétrica?',
+    options: [
+      'É mais rápida e consome menos recursos',
+      'Elimina o problema de compartilhamento seguro de chaves, pois a chave pública pode ser distribuída abertamente',
+      'É mais fácil de implementar',
+      'Não requer algoritmos matemáticos complexos',
+    ],
+    correctAnswer: 1,
+    explanation: 'A grande vantagem da criptografia assimétrica é resolver o "problema da distribuição de chaves". Na simétrica, as duas partes precisam combinar uma chave secreta — o que é difícil em canais inseguros. Na assimétrica, a chave pública é distribuída livremente e apenas a chave privada é secreta.',
+  },
+  {
+    id: 110,
+    moduleId: 'seguranca',
+    topic: 'Criptografia',
+    question: 'Uma assinatura digital garante quais propriedades de segurança?',
+    options: [
+      'Apenas confidencialidade — os dados são criptografados',
+      'Apenas disponibilidade — os dados estão sempre acessíveis',
+      'Autenticidade (quem assinou) e integridade (não foi alterado)',
+      'Apenas não repúdio — o remetente não pode negar o envio',
+    ],
+    correctAnswer: 2,
+    explanation: 'Assinaturas digitais garantem autenticidade (verifica a identidade do remetente através da chave privada) e integridade (qualquer alteração nos dados invalida a assinatura). Também fornece não-repúdio, mas não oferece confidencialidade — os dados assinados podem ser legíveis.',
+  },
+
+  // === Segurança em Redes e Firewall (111-115) ===
+  {
+    id: 111,
+    moduleId: 'seguranca',
+    topic: 'Segurança em Redes e Firewall',
+    question: 'Um firewall stateful (com estado) difere de um firewall stateless (sem estado) porque:',
+    options: [
+      'Stateful é mais simples e mais rápido que stateless',
+      'Stateful mantém uma tabela do estado das conexões ativas, entendendo o contexto do tráfego',
+      'Stateless consegue inspecionar o conteúdo dos pacotes; stateful não',
+      'Não há diferença prática entre os dois tipos',
+    ],
+    correctAnswer: 1,
+    explanation: 'Firewall stateful mantém uma tabela de estados (state table) registrando todas as conexões ativas. Ele entende o contexto: se um pacote faz parte de uma conexão legítima estabelecida ou é uma tentativa de invasão. Stateless analisa cada pacote isoladamente, sem contexto.',
+  },
+  {
+    id: 112,
+    moduleId: 'seguranca',
+    topic: 'Segurança em Redes e Firewall',
+    question: 'Qual das seguintes NÃO é uma função típica de um firewall de próxima geração (NGFW)?',
+    options: [
+      'Inspeção SSL/TLS de tráfego criptografado',
+      'Prevenção de intrusão (IPS) integrada',
+      'Hospedagem de sites web',
+      'Filtragem por aplicação (identificar aplicativos pelo tráfego)',
+    ],
+    correctAnswer: 2,
+    explanation: 'Hospedagem de sites web não é função de firewall — isso é feito por servidores web (Apache, Nginx). NGFWs combinam firewall tradicional, IPS, inspeção SSL, filtragem por aplicação e outras funcionalidades avançadas de segurança.',
+  },
+  {
+    id: 113,
+    moduleId: 'seguranca',
+    topic: 'Segurança em Redes e Firewall',
+    question: 'Um administrador configurou uma regra de firewall: "Permitir tráfego HTTP (porta 80) de qualquer origem para o servidor web interno". Qual tipo de firewall é capaz de implementar essa regra?',
+    options: [
+      'Apenas NGFW — firewalls simples não filtram por porta',
+      'Qualquer firewall — filtragem por porta é uma funcionalidade básica',
+      'Apenas firewall stateful — stateless não filtra portas',
+      'Nenhum firewall, pois regras por porta são obsoletas',
+    ],
+    correctAnswer: 1,
+    explanation: 'Filtragem por porta é uma funcionalidade básica de qualquer firewall — desde os mais simples filtros de pacotes (stateless) até NGFWs. A regra "permitir porta 80 para IP X" é elementar e todos os firewalls suportam.',
+  },
+  {
+    id: 114,
+    moduleId: 'seguranca',
+    topic: 'Segurança em Redes e Firewall',
+    question: 'Um IDS detectou tráfego suspeito na rede, mas não bloqueou o ataque. Por quê?',
+    options: [
+      'O IDS estava mal configurado — deveria ter bloqueado',
+      'IDS é um sistema passivo: apenas detecta e alerta, não bloqueia tráfego',
+      'O IDS só bloqueia ataques conhecidos, não desconhecidos',
+      'IDS só funciona em redes sem fio (Wi-Fi)',
+    ],
+    correctAnswer: 1,
+    explanation: 'IDS (Intrusion Detection System) é um sistema passivo que monitora o tráfego e gera alertas quando detecta atividades suspeitas, mas não toma ação bloqueadora. Para bloquear, é necessário um IPS (Intrusion Prevention System), que é posicionado em linha com o tráfego.',
+  },
+  {
+    id: 115,
+    moduleId: 'seguranca',
+    topic: 'Segurança em Redes e Firewall',
+    question: 'No modelo Zero Trust, um dispositivo dentro da rede corporativa:',
+    options: [
+      'É automaticamente confiável por estar dentro do perímetro',
+      'Não precisa de autenticação para acessar recursos internos',
+      'Nunca é confiável por padrão — cada acesso é verificado individualmente',
+      'Tem acesso irrestrito a todos os sistemas',
+    ],
+    correctAnswer: 2,
+    explanation: 'Zero Trust elimina o conceito de "confiança implícita" baseada em localização. Um dispositivo dentro da rede é tratado com o mesmo nível de desconfiança que um externo. Cada acesso a cada recurso requer autenticação e autorização individual.',
+  },
+
+  // === Boas Práticas de Segurança (116-120) ===
+  {
+    id: 116,
+    moduleId: 'seguranca',
+    topic: 'Boas Práticas de Segurança',
+    question: 'Um funcionário anotou sua senha em um post-it colado no monitor. Qual é a melhor alternativa a esse comportamento?',
+    options: [
+      'Usar a mesma senha para tudo, assim ele nunca esquece',
+      'Usar um gerenciador de senhas que armazena e preenche as senhas com segurança',
+      'Anotar a senha em um arquivo de texto no desktop',
+      'Não usar senha — a empresa deveria adotar apenas biometria',
+    ],
+    correctAnswer: 1,
+    explanation: 'Gerenciadores de senhas (LastPass, Bitwarden, 1Password) são a solução recomendada: armazenam senhas com criptografia, geram senhas fortes automaticamente e preenchem nos sites. Assim o usuário só precisa lembrar uma senha mestra.',
+  },
+  {
+    id: 117,
+    moduleId: 'seguranca',
+    topic: 'Boas Práticas de Segurança',
+    question: 'Um profissional de segurança está implementando backups. Qual estratégia segue a regra 3-2-1?',
+    options: [
+      '3 backups no mesmo HD, 2 partições, 1 pasta',
+      '3 cópias (original + 2 backups), em 2 tipos de mídia (HD externo + nuvem), 1 cópia fora do local',
+      '3 backups diários, 2 semanais, 1 mensal',
+      '3 pessoas responsáveis, 2 locais, 1 procedimento',
+    ],
+    correctAnswer: 1,
+    explanation: 'A regra 3-2-1 recomenda: manter 3 cópias dos dados (a original + 2 backups), armazenadas em pelo menos 2 tipos de mídia diferentes (ex: HD externo e armazenamento em nuvem), com pelo menos 1 cópia armazenada em local físico diferente (offsite).',
+  },
+  {
+    id: 118,
+    moduleId: 'seguranca',
+    topic: 'Boas Práticas de Segurança',
+    question: 'Qual das seguintes é a abordagem mais segura para lidar com um e-mail suspeito recebido no trabalho?',
+    options: [
+      'Responder perguntando se o e-mail é verdadeiro',
+      'Clicar no link para verificar se é seguro',
+      'Não clicar em nada, reportar ao time de segurança e deletar o e-mail',
+      'Encaminhar para colegas perguntando se receberam também',
+    ],
+    correctAnswer: 2,
+    explanation: 'Ao receber um e-mail suspeito, não clique em nada, não responda e não encaminhe. Reporte imediatamente ao time de segurança da informação (que tem ferramentas para investigar) e depois delete o e-mail. Isso evita riscos de phishing e protege a organização.',
+  },
+  {
+    id: 119,
+    moduleId: 'seguranca',
+    topic: 'Boas Práticas de Segurança',
+    question: 'Além de senha, a autenticação multifator (MFA) pode usar quais outros fatores?',
+    options: [
+      'Apenas biometria (digital, face)',
+      'Apenas token físico ou aplicativo gerador de códigos',
+      'Algo que você TEM (token, celular) e algo que você É (biometria)',
+      'MFA usa apenas senhas diferentes',
+    ],
+    correctAnswer: 2,
+    explanation: 'MFA combina dois ou mais fatores de categorias diferentes: algo que você SABE (senha), algo que você TEM (token, smartphone, cartão) e algo que você É (biometria como digital ou reconhecimento facial). Quanto mais fatores, mais seguro.',
+  },
+  {
+    id: 120,
+    moduleId: 'seguranca',
+    topic: 'Boas Práticas de Segurança',
+    question: 'Um gestor disse: "Segurança é responsabilidade de todo mundo, não apenas do time de TI." Esta afirmação está correta?',
+    options: [
+      'Não — apenas o time de TI deve se preocupar com segurança',
+      'Sim — a segurança da informação é responsabilidade compartilhada por todos na organização, cada um em seu nível',
+      'Não — segurança é responsabilidade exclusiva da diretoria',
+      'Sim — mas apenas para cargos de liderança',
+    ],
+    correctAnswer: 1,
+    explanation: 'A segurança da informação é uma responsabilidade compartilhada (shared responsibility). O time de TI implementa as ferramentas e políticas, mas cada funcionário deve seguir boas práticas: não clicar em phishing, usar senhas fortes, reportar incidentes. A cultura de segurança envolve toda a organização.',
   },
 ];
 

@@ -5,6 +5,13 @@ import { useNavigation } from '@react-navigation/native';
 import { colors, spacing, typography, radius, shadows } from '../theme';
 import ShieldIcon from '../components/ShieldIcon';
 import Avatar from '../components/Avatar';
+import { useProgress } from '../context/ProgressContext';
+
+const MODULE_LESSONS = {
+  logica: 9,
+  redes: 9,
+  seguranca: 9,
+};
 
 const modules = [
   { id: 'logica', title: 'Lógica de Programação' },
@@ -14,6 +21,7 @@ const modules = [
 
 export default function BeginnerTrackScreen() {
   const navigation = useNavigation();
+  const { getModuleProgress } = useProgress();
   const [dropdownVisible, setDropdownVisible] = useState(false);
 
   const dropdownOptions = [
@@ -74,16 +82,33 @@ export default function BeginnerTrackScreen() {
         <Text style={styles.subtitle}>Escolha um módulo para começar seus estudos:</Text>
 
         <View style={styles.modulesContainer}>
-          {modules.map((module) => (
-            <TouchableOpacity
-              key={module.id}
-              style={styles.moduleButton}
-              onPress={() => handleModulePress(module.id)}
-              activeOpacity={0.75}
-            >
-              <Text style={styles.moduleButtonText}>{module.title}</Text>
-            </TouchableOpacity>
-          ))}
+          {modules.map((module) => {
+            const { completed, percentage } = getModuleProgress(module.id, MODULE_LESSONS[module.id]);
+            return (
+              <TouchableOpacity
+                key={module.id}
+                style={styles.moduleButton}
+                onPress={() => handleModulePress(module.id)}
+                activeOpacity={0.75}
+              >
+                <View style={styles.moduleButtonContent}>
+                  <Text style={styles.moduleButtonText}>
+                    {module.title}
+                  </Text>
+                  <View style={styles.moduleProgressRow}>
+                    <View style={styles.moduleProgressTrack}>
+                      <View
+                        style={[styles.moduleProgressFill, { width: `${percentage}%` }]}
+                      />
+                    </View>
+                    <Text style={styles.moduleProgressLabel}>
+                      {completed}/{MODULE_LESSONS[module.id]}
+                    </Text>
+                  </View>
+                </View>
+              </TouchableOpacity>
+            );
+          })}
         </View>
       </ScrollView>
     </LinearGradient>
@@ -174,12 +199,11 @@ const styles = StyleSheet.create({
   moduleButton: {
     backgroundColor: colors.buttonBg,
     borderRadius: radius.xxl,
+    ...shadows.md,
+  },
+  moduleButtonContent: {
     paddingVertical: spacing.lg,
     paddingHorizontal: spacing.xl,
-    alignItems: 'center',
-    justifyContent: 'center',
-    minHeight: 60,
-    ...shadows.md,
   },
   moduleButtonText: {
     fontSize: typography.fontSize.xl,
@@ -187,5 +211,28 @@ const styles = StyleSheet.create({
     fontWeight: typography.fontWeight.bold,
     letterSpacing: typography.letterSpacing.wide,
     textAlign: 'center',
+    marginBottom: spacing.sm,
+  },
+  moduleProgressRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.sm,
+  },
+  moduleProgressTrack: {
+    flex: 1,
+    height: 6,
+    backgroundColor: 'rgba(255,255,255,0.15)',
+    borderRadius: radius.full,
+    overflow: 'hidden',
+  },
+  moduleProgressFill: {
+    height: '100%',
+    backgroundColor: colors.success,
+    borderRadius: radius.full,
+  },
+  moduleProgressLabel: {
+    fontSize: typography.fontSize.xs,
+    fontWeight: typography.fontWeight.bold,
+    color: 'rgba(255,255,255,0.7)',
   },
 });

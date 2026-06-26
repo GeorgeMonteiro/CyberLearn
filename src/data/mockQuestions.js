@@ -1,6 +1,8 @@
 const mockQuestions = [
+  // === LÓGICA DE PROGRAMAÇÃO ===
   {
     id: 1,
+    moduleId: 'logica',
     question: 'O que é Lógica de Programação?',
     options: [
       'Uma linguagem de programação específica',
@@ -13,6 +15,7 @@ const mockQuestions = [
   },
   {
     id: 2,
+    moduleId: 'logica',
     question: 'O que é um algoritmo?',
     options: [
       'Um equipamento utilizado para processar dados',
@@ -25,6 +28,7 @@ const mockQuestions = [
   },
   {
     id: 3,
+    moduleId: 'logica',
     question: 'Qual símbolo de fluxograma é usado para representar uma decisão?',
     options: [
       'Elipse',
@@ -37,6 +41,7 @@ const mockQuestions = [
   },
   {
     id: 4,
+    moduleId: 'logica',
     question: 'O que é uma variável na programação?',
     options: [
       'Um valor que nunca muda no programa',
@@ -49,6 +54,7 @@ const mockQuestions = [
   },
   {
     id: 5,
+    moduleId: 'logica',
     question: 'Qual destes é um nome válido para variável?',
     options: [
       '2nome',
@@ -61,6 +67,7 @@ const mockQuestions = [
   },
   {
     id: 6,
+    moduleId: 'logica',
     question: 'Qual tipo de dado é mais adequado para armazenar um valor verdadeiro ou falso?',
     options: [
       'Inteiro',
@@ -73,6 +80,7 @@ const mockQuestions = [
   },
   {
     id: 7,
+    moduleId: 'logica',
     question: 'Qual o resultado da expressão: (10 + 5) * 2?',
     options: [
       '20',
@@ -85,6 +93,7 @@ const mockQuestions = [
   },
   {
     id: 8,
+    moduleId: 'logica',
     question: 'O que o operador lógico AND (&&) retorna?',
     options: [
       'True se pelo menos uma condição for verdadeira',
@@ -97,6 +106,7 @@ const mockQuestions = [
   },
   {
     id: 9,
+    moduleId: 'logica',
     question: 'Qual estrutura de repetição garante que o bloco execute pelo menos uma vez?',
     options: [
       'while',
@@ -109,6 +119,7 @@ const mockQuestions = [
   },
   {
     id: 10,
+    moduleId: 'logica',
     question: 'Quando é mais adequado usar switch-case em vez de if-else?',
     options: [
       'Quando precisamos comparar uma variável com muitos valores fixos diferentes',
@@ -118,6 +129,269 @@ const mockQuestions = [
     ],
     correctAnswer: 0,
     explanation: 'switch-case é ideal quando comparamos uma única variável com diversos valores fixos e conhecidos.',
+  },
+
+  // === FUNDAMENTOS DE REDES ===
+  {
+    id: 11,
+    moduleId: 'redes',
+    question: 'O que é uma rede de computadores?',
+    options: [
+      'Um conjunto de computadores isolados que não se comunicam',
+      'Dois ou mais dispositivos conectados que compartilham recursos e informações',
+      'Apenas servidores de grande porte conectados entre si',
+      'Um tipo de cabo utilizado para conectar impressoras',
+    ],
+    correctAnswer: 1,
+    explanation: 'Uma rede de computadores é formada por dois ou mais dispositivos interconectados que podem compartilhar recursos, dados e informações entre si.',
+  },
+  {
+    id: 12,
+    moduleId: 'redes',
+    question: 'Quantas camadas possui o modelo OSI?',
+    options: [
+      '4 camadas',
+      '5 camadas',
+      '7 camadas',
+      '8 camadas',
+    ],
+    correctAnswer: 2,
+    explanation: 'O modelo OSI possui 7 camadas: Física, Enlace, Rede, Transporte, Sessão, Apresentação e Aplicação.',
+  },
+  {
+    id: 13,
+    moduleId: 'redes',
+    question: 'Qual camada do modelo OSI é responsável pelo roteamento dos pacotes?',
+    options: [
+      'Camada Física',
+      'Camada de Enlace',
+      'Camada de Rede',
+      'Camada de Transporte',
+    ],
+    correctAnswer: 2,
+    explanation: 'A camada de Rede (Layer 3) do modelo OSI é responsável pelo roteamento e encaminhamento dos pacotes entre redes diferentes.',
+  },
+  {
+    id: 14,
+    moduleId: 'redes',
+    question: 'Qual a diferença entre TCP e UDP?',
+    options: [
+      'TCP é mais rápido que UDP',
+      'TCP é orientado à conexão e confiável; UDP é não orientado à conexão e mais rápido',
+      'TCP e UDP são idênticos, apenas nomes diferentes',
+      'UDP é usado apenas em redes locais',
+    ],
+    correctAnswer: 1,
+    explanation: 'TCP é orientado à conexão, garantindo entrega confiável e ordenada dos dados. UDP é não orientado à conexão, sendo mais rápido porém sem garantia de entrega.',
+  },
+  {
+    id: 15,
+    moduleId: 'redes',
+    question: 'Quantos bits tem um endereço IPv4?',
+    options: [
+      '16 bits',
+      '32 bits',
+      '64 bits',
+      '128 bits',
+    ],
+    correctAnswer: 1,
+    explanation: 'Um endereço IPv4 possui 32 bits, geralmente representado em formato decimal com 4 octetos (ex: 192.168.0.1).',
+  },
+  {
+    id: 16,
+    moduleId: 'redes',
+    question: 'O que significa a sigla DNS?',
+    options: [
+      'Digital Network System',
+      'Domain Name System',
+      'Data Name Service',
+      'Domain Network Server',
+    ],
+    correctAnswer: 1,
+    explanation: 'DNS significa Domain Name System (Sistema de Nomes de Domínio). Ele traduz nomes de domínio (como google.com) em endereços IP.',
+  },
+  {
+    id: 17,
+    moduleId: 'redes',
+    question: 'Qual protocolo é utilizado para navegação segura na web?',
+    options: [
+      'HTTP',
+      'HTTPS',
+      'FTP',
+      'SMTP',
+    ],
+    correctAnswer: 1,
+    explanation: 'HTTPS (Hypertext Transfer Protocol Secure) é a versão segura do HTTP, utilizando criptografia SSL/TLS para proteger os dados transmitidos.',
+  },
+  {
+    id: 18,
+    moduleId: 'redes',
+    question: 'Qual dispositivo de rede opera na camada 2 (Enlace) do modelo OSI?',
+    options: [
+      'Roteador',
+      'Hub',
+      'Switch',
+      'Modem',
+    ],
+    correctAnswer: 2,
+    explanation: 'O Switch opera na camada 2 (Enlace), utilizando endereços MAC para encaminhar quadros entre dispositivos na mesma rede.',
+  },
+  {
+    id: 19,
+    moduleId: 'redes',
+    question: 'Para que serve um firewall?',
+    options: [
+      'Acelerar a conexão com a internet',
+      'Proteger a rede controlando o tráfego com base em regras de segurança',
+      'Converter endereços IP em nomes de domínio',
+      'Ampliar o sinal Wi-Fi',
+    ],
+    correctAnswer: 1,
+    explanation: 'Um firewall é um sistema de segurança que monitora e controla o tráfego de rede com base em regras predefinidas, protegendo a rede contra acessos não autorizados.',
+  },
+  {
+    id: 20,
+    moduleId: 'redes',
+    question: 'O que é uma VPN?',
+    options: [
+      'Um tipo de cabo de rede',
+      'Um protocolo de navegação web',
+      'Uma rede privada virtual que cria um túnel criptografado sobre a internet',
+      'Um servidor de e-mail',
+    ],
+    correctAnswer: 2,
+    explanation: 'VPN (Virtual Private Network) cria uma conexão criptografada e segura (túnel) entre o dispositivo do usuário e um servidor remoto, protegendo os dados transmitidos.',
+  },
+  // === FUNDAMENTOS DE CIBERSEGURANÇA ===
+  {
+    id: 21,
+    moduleId: 'seguranca',
+    question: 'O que é cibersegurança?',
+    options: [
+      'Apenas a instalação de antivírus',
+      'Conjunto de práticas para proteger sistemas, redes e dados contra ataques cibernéticos',
+      'Um tipo de rede de computadores',
+      'Um software de firewall',
+    ],
+    correctAnswer: 1,
+    explanation: 'Cibersegurança é o conjunto de práticas, tecnologias e processos projetados para proteger sistemas, redes, dispositivos e dados contra ataques, danos ou acessos não autorizados.',
+  },
+  {
+    id: 22,
+    moduleId: 'seguranca',
+    question: 'Quais são os 3 pilares da segurança da informação (Tríade CIA)?',
+    options: [
+      'Criptografia, Internet, Autenticação',
+      'Confidencialidade, Integridade, Disponibilidade',
+      'Computação, Inteligência, Automação',
+      'Controle, Investigação, Auditoria',
+    ],
+    correctAnswer: 1,
+    explanation: 'A Tríade CIA (Confidentiality, Integrity, Availability) é composta por Confidencialidade, Integridade e Disponibilidade — os três pilares fundamentais da segurança da informação.',
+  },
+  {
+    id: 23,
+    moduleId: 'seguranca',
+    question: 'Qual tipo de malware criptografa os dados da vítima e exige resgate?',
+    options: [
+      'Vírus',
+      'Trojan',
+      'Ransomware',
+      'Spyware',
+    ],
+    correctAnswer: 2,
+    explanation: 'Ransomware é um malware que criptografa os dados da vítima e exige pagamento de resgate (ransom) para fornecer a chave de descriptografia.',
+  },
+  {
+    id: 24,
+    moduleId: 'seguranca',
+    question: 'Qual a diferença entre ameaça e vulnerabilidade?',
+    options: [
+      'São o mesmo conceito',
+      'Ameaça é o perigo potencial; vulnerabilidade é a fraqueza que pode ser explorada',
+      'Ameaça é interna; vulnerabilidade é externa',
+      'Ameaça é a correção; vulnerabilidade é o ataque',
+    ],
+    correctAnswer: 1,
+    explanation: 'Ameaça é qualquer circunstância com potencial de causar dano. Vulnerabilidade é uma fraqueza que pode ser explorada por uma ameaça.',
+  },
+  {
+    id: 25,
+    moduleId: 'seguranca',
+    question: 'Qual ataque utiliza mensagens falsas para enganar vítimas e roubar dados?',
+    options: [
+      'DDoS',
+      'Phishing',
+      'SQL Injection',
+      'Brute Force',
+    ],
+    correctAnswer: 1,
+    explanation: 'Phishing é uma técnica de engenharia social que usa mensagens falsas (e-mail, SMS) se passando por empresas legítimas para roubar credenciais e dados sensíveis.',
+  },
+  {
+    id: 26,
+    moduleId: 'seguranca',
+    question: 'Na criptografia simétrica, quantas chaves são usadas para cifrar e decifrar?',
+    options: [
+      'Duas chaves diferentes',
+      'A mesma chave para cifrar e decifrar',
+      'Três chaves',
+      'Nenhuma chave',
+    ],
+    correctAnswer: 1,
+    explanation: 'Na criptografia simétrica, a mesma chave é usada tanto para cifrar quanto para decifrar os dados. O desafio é compartilhar essa chave de forma segura entre as partes.',
+  },
+  {
+    id: 27,
+    moduleId: 'seguranca',
+    question: 'Qual a função principal de um firewall?',
+    options: [
+      'Acelerar a conexão de rede',
+      'Monitorar e controlar o tráfego com base em regras de segurança',
+      'Converter IP em nomes de domínio',
+      'Armazenar backups',
+    ],
+    correctAnswer: 1,
+    explanation: 'O firewall controla o tráfego de rede com base em regras predefinidas, permitindo ou bloqueando tráfego conforme configurado para proteger a rede.',
+  },
+  {
+    id: 28,
+    moduleId: 'seguranca',
+    question: 'O que significa a sigla MFA?',
+    options: [
+      'Multiple File Access',
+      'Multi-Factor Authentication (Autenticação Multifator)',
+      'Main Firewall Application',
+      'Malware File Analysis',
+    ],
+    correctAnswer: 1,
+    explanation: 'MFA (Multi-Factor Authentication) é um método de autenticação que requer dois ou mais fatores de verificação (senha + token + biometria) para conceder acesso.',
+  },
+  {
+    id: 29,
+    moduleId: 'seguranca',
+    question: 'Qual regra de backup é recomendada por especialistas?',
+    options: [
+      '1-1-1: uma cópia, um local, um dispositivo',
+      '3-2-1: três cópias, duas mídias, uma fora do local',
+      '5-5-5: cinco cópias, cinco locais',
+      'Não é necessário backup com antivírus',
+    ],
+    correctAnswer: 1,
+    explanation: 'A regra 3-2-1 recomenda: 3 cópias dos dados, em 2 tipos de mídia diferentes (ex: HD + nuvem), com 1 cópia armazenada fora do local principal.',
+  },
+  {
+    id: 30,
+    moduleId: 'seguranca',
+    question: 'Qual pilar da segurança é violado quando um sistema fica indisponível por um ataque DDoS?',
+    options: [
+      'Confidencialidade',
+      'Integridade',
+      'Disponibilidade',
+      'Autenticidade',
+    ],
+    correctAnswer: 2,
+    explanation: 'O ataque DDoS viola a disponibilidade ao sobrecarregar o servidor com tráfego excessivo, tornando o serviço inacessível para usuários legítimos.',
   },
 ];
 

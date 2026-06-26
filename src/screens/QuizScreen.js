@@ -1,228 +1,43 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, SafeAreaView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
+import { useRoute, useNavigation } from '@react-navigation/native';
 import { colors, spacing, typography, radius, shadows } from '../theme';
-
-const QUESTIONS = [
-  {
-    id: 1,
-    question: 'Qual a saída do seguinte pseudocódigo? \n\nINICIO\n  x <- 10\n  y <- 3\n  z <- x DIV y\n  ESCREVER z\nFIM',
-    options: ['3', '3.33', '1', '0'],
-    answer: 0,
-  },
-  {
-    id: 2,
-    question: 'Em um fluxograma, qual forma geométrica representa uma decisão (condicional)?',
-    options: ['Retângulo', 'Losango', 'Círculo', 'Paralelogramo'],
-    answer: 1,
-  },
-  {
-    id: 3,
-    question: 'Qual operador lógico retorna VERDADEIRO apenas quando ambas as proposições são verdadeiras?',
-    options: ['OR', 'NOT', 'AND', 'XOR'],
-    answer: 2,
-  },
-  {
-    id: 4,
-    question: 'Analise o código:\n\nx <- 7\ny <- 2\nSE (x MOD y = 0) ENTÃO\n  ESCREVER "par"\nSENÃO\n  ESCREVER "ímpar"\nFIM SE\n\nQual o resultado?',
-    options: ['par', 'ímpar', '0', '1'],
-    answer: 1,
-  },
-  {
-    id: 5,
-    question: 'Qual estrutura de repetição garante que o bloco de código seja executado pelo menos uma vez?',
-    options: ['ENQUANTO', 'PARA', 'REPITA...ATÉ', 'PARA CADA'],
-    answer: 2,
-  },
-  {
-    id: 6,
-    question: 'Dado o vetor V = [15, 8, 23, 4, 42], qual o valor de V[3] considerando indexação iniciando em 1?',
-    options: ['8', '23', '4', '42'],
-    answer: 2,
-  },
-  {
-    id: 7,
-    question: 'Qual a complexidade do algoritmo de busca linear no pior caso?',
-    options: ['O(1)', 'O(log n)', 'O(n)', 'O(n²)'],
-    answer: 2,
-  },
-  {
-    id: 8,
-    question: 'Em lógica proposicional, a tabela verdade de p → q (implicação) é falsa apenas quando:',
-    options: ['p = V e q = V', 'p = V e q = F', 'p = F e q = V', 'p = F e q = F'],
-    answer: 1,
-  },
-  {
-    id: 9,
-    question: 'Qual o resultado da expressão: (VERDADEIRO E NÃO (FALSO OU VERDADEIRO))?',
-    options: ['VERDADEIRO', 'FALSO', 'Erro de sintaxe', 'Depende do contexto'],
-    answer: 1,
-  },
-  {
-    id: 10,
-    question: 'No algoritmo de ordenação bolha (bubble sort), quantas comparações são feitas no pior caso para um vetor de n elementos?',
-    options: ['n - 1', 'n * (n - 1) / 2', 'n²', 'n * log n'],
-    answer: 1,
-  },
-  {
-    id: 11,
-    question: 'Considere o código:\n\nPARA i DE 1 ATÉ 5 FAÇA\n  SE (i MOD 2 = 0) ENTÃO\n    ESCREVER i\n  FIM SE\nFIM PARA\n\nQual a saída?',
-    options: ['1, 3, 5', '2, 4', '1, 2, 3, 4, 5', '2, 4, 6'],
-    answer: 1,
-  },
-  {
-    id: 12,
-    question: 'Qual o valor da variável "a" ao final da execução?\n\na <- 2\nb <- 3\na <- a * b + b - a',
-    options: ['6', '7', '5', '8'],
-    answer: 1,
-  },
-  {
-    id: 13,
-    question: 'O que é um Algoritmo?',
-    options: [
-      'Um programa de computador executável',
-      'Uma sequência finita e ordenada de passos para resolver um problema',
-      'Uma linguagem de programação específica',
-      'Um tipo de dado estruturado',
-    ],
-    answer: 1,
-  },
-  {
-    id: 14,
-    question: 'Em um fluxograma, qual símbolo representa o início e o fim do algoritmo?',
-    options: ['Retângulo com bordas arredondadas', 'Elipse (oval)', 'Círculo', 'Losango'],
-    answer: 1,
-  },
-  {
-    id: 15,
-    question: 'Qual a diferença entre uma variável do tipo INTEIRO e uma do tipo REAL?',
-    options: [
-      'Não há diferença',
-      'INTEIRO armazena apenas números sem parte fracionária; REAL armazena números com ponto flutuante',
-      'INTEIRO ocupa mais memória',
-      'REAL só pode armazenar números negativos',
-    ],
-    answer: 1,
-  },
-  {
-    id: 16,
-    question: 'Analise:\n\nx <- 10\nENQUANTO x > 0 FAÇA\n  x <- x - 3\nFIM ENQUANTO\n\nQuantas iterações serão executadas?',
-    options: ['3', '4', '5', '6'],
-    answer: 1,
-  },
-  {
-    id: 17,
-    question: 'Qual operador tem a maior precedência na maioria das linguagens?',
-    options: ['Adição (+)', 'Multiplicação (*)', 'Parênteses ()', 'Atribuição (=)'],
-    answer: 2,
-  },
-  {
-    id: 18,
-    question: 'Dado que A = VERDADEIRO e B = FALSO, qual o resultado de (A OU B) E (NÃO A OU NÃO B)?',
-    options: ['VERDADEIRO', 'FALSO', 'A', 'B'],
-    answer: 1,
-  },
-  {
-    id: 19,
-    question: 'Qual estrutura condicional permite testar múltiplas condições de forma encadeada?',
-    options: ['SE...ENTÃO', 'SE...SENÃO', 'ESCOLHA...CASO', ' TODAS AS ANTERIORES'],
-    answer: 2,
-  },
-  {
-    id: 20,
-    question: 'Um vetor de 10 elementos foi preenchido com os números de 1 a 10. Qual a soma dos elementos nas posições pares (considerando índice inicial 1)?',
-    options: ['25', '30', '20', '35'],
-    answer: 1,
-  },
-  {
-    id: 21,
-    question: 'Qual o conceito fundamental da programação estruturada?',
-    options: [
-      'GOTO e desvios incondicionais',
-      'Sequência, decisão e iteração',
-      'Herança e polimorfismo',
-      'Tabelas hash',
-    ],
-    answer: 1,
-  },
-  {
-    id: 22,
-    question: 'Analise o fluxo:\n\na <- 0\nPARA i <- 1 ATÉ 5 FAÇA\n  a <- a + i * 2\nFIM PARA\n\nQual o valor final de a?',
-    options: ['20', '30', '15', '25'],
-    answer: 1,
-  },
-  {
-    id: 23,
-    question: 'Qual o resultado lógico da expressão: (10 > 5) E (3 < 1) OU (8 = 8)?',
-    options: ['VERDADEIRO', 'FALSO', 'Erro de tipo', 'Indefinido'],
-    answer: 0,
-  },
-  {
-    id: 24,
-    question: 'Em lógica de programação, o que é uma "variável contadora"?',
-    options: [
-      'Uma variável que armazena o tempo de execução',
-      'Uma variável que é incrementada ou decrementada em um valor fixo a cada iteração',
-      'Uma variável que só pode ser lida, nunca modificada',
-      'Uma variável que conta o número de variáveis no programa',
-    ],
-    answer: 1,
-  },
-  {
-    id: 25,
-    question: 'Dado:\n\nPROCEDIMENTO Dobro(x)\n  RETORNAR x * 2\nFIM PROCEDIMENTO\n\ny <- Dobro(Dobro(3))\n\nQual o valor de y?',
-    options: ['6', '9', '12', '18'],
-    answer: 2,
-  },
-  {
-    id: 26,
-    question: 'Qual(is) valor(es) a variável "tipo_logico" pode armazenar?',
-    options: [
-      'Apenas números inteiros',
-      'VERDADEIRO ou FALSO',
-      'Qualquer string',
-      'Apenas números positivos',
-    ],
-    answer: 1,
-  },
-  {
-    id: 27,
-    question: 'Analise:\n\nx <- 1\nREPITA\n  x <- x + 1\nATÉ x > 5\n\nQual o valor de x ao final?',
-    options: ['5', '6', '4', '7'],
-    answer: 1,
-  },
-  {
-    id: 28,
-    question: 'Qual a principal vantagem de usar fluxogramas para representar algoritmos?',
-    options: [
-      'Executar o código automaticamente',
-      'Visualizar o fluxo lógico de forma gráfica e intuitiva',
-      'Economizar memória do computador',
-      'Escrever código em qualquer linguagem',
-    ],
-    answer: 1,
-  },
-  {
-    id: 29,
-    question: 'Se um algoritmo tem complexidade O(log n), qual o comportamento esperado ao dobrar o tamanho da entrada?',
-    options: [
-      'O tempo de execução dobra',
-      'O tempo de execução aumenta em 1 unidade',
-      'O tempo de execução quadruplica',
-      'O tempo de execução se mantém constante',
-    ],
-    answer: 1,
-  },
-  {
-    id: 30,
-    question: 'Complete a lacuna:\n\n"Uma ______ é uma variável que armazena múltiplos valores do mesmo tipo, acessados por um índice."',
-    options: ['Matriz', 'String', 'Estrutura', 'Vetor (array)'],
-    answer: 3,
-  },
-];
+import assessmentQuestions from '../data/assessmentQuestions';
+import { useProgress } from '../context/ProgressContext';
 
 export default function QuizScreen() {
+  const route = useRoute();
+  const moduleId = route.params?.moduleId || 'logica';
+
+  const navigation = useNavigation();
+  const { completeModule, getModuleProgress } = useProgress();
+
+  const moduleLessonsCount = 9;
+  const { completed } = getModuleProgress(moduleId, moduleLessonsCount);
+  const allCompleted = completed >= moduleLessonsCount;
+
+  if (!allCompleted) {
+    return (
+      <View style={[styles.container, { justifyContent: 'center', alignItems: 'center', padding: spacing.xl }]}>
+        <Ionicons name="lock-closed-outline" size={64} color={colors.textMuted} />
+        <Text style={{ color: colors.textMuted, fontSize: 18, marginTop: spacing.lg, textAlign: 'center', marginBottom: spacing.xl }}>
+          Complete todas as {moduleLessonsCount} lições do módulo para fazer a avaliação.
+        </Text>
+        <TouchableOpacity onPress={() => navigation.goBack()} activeOpacity={0.8} style={{ backgroundColor: colors.surface, paddingVertical: spacing.base, paddingHorizontal: spacing.xxl, borderRadius: radius.xl, borderWidth: 1, borderColor: colors.border + '50' }}>
+          <Text style={{ color: colors.text, fontWeight: 'bold' }}>Voltar ao módulo</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
+
+  const QUESTIONS = useMemo(() => {
+    const filtered = assessmentQuestions.filter((q) => q.moduleId === moduleId);
+    const shuffled = [...filtered].sort(() => Math.random() - 0.5);
+    return shuffled.slice(0, 30);
+  }, [moduleId]);
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedOption, setSelectedOption] = useState(null);
   const [score, setScore] = useState(0);
@@ -230,14 +45,14 @@ export default function QuizScreen() {
 
   const current = QUESTIONS[currentIndex];
   const total = QUESTIONS.length;
-  const progress = ((currentIndex + 1) / total) * 100;
+  const progress = total > 0 ? ((currentIndex + 1) / total) * 100 : 0;
 
   function handleSelect(index) {
     setSelectedOption(index);
   }
 
   function handleNext() {
-    if (selectedOption === current.answer) {
+    if (selectedOption === current.correctAnswer) {
       setScore((prev) => prev + 1);
     }
     if (currentIndex < total - 1) {
@@ -255,6 +70,12 @@ export default function QuizScreen() {
   function isApproved() {
     return percentage() >= 70;
   }
+
+  useEffect(() => {
+    if (finished && percentage() >= 70) {
+      completeModule(moduleId);
+    }
+  }, [finished, score]);
 
   function handleRestart() {
     setCurrentIndex(0);
@@ -309,6 +130,14 @@ export default function QuizScreen() {
           >
             <Ionicons name="refresh-outline" size={20} color={colors.white} />
             <Text style={styles.restartButtonText}>Refazer avaliação</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => navigation.goBack()}
+            activeOpacity={0.8}
+            style={[styles.restartButton, { marginTop: spacing.md }]}
+          >
+            <Ionicons name="arrow-back-outline" size={20} color={colors.white} />
+            <Text style={styles.restartButtonText}>Voltar ao módulo</Text>
           </TouchableOpacity>
         </View>
       </View>

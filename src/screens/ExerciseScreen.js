@@ -1,7 +1,9 @@
 import React, { useState, useMemo } from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { colors, spacing, typography } from '../theme';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { Ionicons } from '@expo/vector-icons';
+import { colors, spacing, typography, radius } from '../theme';
+import { useProgress } from '../context/ProgressContext';
 import ExerciseHeader from '../components/exercises/ExerciseHeader';
 import ExerciseConfigCard from '../components/exercises/ExerciseConfigCard';
 import QuestionCard from '../components/exercises/QuestionCard';
@@ -12,6 +14,27 @@ import mockQuestions from '../data/mockQuestions';
 
 export default function ExerciseScreen() {
   const navigation = useNavigation();
+  const route = useRoute();
+  const moduleId = route.params?.moduleId || 'logica';
+  const { isLessonUnlocked, isLessonCompleted } = useProgress();
+
+  const lessonId = `${moduleId}_9`;
+  const unlocked = isLessonUnlocked(moduleId, 9);
+  const alreadyCompleted = isLessonCompleted(moduleId, lessonId);
+
+  if (!unlocked && !alreadyCompleted) {
+    return (
+      <View style={[styles.container, { justifyContent: 'center', alignItems: 'center', padding: spacing.xl }]}>
+        <Ionicons name="lock-closed-outline" size={64} color={colors.textMuted} />
+        <Text style={{ color: colors.textMuted, fontSize: 18, marginTop: spacing.lg, textAlign: 'center', marginBottom: spacing.xl }}>
+          Complete todas as aulas anteriores para desbloquear os exercícios.
+        </Text>
+        <TouchableOpacity onPress={() => navigation.goBack()} activeOpacity={0.8} style={{ backgroundColor: colors.surface, paddingVertical: spacing.base, paddingHorizontal: spacing.xxl, borderRadius: radius.xl }}>
+          <Text style={{ color: colors.text, fontWeight: 'bold' }}>Voltar</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
 
   const [screenState, setScreenState] = useState('config');
   const [difficulty, setDifficulty] = useState('Fácil');
@@ -31,7 +54,8 @@ export default function ExerciseScreen() {
   const isLast = currentIndex === totalQuestions - 1;
 
   function handleGenerate() {
-    const picked = [...mockQuestions].sort(() => Math.random() - 0.5).slice(0, quantity);
+    const moduleQuestions = mockQuestions.filter((q) => q.moduleId === moduleId);
+    const picked = [...moduleQuestions].sort(() => Math.random() - 0.5).slice(0, quantity);
     setQuestions(picked);
     setCurrentIndex(0);
     setAnswers({});
