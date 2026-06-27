@@ -30,7 +30,7 @@ export default function ExpertTrackScreen() {
   const [dropdownVisible, setDropdownVisible] = useState(false);
 
   const dropdownOptions = [
-    { label: 'Meu Perfil', action: () => {} },
+    { label: 'Meu Perfil', action: () => navigation.navigate('Main', { screen: 'Profile' }) },
     { label: 'Meu Desempenho', action: () => navigation.navigate('Main', { screen: 'Progress' }) },
     { label: 'Sair', action: () => navigation.replace('Welcome') },
   ];
