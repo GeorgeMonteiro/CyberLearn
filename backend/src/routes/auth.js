@@ -99,12 +99,7 @@ router.post('/forgot-password', async (req, res) => {
     db.run('UPDATE users SET reset_token = ?, reset_token_expires = ? WHERE email = ?',
       [resetToken, expires, email]);
 
-    console.log(`Token de reset para ${email}: ${resetToken}`);
-
-    res.json({
-      message: 'Instruções enviadas para o e-mail',
-      resetToken,
-    });
+    res.json({ resetToken });
   } catch (err) {
     console.error('Forgot password error:', err);
     res.status(500).json({ error: 'Erro interno do servidor' });
