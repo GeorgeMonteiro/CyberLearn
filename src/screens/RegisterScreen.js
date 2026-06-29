@@ -61,11 +61,15 @@ export default function RegisterScreen() {
     return Object.keys(newErrors).length === 0;
   }
 
+  function clearError(field) {
+    setErrors((prev) => ({ ...prev, [field]: '' }));
+  }
+
   async function handleRegister() {
+    setApiError('');
     if (!validate()) return;
 
     setLoading(true);
-    setApiError('');
 
     try {
       const res = await fetch(`${API_BASE_URL}/api/auth/register`, {
@@ -119,63 +123,63 @@ export default function RegisterScreen() {
           <View style={styles.inputGroup}>
             <Text style={styles.label}>Nome Completo</Text>
             <TextInput
-              style={styles.input}
+              style={[styles.input, errors.name && styles.inputError]}
               placeholder="Seu nome completo"
               placeholderTextColor={colors.textMuted}
               value={name}
-              onChangeText={setName}
+              onChangeText={(v) => { setName(v); clearError('name'); }}
               autoCapitalize="words"
             />
-            {errors.name && <Text style={styles.errorText}>{errors.name}</Text>}
+            {errors.name ? <Text style={styles.fieldError}>{errors.name}</Text> : null}
           </View>
 
           <View style={styles.inputGroup}>
             <Text style={styles.label}>E-mail</Text>
             <TextInput
-              style={styles.input}
+              style={[styles.input, errors.email && styles.inputError]}
               placeholder="seu@email.com"
               placeholderTextColor={colors.textMuted}
               value={email}
-              onChangeText={setEmail}
+              onChangeText={(v) => { setEmail(v); clearError('email'); }}
               keyboardType="email-address"
               autoCapitalize="none"
             />
-            {errors.email && <Text style={styles.errorText}>{errors.email}</Text>}
+            {errors.email ? <Text style={styles.fieldError}>{errors.email}</Text> : null}
           </View>
 
           <View style={styles.inputGroup}>
             <Text style={styles.label}>Senha</Text>
             <TextInput
-              style={styles.input}
+              style={[styles.input, errors.password && styles.inputError]}
               placeholder="••••••••"
               placeholderTextColor={colors.textMuted}
               value={password}
-              onChangeText={setPassword}
+              onChangeText={(v) => { setPassword(v); clearError('password'); }}
               secureTextEntry
             />
-            {errors.password && <Text style={styles.errorText}>{errors.password}</Text>}
+            {errors.password ? <Text style={styles.fieldError}>{errors.password}</Text> : null}
           </View>
 
           <View style={styles.inputGroup}>
             <Text style={styles.label}>Digite novamente a senha</Text>
             <TextInput
-              style={styles.input}
+              style={[styles.input, errors.confirmPassword && styles.inputError]}
               placeholder="••••••••"
               placeholderTextColor={colors.textMuted}
               value={confirmPassword}
-              onChangeText={setConfirmPassword}
+              onChangeText={(v) => { setConfirmPassword(v); clearError('confirmPassword'); }}
               secureTextEntry
             />
-            {errors.confirmPassword && <Text style={styles.errorText}>{errors.confirmPassword}</Text>}
+            {errors.confirmPassword ? <Text style={styles.fieldError}>{errors.confirmPassword}</Text> : null}
           </View>
 
           <RecaptchaCheckbox
             checked={recaptchaChecked}
-            onToggle={() => setRecaptchaChecked(!recaptchaChecked)}
+            onToggle={() => { setRecaptchaChecked(!recaptchaChecked); clearError('recaptcha'); }}
           />
-          {errors.recaptcha && <Text style={[styles.errorText, { marginTop: -spacing.sm, marginBottom: spacing.md }]}>{errors.recaptcha}</Text>}
+          {errors.recaptcha ? <Text style={[styles.fieldError, { marginTop: -spacing.sm, marginBottom: spacing.md }]}>{errors.recaptcha}</Text> : null}
 
-          {apiError ? <Text style={styles.apiErrorText}>{apiError}</Text> : null}
+          {apiError ? <Text style={styles.apiError}>{apiError}</Text> : null}
 
           <TouchableOpacity onPress={handleRegister} activeOpacity={0.8} style={styles.buttonWrapper} disabled={loading}>
             <LinearGradient
@@ -198,9 +202,7 @@ export default function RegisterScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
+  container: { flex: 1 },
   scrollContent: {
     flexGrow: 1,
     paddingHorizontal: spacing.xl,
@@ -243,12 +245,8 @@ const styles = StyleSheet.create({
     opacity: 0.9,
     textAlign: 'center',
   },
-  formSection: {
-    width: '100%',
-  },
-  inputGroup: {
-    marginBottom: spacing.lg,
-  },
+  formSection: { width: '100%' },
+  inputGroup: { marginBottom: spacing.lg },
   label: {
     fontSize: typography.fontSize.md,
     fontWeight: typography.fontWeight.semibold,
@@ -266,11 +264,20 @@ const styles = StyleSheet.create({
     fontSize: typography.fontSize.base,
     color: colors.textLight,
   },
-  errorText: {
+  inputError: {
+    borderColor: '#FCA5A5',
+  },
+  fieldError: {
     color: '#FCA5A5',
     fontSize: typography.fontSize.sm,
     marginTop: spacing.xs,
     fontWeight: typography.fontWeight.medium,
+  },
+  apiError: {
+    color: '#FCA5A5',
+    fontSize: typography.fontSize.sm,
+    marginBottom: spacing.md,
+    textAlign: 'center',
   },
   recaptchaContainer: {
     flexDirection: 'row',
@@ -299,9 +306,7 @@ const styles = StyleSheet.create({
     fontSize: typography.fontSize.base,
     fontWeight: typography.fontWeight.bold,
   },
-  recaptchaTextContainer: {
-    flex: 1,
-  },
+  recaptchaTextContainer: { flex: 1 },
   recaptchaText: {
     fontSize: typography.fontSize.md,
     color: colors.textLight,
@@ -313,15 +318,7 @@ const styles = StyleSheet.create({
     opacity: 0.6,
     letterSpacing: typography.letterSpacing.wider,
   },
-  apiErrorText: {
-    color: '#FCA5A5',
-    fontSize: typography.fontSize.sm,
-    marginBottom: spacing.md,
-    textAlign: 'center',
-  },
-  buttonWrapper: {
-    marginBottom: spacing.md,
-  },
+  buttonWrapper: { marginBottom: spacing.md },
   gradientButton: {
     flexDirection: 'row',
     alignItems: 'center',

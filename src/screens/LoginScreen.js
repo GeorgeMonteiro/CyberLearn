@@ -26,17 +26,29 @@ export default function LoginScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [errors, setErrors] = useState({});
+  const [apiError, setApiError] = useState('');
   const [recaptchaChecked, setRecaptchaChecked] = useState(false);
 
-  async function handleLogin() {
-    if (!email || !password) {
-      setError('Preencha todos os campos');
-      return;
+  function validate() {
+    const newErrors = {};
+    if (!email.trim()) {
+      newErrors.email = 'E-mail é obrigatório';
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+      newErrors.email = 'E-mail inválido';
     }
+    if (!password) {
+      newErrors.password = 'Senha é obrigatória';
+    }
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  }
+
+  async function handleLogin() {
+    setApiError('');
+    if (!validate()) return;
 
     setLoading(true);
-    setError('');
 
     try {
       const res = await fetch(`${API_BASE_URL}/api/auth/login`, {
@@ -56,7 +68,7 @@ export default function LoginScreen() {
 
       navigation.replace('LevelSelection');
     } catch (err) {
-      setError(err.message);
+      setApiError(err.message);
     } finally {
       setLoading(false);
     }
@@ -92,26 +104,28 @@ export default function LoginScreen() {
           <View style={styles.inputGroup}>
             <Text style={styles.label}>E-mail</Text>
             <TextInput
-              style={styles.input}
+              style={[styles.input, errors.email && styles.inputError]}
               placeholder="seu@email.com"
               placeholderTextColor={colors.textMuted}
               value={email}
-              onChangeText={setEmail}
+              onChangeText={(v) => { setEmail(v); setErrors((e) => ({ ...e, email: '' })); }}
               keyboardType="email-address"
               autoCapitalize="none"
             />
+            {errors.email ? <Text style={styles.fieldError}>{errors.email}</Text> : null}
           </View>
 
           <View style={styles.inputGroup}>
             <Text style={styles.label}>Senha</Text>
             <TextInput
-              style={styles.input}
+              style={[styles.input, errors.password && styles.inputError]}
               placeholder="••••••••"
               placeholderTextColor={colors.textMuted}
               value={password}
-              onChangeText={setPassword}
+              onChangeText={(v) => { setPassword(v); setErrors((e) => ({ ...e, password: '' })); }}
               secureTextEntry
             />
+            {errors.password ? <Text style={styles.fieldError}>{errors.password}</Text> : null}
           </View>
 
           <RecaptchaCheckbox
@@ -119,7 +133,7 @@ export default function LoginScreen() {
             onToggle={() => setRecaptchaChecked(!recaptchaChecked)}
           />
 
-          {error ? <Text style={styles.errorText}>{error}</Text> : null}
+          {apiError ? <Text style={styles.apiError}>{apiError}</Text> : null}
 
           <TouchableOpacity onPress={handleLogin} activeOpacity={0.8} style={styles.buttonWrapper} disabled={loading}>
             <LinearGradient
@@ -146,9 +160,7 @@ export default function LoginScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
+  container: { flex: 1 },
   scrollContent: {
     flexGrow: 1,
     paddingHorizontal: spacing.xl,
@@ -190,12 +202,8 @@ const styles = StyleSheet.create({
     opacity: 0.85,
     textAlign: 'center',
   },
-  formSection: {
-    width: '100%',
-  },
-  inputGroup: {
-    marginBottom: spacing.lg,
-  },
+  formSection: { width: '100%' },
+  inputGroup: { marginBottom: spacing.lg },
   label: {
     fontSize: typography.fontSize.md,
     fontWeight: typography.fontWeight.semibold,
@@ -212,6 +220,21 @@ const styles = StyleSheet.create({
     height: 52,
     fontSize: typography.fontSize.base,
     color: colors.textLight,
+  },
+  inputError: {
+    borderColor: '#FCA5A5',
+  },
+  fieldError: {
+    color: '#FCA5A5',
+    fontSize: typography.fontSize.sm,
+    marginTop: spacing.xs,
+    fontWeight: typography.fontWeight.medium,
+  },
+  apiError: {
+    color: '#FCA5A5',
+    fontSize: typography.fontSize.sm,
+    marginBottom: spacing.md,
+    textAlign: 'center',
   },
   recaptchaContainer: {
     flexDirection: 'row',
@@ -240,9 +263,7 @@ const styles = StyleSheet.create({
     fontSize: typography.fontSize.base,
     fontWeight: typography.fontWeight.bold,
   },
-  recaptchaTextContainer: {
-    flex: 1,
-  },
+  recaptchaTextContainer: { flex: 1 },
   recaptchaText: {
     fontSize: typography.fontSize.md,
     color: colors.textLight,
@@ -254,9 +275,7 @@ const styles = StyleSheet.create({
     opacity: 0.6,
     letterSpacing: typography.letterSpacing.wider,
   },
-  buttonWrapper: {
-    marginBottom: spacing.md,
-  },
+  buttonWrapper: { marginBottom: spacing.md },
   gradientButton: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -271,12 +290,6 @@ const styles = StyleSheet.create({
     color: colors.textLight,
     fontWeight: typography.fontWeight.bold,
     letterSpacing: typography.letterSpacing.wide,
-  },
-  errorText: {
-    color: '#FCA5A5',
-    fontSize: typography.fontSize.sm,
-    marginBottom: spacing.md,
-    textAlign: 'center',
   },
   forgotPassword: {
     alignItems: 'center',

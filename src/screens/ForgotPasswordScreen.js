@@ -11,17 +11,28 @@ export default function ForgotPasswordScreen() {
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [fieldError, setFieldError] = useState('');
   const [success, setSuccess] = useState('');
 
-  async function handleSubmit() {
+  function validate() {
     if (!email.trim()) {
-      setError('Digite seu e-mail');
-      return;
+      setFieldError('E-mail é obrigatório');
+      return false;
     }
+    if (!/\S+@\S+\.\S+/.test(email)) {
+      setFieldError('E-mail inválido');
+      return false;
+    }
+    return true;
+  }
+
+  async function handleSubmit() {
+    setError('');
+    setFieldError('');
+    setSuccess('');
+    if (!validate()) return;
 
     setLoading(true);
-    setError('');
-    setSuccess('');
 
     try {
       const res = await fetch(`${API_BASE_URL}/api/auth/forgot-password`, {
@@ -75,17 +86,18 @@ export default function ForgotPasswordScreen() {
           <View style={styles.inputGroup}>
             <Text style={styles.label}>E-mail</Text>
             <TextInput
-              style={styles.input}
+              style={[styles.input, fieldError && styles.inputError]}
               placeholder="seu@email.com"
               placeholderTextColor={colors.textMuted}
               value={email}
-              onChangeText={setEmail}
+              onChangeText={(v) => { setEmail(v); setFieldError(''); }}
               keyboardType="email-address"
               autoCapitalize="none"
             />
+            {fieldError ? <Text style={styles.fieldError}>{fieldError}</Text> : null}
           </View>
 
-          {error ? <Text style={styles.errorText}>{error}</Text> : null}
+          {error ? <Text style={styles.apiError}>{error}</Text> : null}
           {success ? <Text style={styles.successText}>{success}</Text> : null}
 
           <TouchableOpacity onPress={handleSubmit} activeOpacity={0.8} style={styles.buttonWrapper} disabled={loading}>
@@ -170,7 +182,16 @@ const styles = StyleSheet.create({
     fontSize: typography.fontSize.base,
     color: colors.textLight,
   },
-  errorText: {
+  inputError: {
+    borderColor: '#FCA5A5',
+  },
+  fieldError: {
+    color: '#FCA5A5',
+    fontSize: typography.fontSize.sm,
+    marginTop: spacing.xs,
+    fontWeight: typography.fontWeight.medium,
+  },
+  apiError: {
     color: '#FCA5A5',
     fontSize: typography.fontSize.sm,
     marginBottom: spacing.md,

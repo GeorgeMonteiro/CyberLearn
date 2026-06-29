@@ -69,7 +69,16 @@ npx expo start
 
 Escaneie o QR Code com o app Expo Go ou pressione `w` para abrir no navegador.
 
+### Backend
 
+```bash
+cd backend
+npm install
+npm run seed     # Recria o banco SQLite com dados iniciais
+npm start        # Servidor na porta 3000
+```
+
+O banco de dados (`backend/data/`) não é versionado no git. Após clonar o projeto, execute `npm run seed` para criar o banco com os módulos e o usuário de teste.
 
 ## Equipe
 
