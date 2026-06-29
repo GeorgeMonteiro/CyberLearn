@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { colors, spacing, typography, radius, shadows } from '../theme';
 import ShieldIcon from '../components/ShieldIcon';
 
@@ -15,6 +16,24 @@ const features = [
 
 export default function WelcomeScreen() {
   const navigation = useNavigation();
+
+  useEffect(() => {
+    checkSession();
+  }, []);
+
+  async function checkSession() {
+    try {
+      const token = await AsyncStorage.getItem('@cyberlearn_token');
+      if (token) {
+        navigation.getParent()?.reset({
+          index: 0,
+          routes: [{ name: 'Main' }],
+        });
+      }
+    } catch (e) {
+      // ignore
+    }
+  }
 
   const renderGradientButton = (onPress, children) => (
     <TouchableOpacity onPress={onPress} activeOpacity={0.8} style={styles.buttonWrapper}>
@@ -103,7 +122,7 @@ const styles = StyleSheet.create({
   subtitle: {
     fontSize: typography.fontSize.xl,
     fontWeight: typography.fontWeight.semibold,
-    color: '#FBBF24',
+    color: colors.warning,
     textAlign: 'center',
     lineHeight: typography.fontSize.xl * typography.lineHeight.relaxed,
     paddingHorizontal: spacing.lg,
@@ -119,7 +138,7 @@ const styles = StyleSheet.create({
     marginBottom: spacing.md,
   },
   introHighlight: {
-    color: '#FBBF24',
+    color: colors.warning,
   },
   featuresSection: {
     alignSelf: 'center',

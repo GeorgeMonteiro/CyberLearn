@@ -89,10 +89,10 @@ const MODULE_DATA = {
   },
   blueteam: {
     title: 'Blue Team',
-    icon: 'shield-outline',
+    icon: 'water-outline',
     banner: 'Aprenda as estratégias e ferramentas usadas por equipes Blue Team para defender organizações contra ataques cibernéticos.',
     lessons: [
-      { id: 'blueteam_1', icon: 'shield-outline', title: 'Introdução ao Blue Team', description: 'Entenda o papel do Blue Team na defesa cibernética.' },
+      { id: 'blueteam_1', icon: 'water-outline', title: 'Introdução ao Blue Team', description: 'Entenda o papel do Blue Team na defesa cibernética.' },
       { id: 'blueteam_2', icon: 'pulse-outline', title: 'Monitoramento e SIEM', description: 'Aprenda a centralizar e correlacionar logs com ferramentas SIEM.' },
       { id: 'blueteam_3', icon: 'warning-outline', title: 'Detecção de Intrusões (IDS/IPS)', description: 'Configure sistemas de detecção e prevenção de intrusões.' },
       { id: 'blueteam_4', icon: 'search-outline', title: 'Análise de Logs e Forense', description: 'Analise logs e evidências digitais para investigar incidentes.' },
@@ -105,10 +105,10 @@ const MODULE_DATA = {
   },
   gestao: {
     title: 'Gestão de Vulnerabilidades',
-    icon: 'analytics-outline',
+    icon: 'warning-outline',
     banner: 'Aprenda a identificar, classificar, priorizar e remediar vulnerabilidades de forma estruturada e contínua.',
     lessons: [
-      { id: 'gestao_1', icon: 'analytics-outline', title: 'Introdução à Gestão de Vulnerabilidades', description: 'Entenda o que é gestão de vulnerabilidades e seu ciclo de vida.' },
+      { id: 'gestao_1', icon: 'warning-outline', title: 'Introdução à Gestão de Vulnerabilidades', description: 'Entenda o que é gestão de vulnerabilidades e seu ciclo de vida.' },
       { id: 'gestao_2', icon: 'search-circle-outline', title: 'Identificação e Descoberta', description: 'Aprenda a descobrir vulnerabilidades com scanners e testes manuais.' },
       { id: 'gestao_3', icon: 'funnel-outline', title: 'Classificação e Priorização', description: 'Classifique vulnerabilidades por criticidade e contexto de negócio.' },
       { id: 'gestao_4', icon: 'bar-chart-outline', title: 'CVSS e Pontuação de Riscos', description: 'Domine o Common Vulnerability Scoring System e métricas de risco.' },

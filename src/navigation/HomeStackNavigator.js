@@ -2,6 +2,9 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import HomeScreen from '../screens/HomeScreen';
+import LevelSelectionScreen from '../screens/LevelSelectionScreen';
+import BeginnerTrackScreen from '../screens/BeginnerTrackScreen';
+import ExpertTrackScreen from '../screens/ExpertTrackScreen';
 import ModuleScreen from '../screens/ModuleScreen';
 import ModuleDetailScreen from '../screens/ModuleDetailScreen';
 import LessonScreen from '../screens/LessonScreen';
@@ -21,6 +24,9 @@ export default function HomeStackNavigator() {
       }}
     >
       <Stack.Screen name="HomeMain" component={HomeScreen} />
+      <Stack.Screen name="LevelSelection" component={LevelSelectionScreen} />
+      <Stack.Screen name="BeginnerTrack" component={BeginnerTrackScreen} />
+      <Stack.Screen name="ExpertTrack" component={ExpertTrackScreen} />
       <Stack.Screen name="Module" component={ModuleScreen} />
       <Stack.Screen name="ModuleDetail" component={ModuleDetailScreen} />
       <Stack.Screen name="Lesson" component={LessonScreen} />

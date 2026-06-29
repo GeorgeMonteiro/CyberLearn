@@ -2,18 +2,31 @@ import React, { useEffect } from 'react';
 import { View, Text, ActivityIndicator, StyleSheet } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { colors, spacing, typography } from '../theme';
 
 export default function SplashScreen() {
   const navigation = useNavigation();
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      navigation.replace('Welcome');
-    }, 2500);
+    checkSession();
+  }, []);
 
-    return () => clearTimeout(timer);
-  }, [navigation]);
+  async function checkSession() {
+    try {
+      const token = await AsyncStorage.getItem('@cyberlearn_token');
+      if (token) {
+        navigation.getParent()?.reset({
+          index: 0,
+          routes: [{ name: 'Main' }],
+        });
+        return;
+      }
+    } catch (e) {
+      // ignore
+    }
+    navigation.replace('Login');
+  }
 
   return (
     <LinearGradient

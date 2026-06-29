@@ -30,6 +30,10 @@ export default function LoginScreen() {
   const [apiError, setApiError] = useState('');
   const [recaptchaChecked, setRecaptchaChecked] = useState(false);
 
+  function clearError(field) {
+    setErrors((prev) => ({ ...prev, [field]: '' }));
+  }
+
   function validate() {
     const newErrors = {};
     if (!email.trim()) {
@@ -39,6 +43,9 @@ export default function LoginScreen() {
     }
     if (!password) {
       newErrors.password = 'Senha é obrigatória';
+    }
+    if (!recaptchaChecked) {
+      newErrors.recaptcha = 'Confirme que é humano';
     }
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -66,7 +73,10 @@ export default function LoginScreen() {
       await AsyncStorage.setItem('@cyberlearn_token', data.token);
       await AsyncStorage.setItem('@cyberlearn_user', JSON.stringify(data.user));
 
-      navigation.replace('LevelSelection');
+      navigation.getParent()?.reset({
+        index: 0,
+        routes: [{ name: 'Main' }],
+      });
     } catch (err) {
       setApiError(err.message);
     } finally {
@@ -108,7 +118,7 @@ export default function LoginScreen() {
               placeholder="seu@email.com"
               placeholderTextColor={colors.textMuted}
               value={email}
-              onChangeText={(v) => { setEmail(v); setErrors((e) => ({ ...e, email: '' })); }}
+              onChangeText={(v) => { setEmail(v); clearError('email'); }}
               keyboardType="email-address"
               autoCapitalize="none"
             />
@@ -122,7 +132,7 @@ export default function LoginScreen() {
               placeholder="••••••••"
               placeholderTextColor={colors.textMuted}
               value={password}
-              onChangeText={(v) => { setPassword(v); setErrors((e) => ({ ...e, password: '' })); }}
+              onChangeText={(v) => { setPassword(v); clearError('password'); }}
               secureTextEntry
             />
             {errors.password ? <Text style={styles.fieldError}>{errors.password}</Text> : null}
@@ -130,8 +140,9 @@ export default function LoginScreen() {
 
           <RecaptchaCheckbox
             checked={recaptchaChecked}
-            onToggle={() => setRecaptchaChecked(!recaptchaChecked)}
+            onToggle={() => { setRecaptchaChecked(!recaptchaChecked); clearError('recaptcha'); }}
           />
+          {errors.recaptcha ? <Text style={[styles.fieldError, { marginTop: -spacing.sm, marginBottom: spacing.md }]}>{errors.recaptcha}</Text> : null}
 
           {apiError ? <Text style={styles.apiError}>{apiError}</Text> : null}
 

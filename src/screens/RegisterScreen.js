@@ -87,7 +87,10 @@ export default function RegisterScreen() {
       await AsyncStorage.setItem('@cyberlearn_token', data.token);
       await AsyncStorage.setItem('@cyberlearn_user', JSON.stringify(data.user));
 
-      navigation.replace('LevelSelection');
+      navigation.getParent()?.reset({
+        index: 0,
+        routes: [{ name: 'Main' }],
+      });
     } catch (err) {
       setApiError(err.message);
     } finally {

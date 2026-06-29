@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Pressable, TextInput } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { colors, spacing, typography, radius, shadows } from '../theme';
 import ShieldIcon from '../components/ShieldIcon';
 import Avatar from '../components/Avatar';
@@ -18,10 +19,39 @@ export default function ProfileScreen() {
   const [editEmail, setEditEmail] = useState(email);
   const [editSenha, setEditSenha] = useState('');
 
+  useEffect(() => {
+    loadUser();
+  }, []);
+
+  async function loadUser() {
+    try {
+      const stored = await AsyncStorage.getItem('@cyberlearn_user');
+      if (stored) {
+        const user = JSON.parse(stored);
+        if (user.name) setNome(user.name);
+        if (user.email) setEmail(user.email);
+      }
+    } catch (e) {
+      console.error('Failed to load user:', e);
+    }
+  }
+
+  async function handleLogout() {
+    await AsyncStorage.removeItem('@cyberlearn_token');
+    await AsyncStorage.removeItem('@cyberlearn_user');
+    const rootNav = navigation.getParent()?.getParent();
+    if (rootNav) {
+      rootNav.reset({
+        index: 0,
+        routes: [{ name: 'Auth' }],
+      });
+    }
+  }
+
   const dropdownOptions = [
     { label: 'Meu Perfil', action: () => setDropdownVisible(false) },
-    { label: 'Meu Desempenho', action: () => navigation.navigate('Main', { screen: 'Progress' }) },
-    { label: 'Sair', action: () => navigation.replace('Welcome') },
+    { label: 'Meu Desempenho', action: () => navigation.getParent()?.navigate('ProgressTab') },
+    { label: 'Sair', action: handleLogout },
   ];
 
   function handleBack() {
@@ -183,7 +213,7 @@ export default function ProfileScreen() {
         <TouchableOpacity
           style={styles.performanceButton}
           activeOpacity={0.8}
-          onPress={() => navigation.navigate('Main', { screen: 'Progress' })}
+          onPress={() => navigation.getParent()?.navigate('ProgressTab')}
         >
           <View style={styles.performanceContent}>
             <Ionicons name="bar-chart-outline" size={22} color={colors.warning} />

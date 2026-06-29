@@ -6,6 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import { colors, spacing, typography, radius, shadows } from '../theme';
 import ShieldIcon from '../components/ShieldIcon';
 import Avatar from '../components/Avatar';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useProgress } from '../context/ProgressContext';
 
 const MODULE_LESSONS = {
@@ -25,10 +26,22 @@ export default function BeginnerTrackScreen() {
   const { getModuleProgress } = useProgress();
   const [dropdownVisible, setDropdownVisible] = useState(false);
 
+  async function handleLogout() {
+    await AsyncStorage.removeItem('@cyberlearn_token');
+    await AsyncStorage.removeItem('@cyberlearn_user');
+    const rootNav = navigation.getParent()?.getParent();
+    if (rootNav) {
+      rootNav.reset({
+        index: 0,
+        routes: [{ name: 'Auth' }],
+      });
+    }
+  }
+
   const dropdownOptions = [
-    { label: 'Meu Perfil', action: () => navigation.navigate('Main', { screen: 'Profile' }) },
-    { label: 'Meu Desempenho', action: () => navigation.navigate('Main', { screen: 'Progress' }) },
-    { label: 'Sair', action: () => navigation.replace('Welcome') },
+    { label: 'Meu Perfil', action: () => navigation.getParent()?.navigate('ProfileTab') },
+    { label: 'Meu Desempenho', action: () => navigation.getParent()?.navigate('ProgressTab') },
+    { label: 'Sair', action: handleLogout },
   ];
 
   function handleBack() {
@@ -223,7 +236,7 @@ const styles = StyleSheet.create({
   },
   moduleButtonText: {
     fontSize: typography.fontSize.xl,
-    color: '#FBBF24',
+    color: colors.warning,
     fontWeight: typography.fontWeight.bold,
     letterSpacing: typography.letterSpacing.wide,
     textAlign: 'center',

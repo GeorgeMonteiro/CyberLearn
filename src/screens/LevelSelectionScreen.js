@@ -6,23 +6,35 @@ import { useNavigation } from '@react-navigation/native';
 import { colors, spacing, typography, radius, shadows } from '../theme';
 import ShieldIcon from '../components/ShieldIcon';
 import Avatar from '../components/Avatar';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function LevelSelectionScreen() {
   const navigation = useNavigation();
   const [dropdownVisible, setDropdownVisible] = useState(false);
 
+  async function handleLogout() {
+    await AsyncStorage.removeItem('@cyberlearn_token');
+    await AsyncStorage.removeItem('@cyberlearn_user');
+    const rootNav = navigation.getParent()?.getParent();
+    if (rootNav) {
+      rootNav.reset({
+        index: 0,
+        routes: [{ name: 'Auth' }],
+      });
+    }
+  }
+
   const dropdownOptions = [
-    { label: 'Meu Perfil', action: () => navigation.navigate('Main', { screen: 'Profile' }) },
-    { label: 'Meu Desempenho', action: () => navigation.navigate('Main', { screen: 'Progress' }) },
-    { label: 'Sair', action: () => navigation.replace('Welcome') },
+    { label: 'Meu Perfil', action: () => navigation.getParent()?.navigate('ProfileTab') },
+    { label: 'Meu Desempenho', action: () => navigation.getParent()?.navigate('ProgressTab') },
+    { label: 'Sair', action: handleLogout },
   ];
 
   function handleBack() {
-    navigation.replace('Welcome');
+    navigation.goBack();
   }
 
   function handleLevelSelect(level) {
-    console.log('Nível selecionado:', level);
     if (level === 'iniciante') {
       navigation.replace('BeginnerTrack');
     } else {
@@ -204,7 +216,7 @@ const styles = StyleSheet.create({
   },
   levelButtonText: {
     fontSize: typography.fontSize.xl,
-    color: '#FBBF24',
+    color: colors.warning,
     fontWeight: typography.fontWeight.bold,
     letterSpacing: typography.letterSpacing.wide,
   },
