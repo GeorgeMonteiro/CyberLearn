@@ -4,7 +4,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 import { colors, spacing, typography, radius, shadows } from '../theme';
 import ShieldIcon from '../components/ShieldIcon';
-import GmailIcon from '../components/GmailIcon';
+
 
 const features = [
   'Fundamentos de Redes',
@@ -70,13 +70,6 @@ export default function WelcomeScreen() {
           {renderGradientButton(
             () => navigation.navigate('Register'),
             <Text style={styles.buttonText}>Cadastrar-se</Text>
-          )}
-          {renderGradientButton(
-            () => navigation.navigate('EmailLogin'),
-            <View style={styles.gmailContent}>
-              <GmailIcon size={22} />
-              <Text style={styles.buttonText}>Entrar com Gmail</Text>
-            </View>
           )}
         </View>
       </ScrollView>
@@ -180,11 +173,5 @@ const styles = StyleSheet.create({
     color: colors.textLight,
     fontWeight: typography.fontWeight.bold,
     letterSpacing: typography.letterSpacing.wide,
-  },
-  gmailContent: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: spacing.sm,
   },
 });

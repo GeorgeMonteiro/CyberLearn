@@ -2,47 +2,32 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, StyleSheet, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { colors, spacing, typography, radius, shadows } from '../theme';
 import ShieldIcon from '../components/ShieldIcon';
 import API_BASE_URL from '../config/api';
 
-function RecaptchaCheckbox({ checked, onToggle }) {
-  return (
-    <TouchableOpacity style={styles.recaptchaContainer} onPress={onToggle} activeOpacity={0.8}>
-      <View style={[styles.recaptchaCheckbox, checked && styles.recaptchaCheckboxChecked]}>
-        {checked && <Text style={styles.recaptchaCheckmark}>✓</Text>}
-      </View>
-      <View style={styles.recaptchaTextContainer}>
-        <Text style={styles.recaptchaText}>Não sou um robô</Text>
-        <Text style={styles.recaptchaBadge}>reCAPTCHA</Text>
-      </View>
-    </TouchableOpacity>
-  );
-}
-
-export default function LoginScreen() {
+export default function ForgotPasswordScreen() {
   const navigation = useNavigation();
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [recaptchaChecked, setRecaptchaChecked] = useState(false);
+  const [success, setSuccess] = useState('');
 
-  async function handleLogin() {
-    if (!email || !password) {
-      setError('Preencha todos os campos');
+  async function handleSubmit() {
+    if (!email.trim()) {
+      setError('Digite seu e-mail');
       return;
     }
 
     setLoading(true);
     setError('');
+    setSuccess('');
 
     try {
-      const res = await fetch(`${API_BASE_URL}/api/auth/login`, {
+      const res = await fetch(`${API_BASE_URL}/api/auth/forgot-password`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email }),
       });
 
       const data = await res.json();
@@ -51,10 +36,8 @@ export default function LoginScreen() {
         throw new Error(data.error);
       }
 
-      await AsyncStorage.setItem('@cyberlearn_token', data.token);
-      await AsyncStorage.setItem('@cyberlearn_user', JSON.stringify(data.user));
-
-      navigation.replace('LevelSelection');
+      setSuccess('Instruções enviadas para o seu e-mail');
+      navigation.navigate('ResetPassword', { token: data.resetToken, email });
     } catch (err) {
       setError(err.message);
     } finally {
@@ -82,9 +65,9 @@ export default function LoginScreen() {
 
         <View style={styles.topSection}>
           <ShieldIcon size={70} />
-          <Text style={styles.title}>Fazer Login</Text>
+          <Text style={styles.title}>Redefinir Senha</Text>
           <Text style={styles.subtitle}>
-            Entre com suas credenciais para continuar
+            Digite seu e-mail para receber as instruções
           </Text>
         </View>
 
@@ -102,26 +85,10 @@ export default function LoginScreen() {
             />
           </View>
 
-          <View style={styles.inputGroup}>
-            <Text style={styles.label}>Senha</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="••••••••"
-              placeholderTextColor={colors.textMuted}
-              value={password}
-              onChangeText={setPassword}
-              secureTextEntry
-            />
-          </View>
-
-          <RecaptchaCheckbox
-            checked={recaptchaChecked}
-            onToggle={() => setRecaptchaChecked(!recaptchaChecked)}
-          />
-
           {error ? <Text style={styles.errorText}>{error}</Text> : null}
+          {success ? <Text style={styles.successText}>{success}</Text> : null}
 
-          <TouchableOpacity onPress={handleLogin} activeOpacity={0.8} style={styles.buttonWrapper} disabled={loading}>
+          <TouchableOpacity onPress={handleSubmit} activeOpacity={0.8} style={styles.buttonWrapper} disabled={loading}>
             <LinearGradient
               colors={[colors.gradientStart, colors.gradientEnd]}
               start={{ x: 0, y: 0 }}
@@ -131,13 +98,9 @@ export default function LoginScreen() {
               {loading ? (
                 <ActivityIndicator color={colors.textLight} />
               ) : (
-                <Text style={styles.buttonText}>Entrar</Text>
+                <Text style={styles.buttonText}>Enviar</Text>
               )}
             </LinearGradient>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.forgotPassword} activeOpacity={0.7} onPress={() => navigation.navigate('ForgotPassword')}>
-            <Text style={styles.forgotPasswordText}>Esqueci minha senha</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -146,9 +109,7 @@ export default function LoginScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
+  container: { flex: 1 },
   scrollContent: {
     flexGrow: 1,
     paddingHorizontal: spacing.xl,
@@ -190,12 +151,8 @@ const styles = StyleSheet.create({
     opacity: 0.85,
     textAlign: 'center',
   },
-  formSection: {
-    width: '100%',
-  },
-  inputGroup: {
-    marginBottom: spacing.lg,
-  },
+  formSection: { width: '100%' },
+  inputGroup: { marginBottom: spacing.lg },
   label: {
     fontSize: typography.fontSize.md,
     fontWeight: typography.fontWeight.semibold,
@@ -213,50 +170,19 @@ const styles = StyleSheet.create({
     fontSize: typography.fontSize.base,
     color: colors.textLight,
   },
-  recaptchaContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: 'rgba(255, 255, 255, 0.12)',
-    borderRadius: radius.lg,
-    padding: spacing.md,
-    marginBottom: spacing.xl,
-  },
-  recaptchaCheckbox: {
-    width: 26,
-    height: 26,
-    borderRadius: radius.sm,
-    borderWidth: 2,
-    borderColor: colors.textLight,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginRight: spacing.md,
-  },
-  recaptchaCheckboxChecked: {
-    backgroundColor: colors.success,
-    borderColor: colors.success,
-  },
-  recaptchaCheckmark: {
-    color: colors.white,
-    fontSize: typography.fontSize.base,
-    fontWeight: typography.fontWeight.bold,
-  },
-  recaptchaTextContainer: {
-    flex: 1,
-  },
-  recaptchaText: {
-    fontSize: typography.fontSize.md,
-    color: colors.textLight,
-    fontWeight: typography.fontWeight.medium,
-  },
-  recaptchaBadge: {
-    fontSize: typography.fontSize.xs,
-    color: colors.textLight,
-    opacity: 0.6,
-    letterSpacing: typography.letterSpacing.wider,
-  },
-  buttonWrapper: {
+  errorText: {
+    color: '#FCA5A5',
+    fontSize: typography.fontSize.sm,
     marginBottom: spacing.md,
+    textAlign: 'center',
   },
+  successText: {
+    color: '#86EFAC',
+    fontSize: typography.fontSize.sm,
+    marginBottom: spacing.md,
+    textAlign: 'center',
+  },
+  buttonWrapper: { marginBottom: spacing.md },
   gradientButton: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -271,22 +197,5 @@ const styles = StyleSheet.create({
     color: colors.textLight,
     fontWeight: typography.fontWeight.bold,
     letterSpacing: typography.letterSpacing.wide,
-  },
-  errorText: {
-    color: '#FCA5A5',
-    fontSize: typography.fontSize.sm,
-    marginBottom: spacing.md,
-    textAlign: 'center',
-  },
-  forgotPassword: {
-    alignItems: 'center',
-    paddingVertical: spacing.md,
-  },
-  forgotPasswordText: {
-    fontSize: typography.fontSize.md,
-    color: colors.textLight,
-    fontWeight: typography.fontWeight.semibold,
-    opacity: 0.85,
-    textDecorationLine: 'underline',
   },
 });

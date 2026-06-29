@@ -6,6 +6,8 @@ CREATE TABLE users (
     email           TEXT NOT NULL UNIQUE,
     password_hash   TEXT NOT NULL,
     avatar_url      TEXT,
+    reset_token     TEXT,
+    reset_token_expires TEXT,
     created_at      TEXT NOT NULL DEFAULT (datetime('now')),
     updated_at      TEXT NOT NULL DEFAULT (datetime('now'))
 );

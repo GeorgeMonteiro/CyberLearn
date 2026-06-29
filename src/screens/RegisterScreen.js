@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, StyleSheet, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { colors, spacing, typography, radius, shadows } from '../theme';
 import ShieldIcon from '../components/ShieldIcon';
+import API_BASE_URL from '../config/api';
 
 function RecaptchaCheckbox({ checked, onToggle }) {
   return (
@@ -27,6 +29,8 @@ export default function RegisterScreen() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [recaptchaChecked, setRecaptchaChecked] = useState(false);
   const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [apiError, setApiError] = useState('');
 
   function validate() {
     const newErrors = {};
@@ -57,13 +61,34 @@ export default function RegisterScreen() {
     return Object.keys(newErrors).length === 0;
   }
 
-  function handleRegister() {
+  async function handleRegister() {
     if (!validate()) return;
 
-    const data = { name, email, password, confirmPassword, recaptchaChecked };
-    console.log('Tentativa de cadastro');
-    console.log(data);
-    navigation.replace('LevelSelection');
+    setLoading(true);
+    setApiError('');
+
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/auth/register`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, password }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error);
+      }
+
+      await AsyncStorage.setItem('@cyberlearn_token', data.token);
+      await AsyncStorage.setItem('@cyberlearn_user', JSON.stringify(data.user));
+
+      navigation.replace('LevelSelection');
+    } catch (err) {
+      setApiError(err.message);
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -150,14 +175,20 @@ export default function RegisterScreen() {
           />
           {errors.recaptcha && <Text style={[styles.errorText, { marginTop: -spacing.sm, marginBottom: spacing.md }]}>{errors.recaptcha}</Text>}
 
-          <TouchableOpacity onPress={handleRegister} activeOpacity={0.8} style={styles.buttonWrapper}>
+          {apiError ? <Text style={styles.apiErrorText}>{apiError}</Text> : null}
+
+          <TouchableOpacity onPress={handleRegister} activeOpacity={0.8} style={styles.buttonWrapper} disabled={loading}>
             <LinearGradient
               colors={[colors.gradientStart, colors.gradientEnd]}
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 1 }}
               style={styles.gradientButton}
             >
-              <Text style={styles.buttonText}>Cadastrar-se</Text>
+              {loading ? (
+                <ActivityIndicator color={colors.textLight} />
+              ) : (
+                <Text style={styles.buttonText}>Cadastrar-se</Text>
+              )}
             </LinearGradient>
           </TouchableOpacity>
         </View>
@@ -281,6 +312,12 @@ const styles = StyleSheet.create({
     color: colors.textLight,
     opacity: 0.6,
     letterSpacing: typography.letterSpacing.wider,
+  },
+  apiErrorText: {
+    color: '#FCA5A5',
+    fontSize: typography.fontSize.sm,
+    marginBottom: spacing.md,
+    textAlign: 'center',
   },
   buttonWrapper: {
     marginBottom: spacing.md,
