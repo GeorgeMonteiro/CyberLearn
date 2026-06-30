@@ -1,0 +1,19 @@
+meta {
+  name: Gerar Quiz IA - Tópico Vazio
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:3000/api/ai-quiz/generate
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "topic": "   ",
+    "difficulty": "medium",
+    "quantity": 5
+  }
+}

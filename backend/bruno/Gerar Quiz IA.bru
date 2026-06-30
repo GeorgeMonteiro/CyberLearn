@@ -1,0 +1,19 @@
+meta {
+  name: Gerar Quiz IA
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:3000/api/ai-quiz/generate
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "topic": "Phishing",
+    "difficulty": "easy",
+    "quantity": 3
+  }
+}

@@ -1,0 +1,19 @@
+meta {
+  name: Gerar Quiz IA - Dificuldade Hard
+  type: http
+  seq: 4
+}
+
+post {
+  url: http://localhost:3000/api/ai-quiz/generate
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "topic": "Criptografia e Hashing",
+    "difficulty": "hard",
+    "quantity": 5
+  }
+}

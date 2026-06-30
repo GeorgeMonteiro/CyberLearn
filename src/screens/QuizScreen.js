@@ -10,42 +10,61 @@ import { useProgress } from '../context/ProgressContext';
 export default function QuizScreen() {
   const route = useRoute();
   const moduleId = route.params?.moduleId || 'logica';
+  const aiQuestions = route.params?.questions;
+  const isAI = route.params?.source === 'ai';
 
   const navigation = useNavigation();
   const { completeModule, getModuleProgress, saveQuizScore } = useProgress();
 
-  const moduleLessonsCount = 9;
-  const { completed } = getModuleProgress(moduleId, moduleLessonsCount);
-  const allCompleted = completed >= moduleLessonsCount;
+  if (!isAI) {
+    const moduleLessonsCount = 9;
+    const { completed } = getModuleProgress(moduleId, moduleLessonsCount);
+    const allCompleted = completed >= moduleLessonsCount;
 
-  if (!allCompleted) {
-    return (
-      <View style={[styles.container, { justifyContent: 'center', alignItems: 'center', padding: spacing.xl }]}>
-        <Ionicons name="lock-closed-outline" size={64} color={colors.textMuted} />
-        <Text style={{ color: colors.textMuted, fontSize: 18, marginTop: spacing.lg, textAlign: 'center', marginBottom: spacing.xl }}>
-          Complete todas as {moduleLessonsCount} lições do módulo para fazer a avaliação.
-        </Text>
-        <TouchableOpacity onPress={() => navigation.goBack()} activeOpacity={0.8} style={{ backgroundColor: colors.surface, paddingVertical: spacing.base, paddingHorizontal: spacing.xxl, borderRadius: radius.xl, borderWidth: 1, borderColor: colors.border + '50' }}>
-          <Text style={{ color: colors.text, fontWeight: 'bold' }}>Voltar ao módulo</Text>
-        </TouchableOpacity>
-      </View>
-    );
+    if (!allCompleted) {
+      return (
+        <View style={[styles.container, { justifyContent: 'center', alignItems: 'center', padding: spacing.xl }]}>
+          <Ionicons name="lock-closed-outline" size={64} color={colors.textMuted} />
+          <Text style={{ color: colors.textMuted, fontSize: 18, marginTop: spacing.lg, textAlign: 'center', marginBottom: spacing.xl }}>
+            Complete todas as {moduleLessonsCount} lições do módulo para fazer a avaliação.
+          </Text>
+          <TouchableOpacity onPress={() => navigation.goBack()} activeOpacity={0.8} style={{ backgroundColor: colors.surface, paddingVertical: spacing.base, paddingHorizontal: spacing.xxl, borderRadius: radius.xl, borderWidth: 1, borderColor: colors.border + '50' }}>
+            <Text style={{ color: colors.text, fontWeight: 'bold' }}>Voltar ao módulo</Text>
+          </TouchableOpacity>
+        </View>
+      );
+    }
   }
 
   const QUESTIONS = useMemo(() => {
+    if (aiQuestions) return aiQuestions;
     const filtered = assessmentQuestions.filter((q) => q.moduleId === moduleId);
     const shuffled = [...filtered].sort(() => Math.random() - 0.5);
     return shuffled.slice(0, 30);
-  }, [moduleId]);
+  }, [moduleId, aiQuestions]);
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedOption, setSelectedOption] = useState(null);
   const [score, setScore] = useState(0);
   const [finished, setFinished] = useState(false);
 
-  const current = QUESTIONS[currentIndex];
   const total = QUESTIONS.length;
+  const current = total > 0 ? QUESTIONS[currentIndex] : null;
   const progress = total > 0 ? ((currentIndex + 1) / total) * 100 : 0;
+
+  if (!current && !finished) {
+    return (
+      <View style={[styles.container, { justifyContent: 'center', alignItems: 'center', padding: spacing.xl }]}>
+        <Ionicons name="alert-circle-outline" size={64} color={colors.textMuted} />
+        <Text style={{ color: colors.textMuted, fontSize: 18, marginTop: spacing.lg, textAlign: 'center' }}>
+          Nenhuma pergunta disponível para este módulo.
+        </Text>
+        <TouchableOpacity onPress={() => navigation.goBack()} activeOpacity={0.8} style={{ backgroundColor: colors.surface, paddingVertical: spacing.base, paddingHorizontal: spacing.xxl, borderRadius: radius.xl, borderWidth: 1, borderColor: colors.border + '50', marginTop: spacing.xl }}>
+          <Text style={{ color: colors.text, fontWeight: 'bold' }}>Voltar</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
 
   function handleSelect(index) {
     setSelectedOption(index);
@@ -73,12 +92,13 @@ export default function QuizScreen() {
 
   useEffect(() => {
     if (finished) {
+      const pct = Math.round((score / total) * 100);
       saveQuizScore(moduleId, score, total);
-      if (percentage() >= 70) {
+      if (!isAI && pct >= 70) {
         completeModule(moduleId);
       }
     }
-  }, [finished, score]);
+  }, [finished, score, total, isAI, moduleId]);
 
   function handleRestart() {
     setCurrentIndex(0);

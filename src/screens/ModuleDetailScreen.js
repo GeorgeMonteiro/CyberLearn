@@ -1,10 +1,11 @@
-import React from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, SafeAreaView } from 'react-native';
+import React, { useState, useRef, useEffect } from 'react';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, SafeAreaView, ActivityIndicator, Alert } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { colors, spacing, typography, radius, shadows } from '../theme';
 import { useProgress } from '../context/ProgressContext';
+import { fetchAIQuestions } from '../services/QuizAIService';
 
 const MODULE_DATA = {
   logica: {
@@ -267,8 +268,30 @@ export default function ModuleDetailScreen() {
     }
   }
 
+  const [aiLoading, setAiLoading] = useState(false);
+  const mountedRef = useRef(true);
+
+  useEffect(() => {
+    return () => { mountedRef.current = false; };
+  }, []);
+
   function handleStartQuiz() {
     navigation.navigate('Quiz', { moduleId });
+  }
+
+  async function handleAIQuiz() {
+    setAiLoading(true);
+    try {
+      const questions = await fetchAIQuestions(moduleData.title, 'medium', 10);
+      if (mountedRef.current) {
+        navigation.navigate('Quiz', { moduleId, questions, source: 'ai' });
+      }
+    } catch (err) {
+      if (mountedRef.current) {
+        setAiLoading(false);
+        Alert.alert('Erro', err.message || 'Não foi possível gerar o quiz com IA');
+      }
+    }
   }
 
   return (
@@ -340,6 +363,29 @@ export default function ModuleDetailScreen() {
             />
             <Text style={[styles.quizButtonText, completedCount < totalCount && styles.quizButtonTextDisabled]}>
               {completedCount < totalCount ? 'Complete todas as lições primeiro' : 'Iniciar avaliação'}
+            </Text>
+          </LinearGradient>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          onPress={handleAIQuiz}
+          activeOpacity={0.8}
+          disabled={aiLoading}
+          style={styles.aiQuizOuter}
+        >
+          <LinearGradient
+            colors={['rgba(139, 61, 255, 0.8)', 'rgba(0, 212, 255, 0.8)']}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
+            style={styles.quizButton}
+          >
+            {aiLoading ? (
+              <ActivityIndicator color={colors.white} style={{ marginRight: spacing.sm }} />
+            ) : (
+              <Ionicons name="sparkles-outline" size={24} color={colors.white} />
+            )}
+            <Text style={styles.quizButtonText}>
+              {aiLoading ? 'Gerando perguntas...' : 'Gerar Quiz com IA'}
             </Text>
           </LinearGradient>
         </TouchableOpacity>
@@ -560,6 +606,10 @@ const styles = StyleSheet.create({
 
   quizOuter: {
     marginTop: spacing.xxl,
+    marginBottom: spacing.xl,
+  },
+  aiQuizOuter: {
+    marginTop: spacing.base,
     marginBottom: spacing.xl,
   },
   quizOuterDisabled: {
