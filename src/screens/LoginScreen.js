@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, StyleSheet, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
@@ -6,6 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { colors, spacing, typography, radius, shadows } from '../theme';
 import ShieldIcon from '../components/ShieldIcon';
 import API_BASE_URL from '../config/api';
+import * as LocalAuthentication from 'expo-local-authentication';
 
 function RecaptchaCheckbox({ checked, onToggle }) {
   return (
@@ -29,6 +30,15 @@ export default function LoginScreen() {
   const [errors, setErrors] = useState({});
   const [apiError, setApiError] = useState('');
   const [recaptchaChecked, setRecaptchaChecked] = useState(false);
+  const [isBiometricAvailable, setIsBiometricAvailable] = useState(false);
+
+  useEffect(() => {
+    (async () => {
+      const compatible = await LocalAuthentication.hasHardwareAsync();
+      const enrolled = await LocalAuthentication.isEnrolledAsync();
+      setIsBiometricAvailable(compatible && enrolled);
+    })();
+  }, []);
 
   function clearError(field) {
     setErrors((prev) => ({ ...prev, [field]: '' }));
@@ -62,6 +72,55 @@ export default function LoginScreen() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error);
+      }
+
+      await AsyncStorage.setItem('@cyberlearn_token', data.token);
+      await AsyncStorage.setItem('@cyberlearn_user', JSON.stringify(data.user));
+      await AsyncStorage.setItem('@cyberlearn_biometric_email', email);
+      await AsyncStorage.setItem('@cyberlearn_biometric_password', password);
+
+      navigation.getParent()?.reset({
+        index: 0,
+        routes: [{ name: 'Main' }],
+      });
+    } catch (err) {
+      setApiError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function handleBiometricLogin() {
+    setApiError('');
+
+    const { success } = await LocalAuthentication.authenticateAsync({
+      promptMessage: 'Autentique-se para entrar',
+      fallbackLabel: 'Usar senha do dispositivo',
+    });
+
+    if (!success) return;
+
+    const storedEmail = await AsyncStorage.getItem('@cyberlearn_biometric_email');
+    const storedPassword = await AsyncStorage.getItem('@cyberlearn_biometric_password');
+
+    if (!storedEmail || !storedPassword) {
+      setApiError('Nenhuma sessão salva. Faça login com e-mail primeiro.');
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/auth/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: storedEmail, password: storedPassword }),
       });
 
       const data = await res.json();
@@ -164,6 +223,12 @@ export default function LoginScreen() {
           <TouchableOpacity style={styles.forgotPassword} activeOpacity={0.7} onPress={() => navigation.navigate('ForgotPassword')}>
             <Text style={styles.forgotPasswordText}>Esqueci minha senha</Text>
           </TouchableOpacity>
+
+          {isBiometricAvailable && (
+            <TouchableOpacity style={styles.biometricButton} onPress={handleBiometricLogin} activeOpacity={0.8} disabled={loading}>
+              <Text style={styles.biometricButtonText}>Login com Biometria</Text>
+            </TouchableOpacity>
+          )}
         </View>
       </ScrollView>
     </LinearGradient>
@@ -312,5 +377,16 @@ const styles = StyleSheet.create({
     fontWeight: typography.fontWeight.semibold,
     opacity: 0.85,
     textDecorationLine: 'underline',
+  },
+  biometricButton: {
+    alignItems: 'center',
+    paddingVertical: spacing.md,
+    marginTop: spacing.sm,
+  },
+  biometricButtonText: {
+    fontSize: typography.fontSize.md,
+    color: colors.textLight,
+    fontWeight: typography.fontWeight.semibold,
+    opacity: 0.85,
   },
 });

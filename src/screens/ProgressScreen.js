@@ -1,7 +1,8 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView, SafeAreaView } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, SafeAreaView, TouchableOpacity } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 import { useProgress } from '../context/ProgressContext';
 import { colors, spacing, typography, radius, shadows } from '../theme';
 
@@ -17,7 +18,12 @@ const MODULE_INFO = {
 };
 
 export default function ProgressScreen() {
+  const navigation = useNavigation();
   const { getModuleProgress } = useProgress();
+
+  function handleBack() {
+    navigation.getParent()?.navigate('HomeTab', { screen: 'LevelSelection' });
+  }
 
   const moduleIds = Object.keys(MODULE_INFO);
   const totalLessonsAll = moduleIds.reduce((sum, id) => sum + MODULE_INFO[id].lessons, 0);
@@ -39,7 +45,12 @@ export default function ProgressScreen() {
         style={styles.header}
       >
         <SafeAreaView>
-          <Text style={styles.headerTitle}>Meu Progresso</Text>
+          <View style={styles.headerRow}>
+            <TouchableOpacity onPress={handleBack} style={styles.backButton}>
+              <Ionicons name="chevron-back" size={24} color={colors.white} />
+            </TouchableOpacity>
+            <Text style={styles.headerTitle}>Meu Progresso</Text>
+          </View>
         </SafeAreaView>
       </LinearGradient>
 
@@ -118,14 +129,27 @@ const styles = StyleSheet.create({
   header: {
     paddingBottom: spacing.lg,
   },
+  headerRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingTop: spacing.display,
+    paddingBottom: spacing.sm,
+    paddingHorizontal: spacing.xl,
+  },
   headerTitle: {
     fontSize: typography.fontSize.xl,
     fontWeight: typography.fontWeight.bold,
     color: colors.white,
-    textAlign: 'center',
     letterSpacing: typography.letterSpacing.wide,
-    paddingTop: spacing.display,
-    paddingBottom: spacing.sm,
+    marginLeft: spacing.md,
+  },
+  backButton: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: 'rgba(255,255,255,0.15)',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   scrollContent: {
     padding: spacing.xl,
