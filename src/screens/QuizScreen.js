@@ -5,18 +5,19 @@ import { Ionicons } from '@expo/vector-icons';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import { colors, spacing, typography, radius, shadows } from '../theme';
 import assessmentQuestions from '../data/assessmentQuestions';
+import mockQuestions from '../data/mockQuestions';
 import { useProgress } from '../context/ProgressContext';
 
 export default function QuizScreen() {
   const route = useRoute();
   const moduleId = route.params?.moduleId || 'logica';
-  const aiQuestions = route.params?.questions;
-  const isAI = route.params?.source === 'ai';
+  const isModuleQuiz = route.params?.source === 'module';
+  const isFinalTest = route.params?.source === 'final';
 
   const navigation = useNavigation();
-  const { completeModule, getModuleProgress, saveQuizScore } = useProgress();
+  const { completeModule, getModuleProgress, saveQuizScore, saveFinalTestScore } = useProgress();
 
-  if (!isAI) {
+  if (!isFinalTest) {
     const moduleLessonsCount = 9;
     const { completed } = getModuleProgress(moduleId, moduleLessonsCount);
     const allCompleted = completed >= moduleLessonsCount;
@@ -26,7 +27,7 @@ export default function QuizScreen() {
         <View style={[styles.container, { justifyContent: 'center', alignItems: 'center', padding: spacing.xl }]}>
           <Ionicons name="lock-closed-outline" size={64} color={colors.textMuted} />
           <Text style={{ color: colors.textMuted, fontSize: 18, marginTop: spacing.lg, textAlign: 'center', marginBottom: spacing.xl }}>
-            Complete todas as {moduleLessonsCount} lições do módulo para fazer a avaliação.
+            Complete todas as {moduleLessonsCount} lições do módulo para fazer o Quiz.
           </Text>
           <TouchableOpacity onPress={() => navigation.goBack()} activeOpacity={0.8} style={{ backgroundColor: colors.surface, paddingVertical: spacing.base, paddingHorizontal: spacing.xxl, borderRadius: radius.xl, borderWidth: 1, borderColor: colors.border + '50' }}>
             <Text style={{ color: colors.text, fontWeight: 'bold' }}>Voltar ao módulo</Text>
@@ -37,11 +38,20 @@ export default function QuizScreen() {
   }
 
   const QUESTIONS = useMemo(() => {
-    if (aiQuestions) return aiQuestions;
-    const filtered = assessmentQuestions.filter((q) => q.moduleId === moduleId);
+    if (isModuleQuiz) {
+      const filtered = mockQuestions.filter((q) => q.moduleId === moduleId);
+      const shuffled = [...filtered].sort(() => Math.random() - 0.5);
+      return shuffled.slice(0, 10);
+    }
+    if (isFinalTest) {
+      const filtered = assessmentQuestions.filter((q) => q.moduleId === moduleId);
+      const shuffled = [...filtered].sort(() => Math.random() - 0.5);
+      return shuffled.slice(0, 30);
+    }
+    const filtered = mockQuestions.filter((q) => q.moduleId === moduleId);
     const shuffled = [...filtered].sort(() => Math.random() - 0.5);
-    return shuffled.slice(0, 30);
-  }, [moduleId, aiQuestions]);
+    return shuffled.slice(0, 10);
+  }, [moduleId, isModuleQuiz, isFinalTest]);
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedOption, setSelectedOption] = useState(null);
@@ -93,12 +103,16 @@ export default function QuizScreen() {
   useEffect(() => {
     if (finished) {
       const pct = Math.round((score / total) * 100);
-      saveQuizScore(moduleId, score, total);
-      if (!isAI && pct >= 70) {
+      if (isFinalTest) {
+        saveFinalTestScore(moduleId, score, total);
+      } else {
+        saveQuizScore(moduleId, score, total);
+      }
+      if (!isFinalTest && pct >= 70) {
         completeModule(moduleId);
       }
     }
-  }, [finished, score, total, isAI, moduleId]);
+  }, [finished, score, total, moduleId, isFinalTest]);
 
   function handleRestart() {
     setCurrentIndex(0);
@@ -133,7 +147,7 @@ export default function QuizScreen() {
               <Text style={styles.resultScore}>{pct}%</Text>
               {approved && (
                 <Text style={styles.resultBadge}>
-                  Parabéns! Você atingiu a média necessária.
+                  {isFinalTest ? 'Parabéns! Você concluiu o teste final do módulo!' : 'Parabéns! Você atingiu a média necessária.'}
                 </Text>
               )}
               {!approved && (
@@ -152,7 +166,7 @@ export default function QuizScreen() {
             style={styles.restartButton}
           >
             <Ionicons name="refresh-outline" size={20} color={colors.white} />
-            <Text style={styles.restartButtonText}>Refazer avaliação</Text>
+            <Text style={styles.restartButtonText}>{isFinalTest ? 'Refazer Teste Final' : 'Refazer QUIZ'}</Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => navigation.goBack()}
@@ -177,6 +191,7 @@ export default function QuizScreen() {
       >
         <SafeAreaView>
           <View style={styles.headerTop}>
+            <Text style={styles.headerLabel}>{isFinalTest ? 'TESTE FINAL' : 'QUIZ'}</Text>
             <Text style={styles.headerTitle}>
               {currentIndex + 1} de {total}
             </Text>
@@ -268,6 +283,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.xl,
     paddingTop: spacing.lg,
     paddingBottom: spacing.sm,
+  },
+  headerLabel: {
+    fontSize: typography.fontSize.sm,
+    fontWeight: typography.fontWeight.bold,
+    color: 'rgba(255,255,255,0.6)',
+    letterSpacing: typography.letterSpacing.wide,
+    minWidth: 80,
   },
   headerTitle: {
     fontSize: typography.fontSize.base,

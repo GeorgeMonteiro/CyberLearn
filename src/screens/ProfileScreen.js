@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Pressable, TextInput } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Pressable, TextInput, Modal, Alert } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as ImagePicker from 'expo-image-picker';
 import { colors, spacing, typography, radius, shadows } from '../theme';
 import ShieldIcon from '../components/ShieldIcon';
 import Avatar from '../components/Avatar';
@@ -18,6 +19,8 @@ export default function ProfileScreen() {
   const [editNome, setEditNome] = useState(nome);
   const [editEmail, setEditEmail] = useState(email);
   const [editSenha, setEditSenha] = useState('');
+  const [avatarUri, setAvatarUri] = useState(null);
+  const [pickerVisible, setPickerVisible] = useState(false);
 
   useEffect(() => {
     loadUser();
@@ -30,6 +33,7 @@ export default function ProfileScreen() {
         const user = JSON.parse(stored);
         if (user.name) setNome(user.name);
         if (user.email) setEmail(user.email);
+        if (user.avatar_uri) setAvatarUri(user.avatar_uri);
       }
     } catch (e) {
       console.error('Failed to load user:', e);
@@ -65,8 +69,20 @@ export default function ProfileScreen() {
     setEditingField(field);
   }
 
-  function handleSave(field) {
-    if (field === 'nome') setNome(editNome);
+  async function handleSave(field) {
+    if (field === 'nome') {
+      setNome(editNome);
+      try {
+        const stored = await AsyncStorage.getItem('@cyberlearn_user');
+        if (stored) {
+          const user = JSON.parse(stored);
+          user.name = editNome;
+          await AsyncStorage.setItem('@cyberlearn_user', JSON.stringify(user));
+        }
+      } catch (e) {
+        console.error('Failed to save name:', e);
+      }
+    }
     if (field === 'email') setEmail(editEmail);
     if (field === 'senha') setEditSenha('');
     setEditingField(null);
@@ -74,6 +90,64 @@ export default function ProfileScreen() {
 
   function handleCancel() {
     setEditingField(null);
+  }
+
+  async function saveAvatarToUser(uri) {
+    try {
+      const stored = await AsyncStorage.getItem('@cyberlearn_user');
+      if (stored) {
+        const user = JSON.parse(stored);
+        user.avatar_uri = uri;
+        await AsyncStorage.setItem('@cyberlearn_user', JSON.stringify(user));
+      }
+    } catch (e) {
+      console.error('Failed to save avatar:', e);
+    }
+  }
+
+  async function pickFromGallery() {
+    setPickerVisible(false);
+    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (status !== 'granted') {
+      Alert.alert('Permissão necessária', 'Precisamos de acesso à sua galeria para selecionar uma foto.');
+      return;
+    }
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ['images'],
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 0.8,
+    });
+    if (!result.canceled && result.assets?.[0]?.uri) {
+      const uri = result.assets[0].uri;
+      setAvatarUri(uri);
+      await saveAvatarToUser(uri);
+    }
+  }
+
+  async function takePhoto() {
+    setPickerVisible(false);
+    const { status } = await ImagePicker.requestCameraPermissionsAsync();
+    if (status !== 'granted') {
+      Alert.alert('Permissão necessária', 'Precisamos de acesso à câmera para tirar uma foto.');
+      return;
+    }
+    const result = await ImagePicker.launchCameraAsync({
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 0.8,
+    });
+    if (!result.canceled && result.assets?.[0]?.uri) {
+      const uri = result.assets[0].uri;
+      setAvatarUri(uri);
+      await saveAvatarToUser(uri);
+    }
+  }
+
+  async function removePhoto() {
+    setPickerVisible(false);
+    setAvatarUri(null);
+    await saveAvatarToUser(null);
   }
 
   return (
@@ -97,7 +171,7 @@ export default function ProfileScreen() {
           onPress={() => setDropdownVisible(!dropdownVisible)}
           activeOpacity={0.7}
         >
-          <Avatar name="Usuário" size={44} />
+          <Avatar name={nome} uri={avatarUri} size={44} />
         </TouchableOpacity>
       </View>
 
@@ -126,8 +200,8 @@ export default function ProfileScreen() {
         <Text style={styles.pageTitle}>Meu Perfil</Text>
 
         <View style={styles.avatarSection}>
-          <Avatar name="Usuário" size={120} />
-          <TouchableOpacity activeOpacity={0.7}>
+          <Avatar name={nome} uri={avatarUri} size={120} />
+          <TouchableOpacity activeOpacity={0.7} onPress={() => setPickerVisible(true)}>
             <Text style={styles.editImageText}>Editar Imagem</Text>
           </TouchableOpacity>
         </View>
@@ -222,6 +296,36 @@ export default function ProfileScreen() {
           </View>
         </TouchableOpacity>
       </ScrollView>
+
+      <Modal
+        visible={pickerVisible}
+        transparent
+        animationType="fade"
+        onRequestClose={() => setPickerVisible(false)}
+      >
+        <Pressable style={styles.modalOverlay} onPress={() => setPickerVisible(false)}>
+          <View style={styles.pickerSheet}>
+            <Text style={styles.pickerTitle}>Foto do Perfil</Text>
+            <TouchableOpacity style={styles.pickerOption} onPress={pickFromGallery} activeOpacity={0.7}>
+              <Ionicons name="images-outline" size={22} color={colors.white} />
+              <Text style={styles.pickerOptionText}>Abrir Galeria</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.pickerOption} onPress={takePhoto} activeOpacity={0.7}>
+              <Ionicons name="camera-outline" size={22} color={colors.white} />
+              <Text style={styles.pickerOptionText}>Tirar Foto</Text>
+            </TouchableOpacity>
+            {avatarUri && (
+              <TouchableOpacity style={styles.pickerOption} onPress={removePhoto} activeOpacity={0.7}>
+                <Ionicons name="trash-outline" size={22} color={colors.error} />
+                <Text style={[styles.pickerOptionText, { color: colors.error }]}>Remover Foto</Text>
+              </TouchableOpacity>
+            )}
+            <TouchableOpacity style={styles.pickerCancel} onPress={() => setPickerVisible(false)} activeOpacity={0.7}>
+              <Text style={styles.pickerCancelText}>Cancelar</Text>
+            </TouchableOpacity>
+          </View>
+        </Pressable>
+      </Modal>
     </LinearGradient>
   );
 }
@@ -307,7 +411,7 @@ const styles = StyleSheet.create({
   },
   editImageText: {
     fontSize: typography.fontSize.md,
-    color: colors.primaryPurple,
+    color: colors.white,
     fontWeight: typography.fontWeight.semibold,
     marginTop: spacing.sm,
     letterSpacing: typography.letterSpacing.wide,
@@ -399,5 +503,51 @@ const styles = StyleSheet.create({
     color: colors.textLight,
     letterSpacing: typography.letterSpacing.wide,
     marginLeft: spacing.sm,
+  },
+  modalOverlay: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    backgroundColor: 'rgba(0,0,0,0.5)',
+  },
+  pickerSheet: {
+    backgroundColor: colors.buttonBg,
+    borderTopLeftRadius: radius.xxl,
+    borderTopRightRadius: radius.xxl,
+    padding: spacing.xl,
+    paddingBottom: spacing.xxxl,
+    gap: spacing.md,
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.1)',
+  },
+  pickerTitle: {
+    fontSize: typography.fontSize.xl,
+    fontWeight: typography.fontWeight.bold,
+    color: colors.textLight,
+    textAlign: 'center',
+    marginBottom: spacing.md,
+  },
+  pickerOption: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.md,
+    paddingVertical: spacing.lg,
+    paddingHorizontal: spacing.base,
+    borderRadius: radius.lg,
+    backgroundColor: 'rgba(255,255,255,0.08)',
+  },
+  pickerOptionText: {
+    fontSize: typography.fontSize.base,
+    fontWeight: typography.fontWeight.semibold,
+    color: colors.white,
+  },
+  pickerCancel: {
+    alignItems: 'center',
+    paddingVertical: spacing.md,
+    marginTop: spacing.sm,
+  },
+  pickerCancelText: {
+    fontSize: typography.fontSize.base,
+    fontWeight: typography.fontWeight.semibold,
+    color: colors.textSecondary,
   },
 });

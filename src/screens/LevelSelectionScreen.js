@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Pressable } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
@@ -11,6 +11,25 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export default function LevelSelectionScreen() {
   const navigation = useNavigation();
   const [dropdownVisible, setDropdownVisible] = useState(false);
+  const [userName, setUserName] = useState('Usuário');
+  const [avatarUri, setAvatarUri] = useState(null);
+
+  useEffect(() => {
+    loadUser();
+  }, []);
+
+  async function loadUser() {
+    try {
+      const stored = await AsyncStorage.getItem('@cyberlearn_user');
+      if (stored) {
+        const user = JSON.parse(stored);
+        if (user.name) setUserName(user.name);
+        if (user.avatar_uri) setAvatarUri(user.avatar_uri);
+      }
+    } catch (e) {
+      console.error('Failed to load user:', e);
+    }
+  }
 
   async function handleLogout() {
     await AsyncStorage.removeItem('@cyberlearn_token');
@@ -25,6 +44,7 @@ export default function LevelSelectionScreen() {
   }
 
   const dropdownOptions = [
+    { label: 'Dashboard', action: () => navigation.navigate('Dashboard') },
     { label: 'Meu Perfil', action: () => navigation.getParent()?.navigate('ProfileTab') },
     { label: 'Meu Desempenho', action: () => navigation.getParent()?.navigate('ProgressTab') },
     { label: 'Sair', action: handleLogout },
@@ -53,9 +73,11 @@ export default function LevelSelectionScreen() {
 
       <View style={styles.header}>
         <View style={styles.headerLeft}>
-          <TouchableOpacity onPress={handleBack} style={styles.backButton}>
-            <Ionicons name="chevron-back" size={24} color={colors.white} />
-          </TouchableOpacity>
+          {navigation.canGoBack() && (
+            <TouchableOpacity onPress={handleBack} style={styles.backButton}>
+              <Ionicons name="chevron-back" size={24} color={colors.white} />
+            </TouchableOpacity>
+          )}
           <ShieldIcon size={40} />
           <Text style={styles.headerTitle}>CYBERLEARN</Text>
         </View>
@@ -63,7 +85,7 @@ export default function LevelSelectionScreen() {
           onPress={() => setDropdownVisible(!dropdownVisible)}
           activeOpacity={0.7}
         >
-          <Avatar name="Usuário" size={44} />
+          <Avatar name={userName} uri={avatarUri} size={44} />
         </TouchableOpacity>
       </View>
 

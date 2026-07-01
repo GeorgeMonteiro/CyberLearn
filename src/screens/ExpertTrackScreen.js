@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Pressable } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
@@ -29,6 +29,25 @@ export default function ExpertTrackScreen() {
   const navigation = useNavigation();
   const { getModuleProgress } = useProgress();
   const [dropdownVisible, setDropdownVisible] = useState(false);
+  const [userName, setUserName] = useState('Usuário');
+  const [avatarUri, setAvatarUri] = useState(null);
+
+  useEffect(() => {
+    loadUser();
+  }, []);
+
+  async function loadUser() {
+    try {
+      const stored = await AsyncStorage.getItem('@cyberlearn_user');
+      if (stored) {
+        const user = JSON.parse(stored);
+        if (user.name) setUserName(user.name);
+        if (user.avatar_uri) setAvatarUri(user.avatar_uri);
+      }
+    } catch (e) {
+      console.error('Failed to load user:', e);
+    }
+  }
 
   async function handleLogout() {
     await AsyncStorage.removeItem('@cyberlearn_token');
@@ -49,7 +68,7 @@ export default function ExpertTrackScreen() {
   ];
 
   function handleBack() {
-    navigation.replace('LevelSelection');
+    navigation.replace('HomeMain');
   }
 
   function handleModulePress(moduleId) {
@@ -77,7 +96,7 @@ export default function ExpertTrackScreen() {
           onPress={() => setDropdownVisible(!dropdownVisible)}
           activeOpacity={0.7}
         >
-          <Avatar name="Usuário" size={44} />
+          <Avatar name={userName} uri={avatarUri} size={44} />
         </TouchableOpacity>
       </View>
 

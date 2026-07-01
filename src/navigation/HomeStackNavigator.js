@@ -23,8 +23,8 @@ export default function HomeStackNavigator() {
         animation: 'slide_from_right',
       }}
     >
-      <Stack.Screen name="HomeMain" component={HomeScreen} />
-      <Stack.Screen name="LevelSelection" component={LevelSelectionScreen} />
+      <Stack.Screen name="HomeMain" component={LevelSelectionScreen} />
+      <Stack.Screen name="Dashboard" component={HomeScreen} />
       <Stack.Screen name="BeginnerTrack" component={BeginnerTrackScreen} />
       <Stack.Screen name="ExpertTrack" component={ExpertTrackScreen} />
       <Stack.Screen name="Module" component={ModuleScreen} />

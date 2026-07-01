@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView, SafeAreaView, TouchableOpacity } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useProgress } from '../context/ProgressContext';
 import { colors, spacing, typography, radius, shadows } from '../theme';
+import ShieldIcon from '../components/ShieldIcon';
+import Avatar from '../components/Avatar';
 
 const MODULE_INFO = {
   logica: { title: 'Lógica de Programação', icon: 'code-slash', trail: 'iniciante', lessons: 9 },
@@ -20,9 +23,28 @@ const MODULE_INFO = {
 export default function ProgressScreen() {
   const navigation = useNavigation();
   const { getModuleProgress } = useProgress();
+  const [userName, setUserName] = useState('Usuário');
+  const [avatarUri, setAvatarUri] = useState(null);
+
+  useEffect(() => {
+    loadUser();
+  }, []);
+
+  async function loadUser() {
+    try {
+      const stored = await AsyncStorage.getItem('@cyberlearn_user');
+      if (stored) {
+        const user = JSON.parse(stored);
+        if (user.name) setUserName(user.name);
+        if (user.avatar_uri) setAvatarUri(user.avatar_uri);
+      }
+    } catch (e) {
+      console.error('Failed to load user:', e);
+    }
+  }
 
   function handleBack() {
-    navigation.getParent()?.navigate('HomeTab', { screen: 'LevelSelection' });
+    navigation.getParent()?.navigate('HomeTab', { screen: 'HomeMain' });
   }
 
   const moduleIds = Object.keys(MODULE_INFO);
@@ -46,10 +68,14 @@ export default function ProgressScreen() {
       >
         <SafeAreaView>
           <View style={styles.headerRow}>
-            <TouchableOpacity onPress={handleBack} style={styles.backButton}>
-              <Ionicons name="chevron-back" size={24} color={colors.white} />
-            </TouchableOpacity>
-            <Text style={styles.headerTitle}>Meu Progresso</Text>
+            <View style={styles.headerLeft}>
+              <TouchableOpacity onPress={handleBack} style={styles.backButton}>
+                <Ionicons name="chevron-back" size={24} color={colors.white} />
+              </TouchableOpacity>
+              <ShieldIcon size={40} />
+              <Text style={styles.headerTitle}>CYBERLEARN</Text>
+            </View>
+            <Avatar name={userName} uri={avatarUri} size={44} />
           </View>
         </SafeAreaView>
       </LinearGradient>
@@ -132,16 +158,21 @@ const styles = StyleSheet.create({
   headerRow: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
     paddingTop: spacing.display,
-    paddingBottom: spacing.sm,
+    paddingBottom: spacing.lg,
     paddingHorizontal: spacing.xl,
+  },
+  headerLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.sm,
   },
   headerTitle: {
     fontSize: typography.fontSize.xl,
     fontWeight: typography.fontWeight.bold,
-    color: colors.white,
-    letterSpacing: typography.letterSpacing.wide,
-    marginLeft: spacing.md,
+    color: colors.textLight,
+    letterSpacing: typography.letterSpacing.wider,
   },
   backButton: {
     width: 40,
